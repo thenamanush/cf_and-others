@@ -1,0 +1,127 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+#define ll long long
+#define ld long double
+#define MOD 1000000007
+#define pie 2 * (acos(0.0))
+#define yes cout << "YES\n"
+#define no cout << "NO\n"
+#define pb push_back
+#define nl '\n'
+#define lcm(a, b) (a * b) / (__gcd<ll>(a, b))
+#define print(v)          \
+    for (auto e : v)      \
+        cout << e << " "; \
+    cout << endl;
+#define printp(v)    \
+    for (auto e : v) \
+        cout << e.first << " " << e.second << endl;
+#define srt(v) sort(v.begin(), v.end())
+#define rsrt(v) sort(v.rbegin(), v.rend())
+#define rep(i, n) for (int i = 0; i < (n); i++)
+#define rrep(i, n) for (int i = (n) - 1; i >= 0; i--)
+#define FOR(i, a, b) for (int i = (a); i <= (b); i++)
+#define RFOR(i, a, b) for (int i = (a); i >= (b); i--)
+#define trav(a, x) for (auto &a : x)
+#define F first
+#define S second
+#define setbit(x) __builtin_popcount(x)
+#define sz(x) (int)(x).size()
+#define vi vector<int>
+#define pi pair<int, int>
+#define even(n) if (n % 2 == 0)
+#define odd(n) if (n % 2 == 1)
+#define sp << " " <<
+
+#define alliswell                \
+    ios::sync_with_stdio(false); \
+    cin.tie(nullptr);
+
+void solve()
+{
+    int n; 
+    cin >> n;
+    int cnt = 1;
+    vi a(n);
+
+    vector<pair<int, int>> aa;
+    vector<pair<int, int>> bb;
+
+    vi b(n);
+    
+    // Read array a and calculate consecutive frequencies
+    rep(i, n)
+    {
+        cin >> a[i];
+        if(i > 0)
+        {
+            if(a[i] == a[i-1])
+            {
+                cnt++;
+            }
+            else{
+                aa.pb({a[i-1], cnt});
+                cnt = 1;
+            }
+        }
+    }
+    aa.pb({a[n-1], cnt});
+
+    cnt = 1;
+    
+    rep(i, n)
+    {
+        cin >> b[i];
+        if(i > 0)
+        {
+            if(b[i] == b[i-1])
+            {
+                cnt++;
+            }
+            else{
+                bb.pb({b[i-1], cnt});
+                cnt = 1;
+            }
+        }
+    }
+    bb.pb({b[n-1], cnt});
+
+    
+    map<int, int> max_a;
+    for (auto p : aa) {
+        max_a[p.first] = max(max_a[p.first], p.second);
+    }
+
+    map<int, int> max_b;
+    for (auto p : bb) {
+        max_b[p.first] = max(max_b[p.first], p.second);
+    }
+
+    map<int, int> final;
+    
+    for (auto &p : max_a) {
+        final[p.first] += p.second;
+    }
+    
+    for (auto &p : max_b) {
+        final[p.first] += p.second;
+    }
+    
+    int ans = 0;
+    for(auto &p : final) {
+        ans = max(ans, p.second);
+    }
+    cout << ans << endl;
+}
+
+int main()
+{
+    alliswell
+
+    int t; 
+    cin >> t;
+    while(t--) solve();
+
+    return 0;
+}
