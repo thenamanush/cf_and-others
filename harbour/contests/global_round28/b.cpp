@@ -38,11 +38,36 @@ using namespace std;
     ios::sync_with_stdio(false); \
     cin.tie(nullptr);
 
+void solve()
+{
+    int n, k; cin >> n >> k;
+    
+    vector<int> a(n);
+    
+    int smallest = 1, largest = n;
+
+    for (int i = 0; i < n; ++i) {
+        if ((i + 1) % k == 0) {
+            a[i] = smallest;
+            smallest++;
+        } else {
+            a[i] = largest;
+            largest--;
+        }
+    }
+
+    for (int i = 0; i < n; ++i) {
+        cout << a[i] << " ";
+    }
+    cout << nl;
+}
+
 int main()
 {
     alliswell
 
-    cout << "hey" << nl;
-    yes;
+    int t; cin >> t;
+    while (t--) solve();
+
     return 0;
 }

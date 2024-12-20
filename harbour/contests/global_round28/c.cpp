@@ -1,4 +1,4 @@
-#include<bits/stdc++.h>
+#include <bits/stdc++.h>
 using namespace std;
 
 #define ll long long
@@ -38,11 +38,72 @@ using namespace std;
     ios::sync_with_stdio(false); \
     cin.tie(nullptr);
 
+void solve()
+{
+    string s;
+    cin >> s;
+    int n = s.length(), f = 0;
+    int x, y;
+
+    for (int i = 0; i < n; i++)
+    {
+        if (s[i] == '0')
+        {
+            f = i;
+            break;
+        }
+    }
+
+    cout << 1 sp n << " ";
+
+    if (f == 0)
+    {
+        cout << 1 sp 1 << nl;
+        return;
+    }
+
+    string mirr;
+    for (int i = f; i < n; i++)
+    {
+        if (s[i] == '0')
+        {
+            mirr += '1';
+        }
+        else
+        {
+            mirr += '0';
+        }
+    }
+
+    while (mirr.size() > 0)
+    {
+        size_t pos = s.find(mirr);
+        if (pos != string::npos)
+        {
+            x = pos + 1;
+            y = pos + mirr.size();
+            ;
+            break;
+        }
+        mirr.pop_back();
+    }
+    if(x == 1)
+    {
+        cout << 1 sp n-f << nl;
+    }
+    else{
+        cout << x sp y << nl;
+    }
+}
+
 int main()
 {
     alliswell
 
-    cout << "hey" << nl;
-    yes;
+        int t;
+    cin >> t;
+    while (t--)
+        solve();
+
     return 0;
 }

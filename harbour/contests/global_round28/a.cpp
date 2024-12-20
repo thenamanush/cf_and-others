@@ -38,11 +38,31 @@ using namespace std;
     ios::sync_with_stdio(false); \
     cin.tie(nullptr);
 
+void solve()
+{
+    /* from the river to the sea
+     Palestine will be free */
+    ll n; cin >> n;
+    int rem = n % 33;
+    if(n % 33 == 0)
+    {
+        yes;
+        return;
+    }
+    else if(rem % 33 == 0){
+        yes;
+        return;
+    }
+    else 
+    no;
+}
+
 int main()
 {
     alliswell
 
-    cout << "hey" << nl;
-    yes;
+    int t; cin >> t;
+    while(t--) solve();
+
     return 0;
 }
