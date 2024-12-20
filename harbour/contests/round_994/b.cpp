@@ -1,4 +1,4 @@
-#include<bits/stdc++.h>
+#include <bits/stdc++.h>
 using namespace std;
 
 #define ll long long
@@ -40,15 +40,66 @@ using namespace std;
 
 void solve()
 {
-    
+    /* from the river to the sea
+     Palestine will be free */
+    int n;
+    cin >> n;
+    int cnt = 0;
+    vi a(n);
+    rep(i, n)
+    {
+        cin >> a[i];
+        if (a[i] == 0)
+            cnt++;
+    }
+    if(cnt == 0)
+    {
+        cout << 1 << nl;
+        return;
+    }
+    else if(cnt == n)
+    {
+        cout << 0 << nl;
+        return;
+    }
+
+    bool flag = false;
+    bool f = false;
+
+    rep(i, n)
+    {
+        if (a[i] != 0)
+        {
+            if (f && i > 0 && a[i-1] == 0)
+            {
+                flag = true;
+                break;
+            }
+            f = true;
+        }
+    }
+    if(flag)
+    {
+        cout << 2 << nl;
+        return;
+    }
+    else 
+    {
+        cout << 1 << nl;
+        return;
+    }
+
+
 }
 
 int main()
 {
     alliswell
 
-    int t; cin >> t;
-    while(t--) solve();
+        int t;
+    cin >> t;
+    while (t--)
+        solve();
 
     return 0;
 }

@@ -5,7 +5,7 @@ using namespace std;
 const int N = 1e5 + 7;
 vector<int> adj[N];
 vector<int> vis(N, 0);
-vector<int> cost(N, 0);
+vector<int> cost(N, 0); 
 vector<int> par(N);
 
 void BFS(int s)
