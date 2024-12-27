@@ -58,30 +58,4 @@ int main()
     cout << endl;
     cout << "Cost is: " << cost[destination] << endl;
 
-    /**Path Printing**/
-    vector<int> path; // Here, path is the name of the vector container
-
-    int now = destination;
-    path.push_back(now);
-    while (parent[now] != now)
-    {
-        now = parent[now];
-        path.push_back(now);
-    }
-
-    reverse(path.begin(), path.end());
-
-    cout << "Path is: ";
-    for (int i = 0; i < path.size(); i++)
-    {
-        if(i == path.size() - 1)
-        {
-            cout << path[i];
-            break;
-        }
-        cout << path[i] << "-->";
-    }
-    cout << endl;
-    // You can decorate path printing bit nicely than I did
-    return 0;
 }

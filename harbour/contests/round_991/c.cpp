@@ -1,90 +1,70 @@
-#include<bits/stdc++.h>
+#include <bits/stdc++.h>
 using namespace std;
 
-#define ll long long
-#define ld long double
-#define MOD 1000000007
-#define pie 2 * (acos(0.0))
-#define yes cout << "YES\n"
-#define no cout << "NO\n"
-#define pb push_back
-#define nl '\n'
-#define lcm(a, b) (a * b) / (__gcd<ll>(a, b))
-#define print(v)          \
-    for (auto e : v)      \
-        cout << e << " "; \
-    cout << endl;
-#define printp(v)    \
-    for (auto e : v) \
-        cout << e.first << " " << e.second << endl;
-#define srt(v) sort(v.begin(), v.end())
-#define rsrt(v) sort(v.rbegin(), v.rend())
-#define rep(i, n) for (int i = 0; i < (n); i++)
-#define rrep(i, n) for (int i = (n) - 1; i >= 0; i--)
-#define FOR(i, a, b) for (int i = (a); i <= (b); i++)
-#define RFOR(i, a, b) for (int i = (a); i >= (b); i--)
-#define trav(a, x) for (auto &a : x)
-#define F first
-#define S second
-#define setbit(x) __builtin_popcount(x)
-#define sz(x) (int)(x).size()
-#define vi vector<int>
-#define pi pair<int, int>
-#define even(n) if (n % 2 == 0)
-#define odd(n) if (n % 2 == 1)
-#define sp << " " <<
+const int N = 1e5 + 7;
 
-#define alliswell                \
-    ios::sync_with_stdio(false); \
+vector<int> adj[N];
+vector<int> dist(N, -1);
+vector<int> parent(N, -1);
+vector<int> vis(N, 0);
+
+void bfs(int s) {
+    queue<int> q;
+    dist[s] = 0;
+    vis[s] = 1;
+    q.push(s);
+    
+    while (!q.empty()) {
+        int u = q.front();
+        q.pop();
+        
+        for (int v : adj[u]) {
+            if (vis[v] == 0) {
+                vis[v] = 1;
+                dist[v] = dist[u] + 1;
+                parent[v] = u;
+                q.push(v);
+            }
+        }
+    }
+}
+
+void Path(int s, int d) {
+    vector<int> path;
+    for (int v = d; v != -1; v = parent[v]) {
+        path.push_back(v);
+    }
+    reverse(path.begin(), path.end());
+    for (int v : path) {
+        cout << v << " ";
+    }
+}
+
+int main() {
+    ios::sync_with_stdio(false);
     cin.tie(nullptr);
 
-void solve()
-{
-    /* from the river to the sea
-     Palestine will be free */
-    string s; cin >> s;
-    ll n = stoll(s);
+    int n, m;
+    cin >> n >> m;
 
-    if(n % 9 == 0)
-    {
-        yes;
-        return;
+    int u, v;
+    for (int i = 0; i < m; i++) {
+        cin >> u >> v;
+        adj[u].push_back(v);
+        adj[v].push_back(u);
     }
-    int x = s.size();
-    for(int i = x - 1; i >= 0; i--)
-    {
-        ll cc = stoll(s);
-        if(cc % 9 == 0)
-        {
-            yes;
-            return;
-        }
 
-        if(s[i] == '2')
-        {
-            s[i] = '4';
-        }
-        else if(s[i] == '3')
-        {
-            s[i] = '9';
-        }
+    int s, d;
+    cin >> s >> d;
 
-        ll ch = stoll(s);
-        if(ch % 9 == 0)
-        {
-            yes;
-            return;
-        }
+    bfs(s);
+
+    if (dist[d] == -1) {
+        cout << -1 << "\n";
+    } else {
+        cout << dist[d] << "\n";
+        Path(s, d);
     }
-    no;
-     
-}
-int main()
-{
-    alliswell
-
-    int t; cin >> t;
-    while(t--) solve();
 
     return 0;
 }

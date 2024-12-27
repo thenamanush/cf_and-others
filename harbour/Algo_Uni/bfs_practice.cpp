@@ -1,27 +1,27 @@
 #include <bits/stdc++.h>
-using namespace std;
 #define pb push_back
-
 const int N = 1e5 + 7;
-vector<int> adj[N];
-vector<int> vis(N, 0);
-vector<int> cost(N, 0); 
-vector<int> par(N);
+using namespace std;
 
-void BFS(int s)
+vector<int> adj[N];
+
+void bfs(int s, int m)
 {
-    vis[s] = 1;
-    cost[s] = 0;
+    vector<int> vis(N, 0);
+    vector<int> cost(N);
+    vector<int> par(N);
+    vector<int> ans(N, -1);
     par[s] = s;
+    cost[s] = 0;
+    vis[s] = 1;
 
     queue<int> q;
     q.push(s);
-    cout << "traversal order : " << endl;
 
     while (!q.empty())
     {
         int u = q.front();
-        cout << u << " ";
+        ans[u] = cost[u];
         q.pop();
 
         for (int i = 0; i < adj[u].size(); i++)
@@ -31,59 +31,50 @@ void BFS(int s)
             if (vis[v] == 0)
             {
                 vis[v] = 1;
-                cost[v] = cost[u] + 1;
+                cost[v] = cost[u] + 6;
                 par[v] = u;
                 q.push(v);
             }
         }
     }
-}
-
-void path_printing(int d)
-{
-    int now = d;
-    vector<int>path;
-
-    path.pb(now);
-    while(par[now] != now)
+    for (int i = 1; i <= m; i++)
     {
-        now = par[now];
-        path.pb(now);
-    }
-
-    reverse(path.begin(), path.end());
-    cout << "path : ";
-    for (int i = 0; i < path.size(); i++)
-    {
-        if(i == path.size() - 1)
+        if (i == s)
         {
-            cout << path[i];
-            break;
+            continue;
         }
-        cout << path[i] << "-->";
+        cout << ans[i] << " ";
     }
     cout << endl;
-    return;
 }
-int main()
-{
-    int nodes, edges;
-    cin >> nodes >> edges;
 
+void solve()
+{
+    int m, n;
+    cin >> m >> n;
     int u, v;
-    for (int i = 0; i < edges; i++)
+
+    for (int i = 1; i <= m; ++i)
+    {
+        adj[i].clear();
+    }
+    
+    for (int i = 0; i < n; i++)
     {
         cin >> u >> v;
         adj[u].pb(v);
         adj[v].pb(u);
     }
+    int s;
+    cin >> s;
+    bfs(s, m);
+}
 
-    int start, dest;
-    cin >> start >> dest;
-    BFS(start);
-    cout << endl;
-    cout << "cost is : ";
-    cout << cost[dest] << endl;
+int main()
+{
+    int q;
+    cin >> q;
 
-    path_printing(dest);
+    while (q--)
+        solve();
 }
