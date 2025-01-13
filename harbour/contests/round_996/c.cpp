@@ -1,4 +1,4 @@
-#include<bits/stdc++.h>
+#include <bits/stdc++.h>
 using namespace std;
 
 #define ll long long
@@ -40,48 +40,80 @@ using namespace std;
 
 void solve()
 {
-    int n; cin >> n;
-    vector<int> a(n);
-    unordered_set<int> st;
+    ll n, m;
+    cin >> n >> m;
 
-    for(int i = 0; i < n; i++)
-    {
-        cin >> a[i];
-        st.insert(a[i]);
-    }
+    string s;
+    cin >> s;
 
-    set<int> stt;
-    for(int i = 1; i <= n; i++)
+    vector<vector<ll>> a(n, vector<ll>(m));
+    rep(i, n)
     {
-        if(st.find(i) == st.end())
+        rep(j, m)
         {
-            stt.insert(i);
+            cin >> a[i][j];
         }
     }
+    vector<ll> R(n), C(m);
+    rep(i, n)
+    {
+        ll sum = 0;
+        rep(j, m)
+        {
+            sum += a[i][j];
+        }
+        R[i] = sum;
+    }
+    rep(j, m)
+    {
+        ll sum = 0;
+        rep(i, n)
+        {
+            sum += a[i][j];
+        }
+        C[j] = sum;
+    }
+    ll x = 0, y = 0;
+    ll it = 0;
     
-    auto it = stt.begin();
-
-    for(int i = 0; i < n; i++)
+    while(it < n + m - 1)
     {
-        if(st.find(a[i])!= st.end())
+        if(s[it] == 'D')
         {
-            cout << a[i] << " ";
-            st.erase(a[i]);
+            a[x][y] = - R[x];
+            R[x] += a[x][y];
+            C[y] += a[x][y];
+            x++;
         }
-        else{
-            cout << *it << " ";
-            it++;
+        else
+        {
+            a[x][y] = - C[y];
+            R[x] += a[x][y];
+            C[y] += a[x][y];
+            y++;
         }
+        it++;
     }
-    cout << nl;
+    rep(i, n)
+    {
+        rep(j, m)
+        {
+            cout << a[i][j] << " ";
+        }
+        cout << nl;
+    }
 
 }
 int main()
 {
     alliswell
 
-    int t; cin >> t;
-    while(t--) solve();
+        int t;
+    cin >> t;
+    while (t--)
+    {
+        solve();
+    }
 
     return 0;
 }

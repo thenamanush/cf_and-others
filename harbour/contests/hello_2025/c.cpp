@@ -40,48 +40,49 @@ using namespace std;
 
 void solve()
 {
-    int n; cin >> n;
-    vector<int> a(n);
-    unordered_set<int> st;
+    ll l, r;
+    cin >> l >> r;
 
-    for(int i = 0; i < n; i++)
-    {
-        cin >> a[i];
-        st.insert(a[i]);
-    }
+    ll ans = 0;
+    ll a, b, c;
 
-    set<int> stt;
-    for(int i = 1; i <= n; i++)
+    for(int i = 30; i >= 0; i--)
     {
-        if(st.find(i) == st.end())
+        ll bit1 = 0, bit2 = 0;
+
+        if(l & (1ll << i))
         {
-            stt.insert(i);
+            bit1 = 1;
         }
-    }
-    
-    auto it = stt.begin();
-
-    for(int i = 0; i < n; i++)
-    {
-        if(st.find(a[i])!= st.end())
+        if(r & (1ll << i))
         {
-            cout << a[i] << " ";
-            st.erase(a[i]);
+            bit2 = 1;
+        }
+
+        if(bit1 == bit2)
+        {
+            ans += bit1 * (1ll << i);
         }
         else{
-            cout << *it << " ";
-            it++;
+            a = ans + (1ll << i);
+            b = a - 1;
+            break;
         }
     }
-    cout << nl;
-
+    for (int i = l; i <= r; i++) {
+    if (i != a && i != b) {
+        c = i;
+        break;
+    }
+}
+cout << a sp b sp c << nl;
 }
 int main()
 {
     alliswell
 
     int t; cin >> t;
-    while(t--) solve();
+    while (t--) solve();
 
     return 0;
 }

@@ -40,42 +40,46 @@ using namespace std;
 
 void solve()
 {
-    int n; cin >> n;
-    vector<int> a(n);
-    unordered_set<int> st;
+    ll n, k;
+    cin >> n >> k;
+    map<ll, ll> mp;
 
-    for(int i = 0; i < n; i++)
+    vi a(n);
+    rep(i, n)
     {
         cin >> a[i];
-        st.insert(a[i]);
+        mp[a[i]]++;
     }
 
-    set<int> stt;
-    for(int i = 1; i <= n; i++)
+    int ans = mp.size();
+
+    if (k == 0)
     {
-        if(st.find(i) == st.end())
-        {
-            stt.insert(i);
-        }
+        cout << ans << nl;
+        return;
     }
-    
-    auto it = stt.begin();
 
-    for(int i = 0; i < n; i++)
+    vector<pair<ll, ll>> vec(mp.begin(), mp.end());
+    sort(vec.begin(), vec.end(), [](const pair<ll, ll> &p1, const pair<ll, ll> &p2) {
+        return p1.second < p2.second;
+    });
+
+    for (const auto &it : vec)
     {
-        if(st.find(a[i])!= st.end())
+        if (k >= it.second)
         {
-            cout << a[i] << " ";
-            st.erase(a[i]);
+            k -= it.second;
+            ans--;
         }
-        else{
-            cout << *it << " ";
-            it++;
+        else
+        {
+            break;
         }
     }
-    cout << nl;
 
+    cout << max(1, ans) << nl;
 }
+
 int main()
 {
     alliswell

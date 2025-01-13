@@ -1,4 +1,4 @@
-#include<bits/stdc++.h>
+#include <bits/stdc++.h>
 using namespace std;
 
 #define ll long long
@@ -40,48 +40,37 @@ using namespace std;
 
 void solve()
 {
-    int n; cin >> n;
-    vector<int> a(n);
-    unordered_set<int> st;
+    ll n, k, d, w;
+    cin >> n >> k >> d >> w;
 
-    for(int i = 0; i < n; i++)
+    vi a(n + 1);
+    FOR(i, 1, n)
     {
         cin >> a[i];
-        st.insert(a[i]);
     }
 
-    set<int> stt;
-    for(int i = 1; i <= n; i++)
+    ll rem = k, ans = 0, val;
+
+    FOR(i, 1, n)
     {
-        if(st.find(i) == st.end())
+        if (i == 1 or val < a[i] or rem < 1)
         {
-            stt.insert(i);
+            rem = k;
+            val = a[i] + w + d;
+            ans++;
         }
+        rem--;
     }
-    
-    auto it = stt.begin();
-
-    for(int i = 0; i < n; i++)
-    {
-        if(st.find(a[i])!= st.end())
-        {
-            cout << a[i] << " ";
-            st.erase(a[i]);
-        }
-        else{
-            cout << *it << " ";
-            it++;
-        }
-    }
-    cout << nl;
-
+    cout << ans << nl;
 }
 int main()
 {
     alliswell
 
-    int t; cin >> t;
-    while(t--) solve();
+        int t = 1;
+    cin >> t;
+    while (t--)
+        solve();
 
     return 0;
 }

@@ -28,7 +28,7 @@ using namespace std;
 #define S second
 #define setbit(x) __builtin_popcount(x)
 #define sz(x) (int)(x).size()
-#define vi vector<int>
+#define vi vector<long long>
 #define pi pair<int, int>
 #define even(n) if (n % 2 == 0)
 #define odd(n) if (n % 2 == 1)
@@ -40,42 +40,48 @@ using namespace std;
 
 void solve()
 {
-    int n; cin >> n;
-    vector<int> a(n);
-    unordered_set<int> st;
+    ll n, m, k;
+    cin >> n >> m >> k;
 
-    for(int i = 0; i < n; i++)
+    ll ans = 0;
+
+    vi a(n), b(m);
+
+    rep(i, n)
     {
         cin >> a[i];
-        st.insert(a[i]);
+        ans += a[i];
+    }
+    rep(i, m)
+    {
+        cin >> b[i];
+    }
+    srt(a);
+    srt(b);
+
+    if(k & 1)
+    {
+        ans += max(0ll, (b[m-1] - a[0]));
+        cout << ans << nl;
+        return;
     }
 
-    set<int> stt;
-    for(int i = 1; i <= n; i++)
+    if(b[m-1] >= a[0])
     {
-        if(st.find(i) == st.end())
-        {
-            stt.insert(i);
-        }
+        swap(a[0], b[m-1]);
     }
-    
-    auto it = stt.begin();
+    srt(a);
+    srt(b);
+    if(a[n-1] >= b[0])
+    {
+        swap(a[n-1], b[0]);
+    }
 
-    for(int i = 0; i < n; i++)
-    {
-        if(st.find(a[i])!= st.end())
-        {
-            cout << a[i] << " ";
-            st.erase(a[i]);
-        }
-        else{
-            cout << *it << " ";
-            it++;
-        }
-    }
-    cout << nl;
+    ans = accumulate(a.begin(), a.end(), 0ll);
+    cout << ans << nl;
 
 }
+
 int main()
 {
     alliswell

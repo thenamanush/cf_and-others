@@ -40,42 +40,17 @@ using namespace std;
 
 void solve()
 {
-    int n; cin >> n;
+    ll n; cin >> n;
     vector<int> a(n);
-    unordered_set<int> st;
-
+    
     for(int i = 0; i < n; i++)
     {
         cin >> a[i];
-        st.insert(a[i]);
     }
 
-    set<int> stt;
-    for(int i = 1; i <= n; i++)
-    {
-        if(st.find(i) == st.end())
-        {
-            stt.insert(i);
-        }
-    }
     
-    auto it = stt.begin();
-
-    for(int i = 0; i < n; i++)
-    {
-        if(st.find(a[i])!= st.end())
-        {
-            cout << a[i] << " ";
-            st.erase(a[i]);
-        }
-        else{
-            cout << *it << " ";
-            it++;
-        }
-    }
-    cout << nl;
-
 }
+
 int main()
 {
     alliswell
