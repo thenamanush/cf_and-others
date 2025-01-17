@@ -1,4 +1,4 @@
-#include <bits/stdc++.h>
+#include<bits/stdc++.h>
 using namespace std;
 
 #define ll long long
@@ -28,7 +28,7 @@ using namespace std;
 #define S second
 #define setbit(x) __builtin_popcount(x)
 #define sz(x) (int)(x).size()
-#define vi vector<int>
+#define vi vector<long long>
 #define pi pair<int, int>
 #define even(n) if (n % 2 == 0)
 #define odd(n) if (n % 2 == 1)
@@ -40,36 +40,56 @@ using namespace std;
 
 void solve()
 {
-    string s;
-    cin >> s;
-    
-    bool f = true;
-    int n = s.size(), it = 0;
-
-    for(int i = 0; i < n; i++)
+    ll n; cin >> n;
+    vi a(n);
+    map<ll, ll> mp;
+    rep(i, n)
     {
-        if(s[i] == '0')
-        {
-            f = false;
-            it = i;
-            break;
-        }
+        cin >> a[i];
+        mp[a[i]]++;
     }
-    if(f)
+
+    vi b;
+    for(auto & it : mp)
     {
-        cout << 1 sp n sp 1 sp 1 << nl;
+        if(it.S >= 2)
+        {
+            b.pb(it.F);
+        }
+        if(b.size() == 2)break;
+    }
+    if(b.size() < 2)
+    {
+        cout << -1 << nl;
         return;
     }
-}
+    ll key1 = b[0], key2 = b[1];
+    bool f = false, ff = false;
 
+    rep(i, n)
+    {
+        if(a[i] == key1 && !f)
+        {
+            a[i] = 2;
+            f = true;
+        }
+        else if(a[i] == key2 && !ff)
+        {
+            a[i] = 3;
+            ff = true;
+        }
+        else{
+            a[i] = 1;
+        }
+    }
+    print(a);
+}
 int main()
 {
     alliswell
 
-        int t;
-    cin >> t;
-    while (t--)
-        solve();
+    int t; cin >> t;
+    while(t--) solve();
 
     return 0;
 }

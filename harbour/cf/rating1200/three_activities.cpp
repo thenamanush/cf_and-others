@@ -28,7 +28,7 @@ using namespace std;
 #define S second
 #define setbit(x) __builtin_popcount(x)
 #define sz(x) (int)(x).size()
-#define vi vector<int>
+#define vi vector<long long>
 #define pi pair<int, int>
 #define even(n) if (n % 2 == 0)
 #define odd(n) if (n % 2 == 1)
@@ -38,30 +38,59 @@ using namespace std;
     ios::sync_with_stdio(false); \
     cin.tie(nullptr);
 
-void solve()
+vector<ll> best3(const vector<ll> &ar)
 {
-    string s;
-    cin >> s;
-    
-    bool f = true;
-    int n = s.size(), it = 0;
-
-    for(int i = 0; i < n; i++)
+    int mx1 = -1, mx2 = -1, mx3 = -1;
+    rep(i, ar.size())
     {
-        if(s[i] == '0')
+        if (mx1 == -1 || ar[i] > ar[mx1])
         {
-            f = false;
-            it = i;
-            break;
+            mx3 = mx2;
+            mx2 = mx1;
+            mx1 = i;
+        }
+        else if (mx2 == -1 || ar[i] > ar[mx2])
+        {
+            mx3 = mx2;
+            mx2 = i;
+        }
+        else if (mx3 == -1 || ar[i] > ar[mx3])
+        {
+            mx3 = i;
         }
     }
-    if(f)
-    {
-        cout << 1 sp n sp 1 sp 1 << nl;
-        return;
-    }
+    return {mx1, mx2, mx3};
 }
+void solve()
+{
+    ll n;
+    cin >> n;
+    vi a(n), b(n), c(n);
 
+    rep(i, n) cin >> a[i];
+    rep(i, n) cin >> b[i];
+    rep(i, n) cin >> c[i];
+
+    vector<ll> bestA = best3(a);
+    vector<ll> bestB = best3(b);
+    vector<ll> bestC = best3(c);
+
+    ll ans = 0;
+    for (auto &x : bestA)
+    {
+        for (auto &y : bestB)
+        {
+            for (auto &z : bestC)
+            {
+                if (x != y && x != z && y != z)
+                {
+                    ans = max(ans, a[x] + b[y] + c[z]);
+                }
+            }
+        }
+    }
+    cout << ans << nl;
+}
 int main()
 {
     alliswell

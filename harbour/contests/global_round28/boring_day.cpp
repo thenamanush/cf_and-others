@@ -1,4 +1,4 @@
-#include <bits/stdc++.h>
+#include<bits/stdc++.h>
 using namespace std;
 
 #define ll long long
@@ -28,7 +28,7 @@ using namespace std;
 #define S second
 #define setbit(x) __builtin_popcount(x)
 #define sz(x) (int)(x).size()
-#define vi vector<int>
+#define vi vector<long long>
 #define pi pair<int, int>
 #define even(n) if (n % 2 == 0)
 #define odd(n) if (n % 2 == 1)
@@ -40,33 +40,61 @@ using namespace std;
 
 void solve()
 {
-    string s;
-    cin >> s;
-    
-    bool f = true;
-    int n = s.size(), it = 0;
-
-    for(int i = 0; i < n; i++)
+    ll n, m;
+    cin >> n >> m;
+    vi a(n), b(m);
+    rep(i, n)
     {
-        if(s[i] == '0')
+        cin >> a[i];
+    }
+    rep(i, m)
+    {
+        cin >> b[i];
+    }
+    srt(a);
+    srt(b);
+
+    ll ans = 0;
+
+    ll p = 0, q = m - 1, l = 0, r = n - 1;
+    while (l <= r)
+    {
+        ll lleft = abs(a[l] - b[p]);
+        ll lright = abs(a[l] - b[q]);
+        ll lkey = max(lleft, lright);
+
+        ll rleft = abs(a[r] - b[p]);
+        ll rright = abs(a[r] - b[q]);
+        ll rkey = max(rleft, rright);
+
+        if (lkey <= rkey)
         {
-            f = false;
-            it = i;
-            break;
+            ans += rkey;
+            r--;
+            if (rright >= rleft)
+                q--;
+            else
+                p++;
+        }
+        else
+        {
+            ans += lkey;
+            l++;
+            if (lright >= lleft)
+                q--;
+            else
+                p++;
         }
     }
-    if(f)
-    {
-        cout << 1 sp n sp 1 sp 1 << nl;
-        return;
-    }
+
+    cout << ans << nl;
 }
 
 int main()
 {
     alliswell
 
-        int t;
+    int t;
     cin >> t;
     while (t--)
         solve();

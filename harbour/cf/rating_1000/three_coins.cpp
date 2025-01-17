@@ -28,11 +28,14 @@ using namespace std;
 #define S second
 #define setbit(x) __builtin_popcount(x)
 #define sz(x) (int)(x).size()
-#define vi vector<int>
+#define vi vector<long long>
 #define pi pair<int, int>
 #define even(n) if (n % 2 == 0)
 #define odd(n) if (n % 2 == 1)
 #define sp << " " <<
+
+const int N = 1e5 + 7;
+vector<bool> prime(N, true);
 
 #define alliswell                \
     ios::sync_with_stdio(false); \
@@ -40,25 +43,23 @@ using namespace std;
 
 void solve()
 {
-    string s;
-    cin >> s;
-    
-    bool f = true;
-    int n = s.size(), it = 0;
+    ll n;
+    cin >> n;
+    vi a(n);
+    rep(i, n)
+    {
+        cin >> a[i];
 
-    for(int i = 0; i < n; i++)
-    {
-        if(s[i] == '0')
+        ll key = sqrtl(a[i]);
+
+        if (key * key == a[i] && prime[key])
         {
-            f = false;
-            it = i;
-            break;
+            yes;
         }
-    }
-    if(f)
-    {
-        cout << 1 sp n sp 1 sp 1 << nl;
-        return;
+        else
+        {
+            no;
+        }
     }
 }
 
@@ -66,10 +67,18 @@ int main()
 {
     alliswell
 
-        int t;
-    cin >> t;
-    while (t--)
-        solve();
+    prime[0] = prime[1] = false;
+    for (int i = 2; i * i < N; i++)
+    {
+        if (prime[i])
+        {
+            for (int j = i * i; j < N; j += i)
+            {
+                prime[j] = false;
+            }
+        }
+    }
+    solve();
 
     return 0;
 }
