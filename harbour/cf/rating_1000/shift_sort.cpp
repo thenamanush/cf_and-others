@@ -1,4 +1,4 @@
-#include <bits/stdc++.h>
+#include<bits/stdc++.h>
 using namespace std;
 
 #define ll long long
@@ -34,51 +34,33 @@ using namespace std;
 #define odd(n) if (n % 2 == 1)
 #define sp << " " <<
 
-const int N = 1e6 + 1;
-vector<bool> prime(N, true);
-
 #define alliswell                \
     ios::sync_with_stdio(false); \
     cin.tie(nullptr);
 
 void solve()
 {
-    ll n;
-    cin >> n;
-    vi a(n);
+    string s; cin >> s;
+    int n = s.length();
+    ll ans = 0, cnt = 0;
     rep(i, n)
     {
-        cin >> a[i];
-
-        ll key = sqrtl(a[i]);
-
-        if (key * key == a[i] && prime[key])
+        if(s[i] == '1')
         {
-            yes;
-        }
-        else
+            cnt++;
+        }else if(s[i] == '0' && cnt > 0)
         {
-            no;
+            ans += (cnt + 1);
         }
     }
+    cout << ans << nl;
 }
-
 int main()
 {
     alliswell
 
-    prime[0] = prime[1] = false;
-    for (int i = 2; i * i < N; i++)
-    {
-        if (prime[i])
-        {
-            for (int j = i * i; j < N; j += i)
-            {
-                prime[j] = false;
-            }
-        }
-    }
-    solve();
+    int t; cin >> t;
+    while(t--) solve();
 
     return 0;
 }

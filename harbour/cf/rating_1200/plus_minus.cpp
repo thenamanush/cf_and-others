@@ -1,4 +1,4 @@
-#include <bits/stdc++.h>
+#include<bits/stdc++.h>
 using namespace std;
 
 #define ll long long
@@ -9,7 +9,7 @@ using namespace std;
 #define no cout << "NO\n"
 #define pb push_back
 #define nl '\n'
-#define lcm(a, b) (a * b) / (__gcd<ll>(a, b))
+#define lcm(a, b) (a * b) / (std::gcd<ll>(a, b))
 #define print(v)          \
     for (auto e : v)      \
         cout << e << " "; \
@@ -34,51 +34,37 @@ using namespace std;
 #define odd(n) if (n % 2 == 1)
 #define sp << " " <<
 
-const int N = 1e6 + 1;
-vector<bool> prime(N, true);
-
 #define alliswell                \
     ios::sync_with_stdio(false); \
     cin.tie(nullptr);
 
 void solve()
 {
-    ll n;
-    cin >> n;
-    vi a(n);
-    rep(i, n)
+    ll n, x, y;
+    cin >> n >> x >> y;
+
+    if(x == y)
     {
-        cin >> a[i];
-
-        ll key = sqrtl(a[i]);
-
-        if (key * key == a[i] && prime[key])
-        {
-            yes;
-        }
-        else
-        {
-            no;
-        }
+        cout << 0 << nl;
+        return;
     }
-}
+    
+    ll l = lcm(x, y);
+    ll cnt1 = (n / x) - n / l;
+    ll cnt2 = (n / y) - n / l;
 
+    ll sum1 = cnt1 * (2 * n - cnt1 + 1) / 2;
+    ll sum2 = cnt2 * (cnt2 + 1) / 2;
+
+    cout << sum1 - sum2 << nl;
+
+}
 int main()
 {
     alliswell
 
-    prime[0] = prime[1] = false;
-    for (int i = 2; i * i < N; i++)
-    {
-        if (prime[i])
-        {
-            for (int j = i * i; j < N; j += i)
-            {
-                prime[j] = false;
-            }
-        }
-    }
-    solve();
+    int t; cin >> t;
+    while(t--) solve();
 
     return 0;
 }

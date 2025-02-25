@@ -1,15 +1,16 @@
 #include <bits/stdc++.h>
 using namespace std;
 
+const int MOD = 1e9 + 7;
 #define ll long long
+#define ull unsigned long long
 #define ld long double
-#define MOD 1000000007
 #define pie 2 * (acos(0.0))
 #define yes cout << "YES\n"
 #define no cout << "NO\n"
 #define pb push_back
 #define nl '\n'
-#define lcm(a, b) (a * b) / (__gcd<ll>(a, b))
+#define lcm(a, b) (a * b) / (std::gcd<ll>(a, b))
 #define print(v)          \
     for (auto e : v)      \
         cout << e << " "; \
@@ -34,51 +35,47 @@ using namespace std;
 #define odd(n) if (n % 2 == 1)
 #define sp << " " <<
 
-const int N = 1e6 + 1;
-vector<bool> prime(N, true);
-
 #define alliswell                \
     ios::sync_with_stdio(false); \
     cin.tie(nullptr);
-
-void solve()
-{
-    ll n;
-    cin >> n;
-    vi a(n);
-    rep(i, n)
-    {
-        cin >> a[i];
-
-        ll key = sqrtl(a[i]);
-
-        if (key * key == a[i] && prime[key])
-        {
-            yes;
-        }
-        else
-        {
-            no;
-        }
-    }
-}
 
 int main()
 {
     alliswell
 
-    prime[0] = prime[1] = false;
-    for (int i = 2; i * i < N; i++)
+        ll n,
+        l, r, x;
+    cin >> n >> l >> r >> x;
+
+    vi a(n);
+    rep(i, n)
     {
-        if (prime[i])
+        cin >> a[i];
+    }
+
+    ll ans = 0;
+
+    for (ll mask = 0; mask < (1ll << n); ++mask)
+    {
+        ll sum = 0, cnt = 0, mn = LLONG_MAX, mx = LLONG_MIN;
+
+        rep(i, n)
         {
-            for (int j = i * i; j < N; j += i)
+            if (mask & (1ll << i))
             {
-                prime[j] = false;
+                sum += a[i];
+                mn = min(mn, a[i]);
+                mx = max(mx, a[i]);
+                cnt++;
             }
         }
+        
+        if (cnt >= 2 && sum >= l && sum <= r && (mx - mn) >= x)
+        {
+            ans++;
+        }
     }
-    solve();
+    cout << ans << '\n';
 
     return 0;
 }

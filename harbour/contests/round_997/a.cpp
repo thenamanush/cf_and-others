@@ -34,51 +34,53 @@ using namespace std;
 #define odd(n) if (n % 2 == 1)
 #define sp << " " <<
 
-const int N = 1e6 + 1;
-vector<bool> prime(N, true);
-
 #define alliswell                \
     ios::sync_with_stdio(false); \
     cin.tie(nullptr);
 
 void solve()
 {
-    ll n;
-    cin >> n;
-    vi a(n);
+    /* from the river to the sea
+    Palestine will be free */
+
+    ll n, m;
+    cin >> n >> m;
+
+    ll key = 4 * m, ans = 0, total = 0;
+
+    if (n == 1)
+    {
+        ll a, b;
+        cin >> a >> b;
+        cout << key << nl;
+        return;
+    }
     rep(i, n)
     {
-        cin >> a[i];
+        ll x, y;
+        cin >> x >> y;
 
-        ll key = sqrtl(a[i]);
-
-        if (key * key == a[i] && prime[key])
+        if (i == 0)
         {
-            yes;
+            ans += key;
         }
         else
         {
-            no;
+            ll d = 2 * (abs(x - m) + abs(y - m));
+            ans += (key - d);
         }
     }
+    cout << ans << nl;
 }
 
 int main()
 {
     alliswell
 
-    prime[0] = prime[1] = false;
-    for (int i = 2; i * i < N; i++)
-    {
-        if (prime[i])
-        {
-            for (int j = i * i; j < N; j += i)
-            {
-                prime[j] = false;
-            }
-        }
-    }
-    solve();
+        int t;
+    cin >> t;
+    while (t--)
+        solve();
 
     return 0;
 }

@@ -2,6 +2,7 @@
 using namespace std;
 
 #define ll long long
+#define ull unsigned long long
 #define ld long double
 #define MOD 1000000007
 #define pie 2 * (acos(0.0))
@@ -9,7 +10,7 @@ using namespace std;
 #define no cout << "NO\n"
 #define pb push_back
 #define nl '\n'
-#define lcm(a, b) (a * b) / (__gcd<ll>(a, b))
+#define lcm(a, b) (a * b) / (std::gcd<ll>(a, b))
 #define print(v)          \
     for (auto e : v)      \
         cout << e << " "; \
@@ -34,51 +35,41 @@ using namespace std;
 #define odd(n) if (n % 2 == 1)
 #define sp << " " <<
 
-const int N = 1e6 + 1;
-vector<bool> prime(N, true);
-
 #define alliswell                \
     ios::sync_with_stdio(false); \
     cin.tie(nullptr);
 
 void solve()
 {
-    ll n;
+    int n;
     cin >> n;
-    vi a(n);
-    rep(i, n)
+    string s;
+    cin >> s;
+    vector<int> cnt(26, 0), p(26, 0);
+    for (auto x : s)
+        cnt[x - 'a']++;
+    int ans = 0;
+    for (auto x : s)
     {
-        cin >> a[i];
-
-        ll key = sqrtl(a[i]);
-
-        if (key * key == a[i] && prime[key])
+        --cnt[x - 'a'];
+        ++p[x - 'a'];
+        int cur = 0;
+        for (int i = 0; i < 26; ++i)
         {
-            yes;
+            cur += min(1, cnt[i]) + min(1, p[i]);
         }
-        else
-        {
-            no;
-        }
+        ans = max(ans, cur);
     }
+    cout << ans << nl;
 }
-
 int main()
 {
     alliswell
 
-    prime[0] = prime[1] = false;
-    for (int i = 2; i * i < N; i++)
-    {
-        if (prime[i])
-        {
-            for (int j = i * i; j < N; j += i)
-            {
-                prime[j] = false;
-            }
-        }
-    }
-    solve();
+        int t = 1;
+    cin >> t;
+    while (t--)
+        solve();
 
     return 0;
 }

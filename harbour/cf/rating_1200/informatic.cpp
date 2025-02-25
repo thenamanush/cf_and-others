@@ -1,15 +1,16 @@
-#include <bits/stdc++.h>
+#include<bits/stdc++.h>
 using namespace std;
 
+const int MOD = 1e9+7;
 #define ll long long
+#define ull unsigned long long
 #define ld long double
-#define MOD 1000000007
 #define pie 2 * (acos(0.0))
 #define yes cout << "YES\n"
 #define no cout << "NO\n"
 #define pb push_back
 #define nl '\n'
-#define lcm(a, b) (a * b) / (__gcd<ll>(a, b))
+#define lcm(a, b) (a * b) / (std::gcd<ll>(a, b))
 #define print(v)          \
     for (auto e : v)      \
         cout << e << " "; \
@@ -34,51 +35,65 @@ using namespace std;
 #define odd(n) if (n % 2 == 1)
 #define sp << " " <<
 
-const int N = 1e6 + 1;
-vector<bool> prime(N, true);
-
 #define alliswell                \
     ios::sync_with_stdio(false); \
     cin.tie(nullptr);
 
+
 void solve()
 {
-    ll n;
-    cin >> n;
+    ll n; cin >> n;
+    ll mn = 0;
+    map<ll, ll> mp;
     vi a(n);
     rep(i, n)
     {
         cin >> a[i];
-
-        ll key = sqrtl(a[i]);
-
-        if (key * key == a[i] && prime[key])
+        mp[a[i]]++;
+    }
+    
+    trav(x, mp)
+    {
+        if(x.F == mn)
         {
-            yes;
-        }
-        else
-        {
-            no;
+            mn++;
         }
     }
+    vector<pair<ll, ll>> ans;
+    mp.clear();
+    int id = 0;
+    rep(i, n)
+    {
+        if(a[i] < mn)
+        {
+            mp[a[i]] = 1;
+        }
+        if(mp.size() == mn)
+        {
+            ans.pb({1, i+1});
+            id = i + 1;
+            mp.clear();
+        }
+    }
+    for(int i = id; i < n; i++)
+    {
+        if(a[i] < mn)
+        {
+            mp[a[i]] = 1;
+        }
+        if(mp.size() == mn){
+            ans.pb({id+2, n});
+            mp.clear();
+        }
+    }
+    printp(ans);
 }
-
 int main()
 {
     alliswell
 
-    prime[0] = prime[1] = false;
-    for (int i = 2; i * i < N; i++)
-    {
-        if (prime[i])
-        {
-            for (int j = i * i; j < N; j += i)
-            {
-                prime[j] = false;
-            }
-        }
-    }
-    solve();
+    int t; cin >> t;
+    while(t--) solve();
 
     return 0;
 }

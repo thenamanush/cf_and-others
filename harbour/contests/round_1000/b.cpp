@@ -9,7 +9,7 @@ using namespace std;
 #define no cout << "NO\n"
 #define pb push_back
 #define nl '\n'
-#define lcm(a, b) (a * b) / (__gcd<ll>(a, b))
+#define lcm(a, b) (a * b) / (std::gcd<ll>(a, b))
 #define print(v)          \
     for (auto e : v)      \
         cout << e << " "; \
@@ -34,51 +34,41 @@ using namespace std;
 #define odd(n) if (n % 2 == 1)
 #define sp << " " <<
 
-const int N = 1e6 + 1;
-vector<bool> prime(N, true);
-
 #define alliswell                \
     ios::sync_with_stdio(false); \
     cin.tie(nullptr);
 
 void solve()
 {
-    ll n;
-    cin >> n;
+    ll n, l, r;
+    cin >> n >> l >> r;
+
     vi a(n);
-    rep(i, n)
-    {
-        cin >> a[i];
+    rep(i, n) cin >> a[i];
 
-        ll key = sqrtl(a[i]);
+    vi b(a.begin(), a.begin() + r);
+    vi c(a.begin() + l - 1, a.end());
 
-        if (key * key == a[i] && prime[key])
-        {
-            yes;
-        }
-        else
-        {
-            no;
-        }
+    srt(b);
+    srt(c);
+
+    ll sum1 = 0, sum2 = 0;
+
+    FOR(i, 0, r - l) {
+        sum1 += b[i];
+        sum2 += c[i];
     }
+
+    cout << min(sum1, sum2) << nl;
 }
 
 int main()
 {
     alliswell
 
-    prime[0] = prime[1] = false;
-    for (int i = 2; i * i < N; i++)
-    {
-        if (prime[i])
-        {
-            for (int j = i * i; j < N; j += i)
-            {
-                prime[j] = false;
-            }
-        }
-    }
-    solve();
+    int t;
+    cin >> t;
+    while (t--) solve();
 
     return 0;
 }

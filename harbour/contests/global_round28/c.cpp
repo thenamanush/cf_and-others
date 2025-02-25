@@ -42,24 +42,35 @@ void solve()
 {
     string s;
     cin >> s;
-    
+
     bool f = true;
     int n = s.size(), it = 0;
 
-    for(int i = 0; i < n; i++)
+    for (int i = 0; i < n; i++)
     {
-        if(s[i] == '0')
+        if (s[i] == '0')
         {
             f = false;
             it = i;
             break;
         }
     }
-    if(f)
+    if (f)
     {
         cout << 1 sp n sp 1 sp 1 << nl;
         return;
     }
+    ll x = it-1;
+
+    for(int i = it; i < n && x >= 0; ++i){
+        if(s[i] == '1'){
+            break;
+        }
+        x--;
+    }
+    x++;
+
+    cout << 1 sp n sp x+1 sp x + n - it << nl;
 }
 
 int main()

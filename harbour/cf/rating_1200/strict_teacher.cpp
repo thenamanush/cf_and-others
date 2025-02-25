@@ -1,4 +1,4 @@
-#include <bits/stdc++.h>
+#include<bits/stdc++.h>
 using namespace std;
 
 #define ll long long
@@ -34,51 +34,55 @@ using namespace std;
 #define odd(n) if (n % 2 == 1)
 #define sp << " " <<
 
-const int N = 1e6 + 1;
-vector<bool> prime(N, true);
-
 #define alliswell                \
     ios::sync_with_stdio(false); \
     cin.tie(nullptr);
 
 void solve()
 {
-    ll n;
-    cin >> n;
-    vi a(n);
-    rep(i, n)
+    ll n, m, k;
+    cin >> n >> m >> k;
+
+    vi a(m);
+    vi b(k);
+    rep(i, m) cin >> a[i];
+    rep(i, k) cin >> b[i];
+
+    srt(a);
+    rep(i, k)
     {
-        cin >> a[i];
-
-        ll key = sqrtl(a[i]);
-
-        if (key * key == a[i] && prime[key])
+        if(b[i] < a[0])
         {
-            yes;
+            cout << a[0] - 1 << nl;
         }
-        else
+        else if(b[i] > a[m - 1])
         {
-            no;
+            cout << n - a[m - 1] << nl;
+        }
+        else{
+            ll l = 0, h = m - 1, ind = -1;
+            while(l <= h)
+            {
+                ll mid = l + (h - l) / 2;
+                if(a[mid] < b[i])
+                {
+                    ind = mid;
+                    l = mid + 1;
+                }
+                else{
+                    h = mid - 1;
+                }
+            }
+            cout << (a[ind + 1] - a[ind]) / 2 << nl;
         }
     }
 }
-
 int main()
 {
     alliswell
 
-    prime[0] = prime[1] = false;
-    for (int i = 2; i * i < N; i++)
-    {
-        if (prime[i])
-        {
-            for (int j = i * i; j < N; j += i)
-            {
-                prime[j] = false;
-            }
-        }
-    }
-    solve();
+    int t; cin >> t;
+    while (t--) solve();
 
     return 0;
 }

@@ -1,15 +1,16 @@
-#include <bits/stdc++.h>
+#include<bits/stdc++.h>
 using namespace std;
 
+const int MOD = 1e9+7;
 #define ll long long
+#define ull unsigned long long
 #define ld long double
-#define MOD 1000000007
 #define pie 2 * (acos(0.0))
 #define yes cout << "YES\n"
 #define no cout << "NO\n"
 #define pb push_back
 #define nl '\n'
-#define lcm(a, b) (a * b) / (__gcd<ll>(a, b))
+#define lcm(a, b) (a * b) / (std::gcd<ll>(a, b))
 #define print(v)          \
     for (auto e : v)      \
         cout << e << " "; \
@@ -34,51 +35,46 @@ using namespace std;
 #define odd(n) if (n % 2 == 1)
 #define sp << " " <<
 
-const int N = 1e6 + 1;
-vector<bool> prime(N, true);
-
 #define alliswell                \
     ios::sync_with_stdio(false); \
     cin.tie(nullptr);
 
 void solve()
 {
-    ll n;
-    cin >> n;
-    vi a(n);
-    rep(i, n)
+    ll a1, a2, a3, a4;
+    cin >> a1 >> a2 >> a3 >> a4;
+
+    ll rem = a4 - a3;
+
+    if(rem - a2 == a1 && a2 + rem == a3)
     {
-        cin >> a[i];
-
-        ll key = sqrtl(a[i]);
-
-        if (key * key == a[i] && prime[key])
-        {
-            yes;
-        }
-        else
-        {
-            no;
-        }
+        cout << 3 << nl;
+        return;
     }
+    if(rem + a2 == a3)
+    {
+        cout << 2 << nl;
+        return;
+    }
+    if(rem - a2 == a1)
+    {
+        cout << 2 << nl;
+        return;
+    }
+    ll rm = a1 + a2;
+    if(rm + a2 == a3)
+    {
+        cout << 2 << nl;
+        return;
+    }
+    cout << 1 << nl;
 }
-
 int main()
 {
     alliswell
 
-    prime[0] = prime[1] = false;
-    for (int i = 2; i * i < N; i++)
-    {
-        if (prime[i])
-        {
-            for (int j = i * i; j < N; j += i)
-            {
-                prime[j] = false;
-            }
-        }
-    }
-    solve();
+    int t; cin >> t;
+    while(t--) solve();
 
     return 0;
 }

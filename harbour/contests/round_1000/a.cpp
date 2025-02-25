@@ -1,4 +1,4 @@
-#include <bits/stdc++.h>
+#include<bits/stdc++.h>
 using namespace std;
 
 #define ll long long
@@ -9,7 +9,7 @@ using namespace std;
 #define no cout << "NO\n"
 #define pb push_back
 #define nl '\n'
-#define lcm(a, b) (a * b) / (__gcd<ll>(a, b))
+#define lcm(a, b) (a * b) / (std::gcd<ll>(a, b))
 #define print(v)          \
     for (auto e : v)      \
         cout << e << " "; \
@@ -34,51 +34,32 @@ using namespace std;
 #define odd(n) if (n % 2 == 1)
 #define sp << " " <<
 
-const int N = 1e6 + 1;
-vector<bool> prime(N, true);
-
 #define alliswell                \
     ios::sync_with_stdio(false); \
     cin.tie(nullptr);
 
+
 void solve()
 {
-    ll n;
-    cin >> n;
-    vi a(n);
-    rep(i, n)
+    /* from the river to the sea
+        Palestine will be free */
+    ll a, b;
+    cin >> a >> b;
+
+    if(a == 1 && b == 1)
     {
-        cin >> a[i];
-
-        ll key = sqrtl(a[i]);
-
-        if (key * key == a[i] && prime[key])
-        {
-            yes;
-        }
-        else
-        {
-            no;
-        }
+        cout << 1 << nl;
+        return;
     }
-}
 
+    cout << b - a << nl;
+}
 int main()
 {
     alliswell
 
-    prime[0] = prime[1] = false;
-    for (int i = 2; i * i < N; i++)
-    {
-        if (prime[i])
-        {
-            for (int j = i * i; j < N; j += i)
-            {
-                prime[j] = false;
-            }
-        }
-    }
-    solve();
+    int t; cin >> t;
+    while(t--) solve();
 
     return 0;
 }

@@ -19,6 +19,7 @@
         "unordered_set": "cpp",
         "valarray": "cpp",
         "vector": "cpp",
-        "ios": "cpp"
+        "ios": "cpp",
+        "ostream": "cpp"
     }
 }
