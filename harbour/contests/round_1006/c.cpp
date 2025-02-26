@@ -1,7 +1,7 @@
-#include <bits/stdc++.h>
+#include<bits/stdc++.h>
 using namespace std;
 
-const int MOD = 1e9 + 7;
+const int MOD = 1e9+7;
 #define ll long long
 #define ull unsigned long long
 #define ld long double
@@ -39,50 +39,41 @@ const int MOD = 1e9 + 7;
     ios::sync_with_stdio(false); \
     cin.tie(nullptr);
 
-void solve()
-{
-    ll n;
-    cin >> n;
-    vector<ll> v(n);
-    map<ll, ll> mp;
-    rep(i, n)
-    {
-        cin >> v[i];
-        mp[v[i]]++;
+void solve(){
+    ll n, x;
+    cin >> n >> x;
+
+    ll it = 0;
+    rep(i, n){
+        it |= i;
     }
-    int l = -1, r = -1, cur = 0, mx = 0;
-    rep(i, n)
-    {
-        if (mp[v[i]] == 1)
-        {
-            cur++;
+    if(it == x){
+        rep(i, n){
+            cout << i << " ";
         }
-        else
-        {
-            cur = 0;
-        }
-        if (cur > mx)
-        {
-            mx = cur;
-            l = i - cur + 1;
-            r = i;
-        }
-    }
-    if (mx == 0)
-    {
-        cout << 0 << nl;
+        cout << nl;
         return;
     }
-    cout << l+1 sp r+1 << nl;
+    vector<int> ans;
+    rep(i, n-1){
+        if((i | x) == x){
+            ans.pb(i);
+        }
+        else{
+            break;
+        }
+    }
+    while(ans.size() != n){
+        ans.pb(x);
+    }
+    print(ans);
 }
 int main()
 {
     alliswell
 
-        int tc = 1;
-    cin >> tc;
-    while (tc--)
-        solve();
+    int t = 2; cin >> t;
+    while(t--) solve();
 
     return 0;
 }

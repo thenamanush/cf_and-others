@@ -39,49 +39,51 @@ const int MOD = 1e9 + 7;
     ios::sync_with_stdio(false); \
     cin.tie(nullptr);
 
+bool possible(ll x, ll n, ll k, vector<ll> &a)
+{
+    ll total = 0;
+    for (int i = 0; i < n; ++i)
+    {
+        ll add = a[i] + 2 * x;
+        ll area = add * add;
+        total += area;
+        if (total > k)
+            return false;
+    }
+    return true;
+}
+
 void solve()
 {
-    ll n;
-    cin >> n;
-    vector<ll> v(n);
-    map<ll, ll> mp;
+    ll n, k;
+    cin >> n >> k;
+    vector<ll> a(n);
     rep(i, n)
     {
-        cin >> v[i];
-        mp[v[i]]++;
+        cin >> a[i];
     }
-    int l = -1, r = -1, cur = 0, mx = 0;
-    rep(i, n)
+
+    ll lo = 1, hi = 1e10, ans;
+    while (lo <= hi)
     {
-        if (mp[v[i]] == 1)
-        {
-            cur++;
+        ll mid = lo + (hi - lo) / 2;
+        if(possible(mid, n, k, a)){
+            ans = mid;
+            lo = mid + 1;
         }
-        else
-        {
-            cur = 0;
-        }
-        if (cur > mx)
-        {
-            mx = cur;
-            l = i - cur + 1;
-            r = i;
+        else{
+            hi = mid - 1;
         }
     }
-    if (mx == 0)
-    {
-        cout << 0 << nl;
-        return;
-    }
-    cout << l+1 sp r+1 << nl;
+    cout << ans << nl;
 }
 int main()
 {
     alliswell
 
-        int tc = 1;
-    cin >> tc;
-    while (tc--)
+        int t = 1;
+    cin >> t;
+    while (t--)
         solve();
 
     return 0;

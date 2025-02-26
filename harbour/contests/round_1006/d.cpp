@@ -1,7 +1,7 @@
-#include <bits/stdc++.h>
+#include<bits/stdc++.h>
 using namespace std;
 
-const int MOD = 1e9 + 7;
+const int MOD = 1e9+7;
 #define ll long long
 #define ull unsigned long long
 #define ld long double
@@ -39,50 +39,50 @@ const int MOD = 1e9 + 7;
     ios::sync_with_stdio(false); \
     cin.tie(nullptr);
 
-void solve()
-{
-    ll n;
-    cin >> n;
-    vector<ll> v(n);
-    map<ll, ll> mp;
-    rep(i, n)
-    {
-        cin >> v[i];
-        mp[v[i]]++;
+void solve(){
+    ll n; cin >> n;
+    vi a(n);
+    rep(i, n){
+        cin >> a[i];
     }
-    int l = -1, r = -1, cur = 0, mx = 0;
-    rep(i, n)
-    {
-        if (mp[v[i]] == 1)
-        {
-            cur++;
-        }
-        else
-        {
-            cur = 0;
-        }
-        if (cur > mx)
-        {
-            mx = cur;
-            l = i - cur + 1;
-            r = i;
+    ll fl = 0;
+    rep(i, n-1){
+        if(a[i] > a[i+1]){
+            fl = i;
+            break;
         }
     }
-    if (mx == 0)
-    {
-        cout << 0 << nl;
+    if(fl == 0){
+        cout << 1 sp 1 << nl;
         return;
     }
-    cout << l+1 sp r+1 << nl;
+    ll sm = 0, bg = 0;
+    for(int i = fl; i < n; i++){
+        if(a[i] > a[fl]){
+            bg++;
+        }
+        if(a[i] < a[fl]){
+            sm++;
+        }
+    }
+    for(int i = fl+1; i < n; i++){
+        if(sm > 0 && bg > sm){
+            if(a[i] < a[fl]){
+                sm--;
+            }
+            else{
+                cout << fl+1 sp i+1 << nl;
+                return;
+            }
+        }
+    }
 }
 int main()
 {
     alliswell
 
-        int tc = 1;
-    cin >> tc;
-    while (tc--)
-        solve();
+    int t = 2; cin >> t;
+    while(t--) solve();
 
     return 0;
 }

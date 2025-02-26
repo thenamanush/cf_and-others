@@ -1,7 +1,7 @@
-#include <bits/stdc++.h>
+#include<bits/stdc++.h>
 using namespace std;
 
-const int MOD = 1e9 + 7;
+const int MOD = 1e9+7;
 #define ll long long
 #define ull unsigned long long
 #define ld long double
@@ -39,50 +39,45 @@ const int MOD = 1e9 + 7;
     ios::sync_with_stdio(false); \
     cin.tie(nullptr);
 
-void solve()
-{
-    ll n;
-    cin >> n;
-    vector<ll> v(n);
-    map<ll, ll> mp;
-    rep(i, n)
-    {
-        cin >> v[i];
-        mp[v[i]]++;
-    }
-    int l = -1, r = -1, cur = 0, mx = 0;
-    rep(i, n)
-    {
-        if (mp[v[i]] == 1)
-        {
-            cur++;
-        }
-        else
-        {
-            cur = 0;
-        }
-        if (cur > mx)
-        {
-            mx = cur;
-            l = i - cur + 1;
-            r = i;
-        }
-    }
-    if (mx == 0)
-    {
+void solve(){
+    ll n; cin >> n;
+    string s; cin >> s;
+
+    if(n <= 2){
         cout << 0 << nl;
         return;
     }
-    cout << l+1 sp r+1 << nl;
+    ll dot = 0, dash = 0;
+    for(char c : s){
+        if(c == '-'){
+            dot++;
+        }
+        else{
+            dash++;
+        }
+    }
+    if(dot < 2){
+        cout << 0 << nl;
+        return;
+    }
+    ll p1 = 0, p2 = 0;
+    if(dot % 2 == 0){
+        p1 = p2 = dot / 2;
+        cout << p1 * dash * p2 << endl;
+    }
+    else{
+        p1 = dot / 2;
+        p2 = p1 + 1;
+        cout << p1 * dash * p2 << endl;
+    }
 }
+
 int main()
 {
     alliswell
 
-        int tc = 1;
-    cin >> tc;
-    while (tc--)
-        solve();
+    int t = 1; cin >> t;
+    while (t--) solve();
 
     return 0;
 }

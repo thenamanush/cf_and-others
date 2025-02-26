@@ -1,7 +1,7 @@
-#include<bits/stdc++.h>
+#include <bits/stdc++.h>
 using namespace std;
 
-const int MOD = 1e9+7;
+const int MOD = 1e9 + 7;
 #define ll long long
 #define ull unsigned long long
 #define ld long double
@@ -39,20 +39,55 @@ const int MOD = 1e9+7;
     ios::sync_with_stdio(false); \
     cin.tie(nullptr);
 
-void solve(){
-    ll n; cin >> n;
+void solve()
+{
+    ll n;
+    cin >> n;
     vi a(n);
-    rep(i, n){
+    rep(i, n)
+    {
         cin >> a[i];
     }
+    vi pre(n), suf(n);
+    if (a[0] > 0)
+    {
+        pre[0] = a[0];
+    }
+    for (int i = 1; i < n; ++i)
+    {
+        pre[i] = pre[i - 1];
+        if (a[i] > 0)
+        {
+            pre[i] += a[i];
+        }
+    }
+    if (a[n - 1] < 0)
+    {
+        suf[n - 1] = -a[n - 1];
+    }
+    for (int i = n - 2; i >= 0; --i)
+    {
+        suf[i] = suf[i + 1];
+        if (a[i] < 0)
+        {
+            suf[i] -= a[i];
+        }
+    }
+
+    ll ans = 0;
+    rep(i, n){
+        ans = max(ans, pre[i] + suf[i]);
+    }
+    cout << ans << nl;
 }
 int main()
 {
     alliswell
 
-    int tt;
+        int tt;
     cin >> tt;
-    while(tt--) solve();
+    while (tt--)
+        solve();
 
     return 0;
 }
