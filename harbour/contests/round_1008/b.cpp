@@ -39,58 +39,41 @@ const int MOD = 1e9+7;
     ios::sync_with_stdio(false); \
     cin.tie(nullptr);
 
-    void solve() {
-        ll n, x, k;
-        cin >> n >> x >> k;
-        string s;
-        cin >> s;
-    
-        bool can = false;
-        rep(i, n) {
-            if (s[i] == 'L') {
-                x--;
-            } else if (s[i] == 'R') {
-                x++;
+void ramadan_kareem(){
+    /* from the river to the sea
+     Palestine will be free */
+    ll n, k; cin >> n >> k;
+    if(k % 2 == 0){
+        for(int i = 1; i <= n; ++i){
+            if(i == n - 1){
+                cout << n << " ";
             }
-            if (x == 0) {
-                can = true;
-                k -= i + 1;
-                break;
+            else{
+                cout << n-1 << " ";
             }
         }
-    
-        if (!can) {
-            cout << 0 << nl;
-            return;
-        }
-    
-        int ck = 0, fl = 0;
-        rep(i, n) {
-            if (s[i] == 'L') {
-                ck++;
-            } else {
-                ck--;
-            }
-            if (ck == 0) {
-                fl = i + 1;
-                break;
-            }
-        }
-    
-        if (fl == 0) {
-            cout << 1 << nl;
-            return;
-        }
-    
-        ll ans = k / fl;
-        cout << ans + 1 << nl;
+        cout << nl;
+        return;
     }
-    
+    if(k % 2){
+        for(int i = 1; i <= n; ++i){
+            if(i == n){
+                cout << n-1 << " ";
+            }
+            else{
+                cout << n << " ";
+            }
+        }
+        cout << nl;
+        return;
+    }
+}
 int main()
 {
     alliswell
 
-    int t; cin >> t;
-    while(t--) solve();
+    int t = 1; cin >> t;
+    while(t--) ramadan_kareem();
+
     return 0;
 }

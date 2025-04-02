@@ -21,5 +21,6 @@
         "vector": "cpp",
         "ios": "cpp",
         "ostream": "cpp"
-    }
+    },
+    "cmake.ignoreCMakeListsMissing": true
 }

@@ -1,7 +1,7 @@
-#include<bits/stdc++.h>
+#include <bits/stdc++.h>
 using namespace std;
 
-const int MOD = 1e9+7;
+const int MOD = 1e9 + 7;
 #define ll long long
 #define ull unsigned long long
 #define ld long double
@@ -39,58 +39,43 @@ const int MOD = 1e9+7;
     ios::sync_with_stdio(false); \
     cin.tie(nullptr);
 
-    void solve() {
-        ll n, x, k;
-        cin >> n >> x >> k;
-        string s;
-        cin >> s;
-    
-        bool can = false;
-        rep(i, n) {
-            if (s[i] == 'L') {
-                x--;
-            } else if (s[i] == 'R') {
-                x++;
-            }
-            if (x == 0) {
-                can = true;
-                k -= i + 1;
-                break;
-            }
+bool check(int x, int y)
+{
+    ll z = x ^ y;
+    return ((x + y > z) && (x + z > y) && (y + z > x));
+}
+
+
+// my answer even though i donno how it worked with a binary search!!
+void solve()
+{
+    ll x;
+    cin >> x;
+    ll ans = -1;
+    ll l = 1, r = x;
+    while (l <= r)
+    {
+        ll mid = l + (r - l) / 2;
+        if (check(mid, x))
+        {
+            ans = mid;
+            r = mid - 1;
         }
-    
-        if (!can) {
-            cout << 0 << nl;
-            return;
+        else
+        {
+            l = mid + 1;
         }
-    
-        int ck = 0, fl = 0;
-        rep(i, n) {
-            if (s[i] == 'L') {
-                ck++;
-            } else {
-                ck--;
-            }
-            if (ck == 0) {
-                fl = i + 1;
-                break;
-            }
-        }
-    
-        if (fl == 0) {
-            cout << 1 << nl;
-            return;
-        }
-    
-        ll ans = k / fl;
-        cout << ans + 1 << nl;
     }
-    
+    cout << ans << nl;
+}
 int main()
 {
     alliswell
 
-    int t; cin >> t;
-    while(t--) solve();
+        int t;
+    cin >> t;
+    while (t--)
+        solve();
+
     return 0;
 }

@@ -1,7 +1,7 @@
-#include<bits/stdc++.h>
+#include <bits/stdc++.h>
 using namespace std;
 
-const int MOD = 1e9+7;
+const int MOD = 1e9 + 7;
 #define ll long long
 #define ull unsigned long long
 #define ld long double
@@ -39,58 +39,40 @@ const int MOD = 1e9+7;
     ios::sync_with_stdio(false); \
     cin.tie(nullptr);
 
-    void solve() {
-        ll n, x, k;
-        cin >> n >> x >> k;
-        string s;
-        cin >> s;
-    
-        bool can = false;
-        rep(i, n) {
-            if (s[i] == 'L') {
-                x--;
-            } else if (s[i] == 'R') {
-                x++;
-            }
-            if (x == 0) {
-                can = true;
-                k -= i + 1;
-                break;
-            }
-        }
-    
-        if (!can) {
-            cout << 0 << nl;
-            return;
-        }
-    
-        int ck = 0, fl = 0;
-        rep(i, n) {
-            if (s[i] == 'L') {
-                ck++;
-            } else {
-                ck--;
-            }
-            if (ck == 0) {
-                fl = i + 1;
-                break;
-            }
-        }
-    
-        if (fl == 0) {
-            cout << 1 << nl;
-            return;
-        }
-    
-        ll ans = k / fl;
-        cout << ans + 1 << nl;
+void solve()
+{
+    ll n, k;
+    cin >> n >> k;
+
+    vector<ll> a(n);
+    for (int i = 0; i < n; i++)
+    {
+        cin >> a[i];
     }
-    
+
+    sort(a.begin(), a.end());
+
+    vector<ll> pfs(n+1);
+    ll ans = 0;
+    pfs[0] = 0;
+    for (int i = 1; i <= n; ++i)
+    {
+        pfs[i] = pfs[i - 1] + a[i-1];
+    }
+
+    for(int i = 0; i <= k; ++i){
+        ans = max(ans, (pfs[n-i] - pfs[2*(k-i)]));
+    }
+    cout << ans << nl;
+}
 int main()
 {
     alliswell
 
-    int t; cin >> t;
-    while(t--) solve();
+        int t;
+    cin >> t;
+    while (t--)
+        solve();
+
     return 0;
 }

@@ -39,58 +39,58 @@ const int MOD = 1e9+7;
     ios::sync_with_stdio(false); \
     cin.tie(nullptr);
 
-    void solve() {
-        ll n, x, k;
-        cin >> n >> x >> k;
-        string s;
-        cin >> s;
-    
-        bool can = false;
-        rep(i, n) {
-            if (s[i] == 'L') {
-                x--;
-            } else if (s[i] == 'R') {
-                x++;
-            }
-            if (x == 0) {
-                can = true;
-                k -= i + 1;
-                break;
-            }
-        }
-    
-        if (!can) {
-            cout << 0 << nl;
-            return;
-        }
-    
-        int ck = 0, fl = 0;
-        rep(i, n) {
-            if (s[i] == 'L') {
-                ck++;
-            } else {
-                ck--;
-            }
-            if (ck == 0) {
-                fl = i + 1;
-                break;
-            }
-        }
-    
-        if (fl == 0) {
-            cout << 1 << nl;
-            return;
-        }
-    
-        ll ans = k / fl;
-        cout << ans + 1 << nl;
+void solve(){
+    ll n; cin >> n;
+    vi a(n);
+
+    rep(i, n){
+        cin >> a[i];
     }
-    
+    bool f = true;
+
+    ll o = a[0], e = a[1];
+    for(int i = 2; i < n; ++i){
+        if(i % 2 == 0){
+            o = std::gcd(o, a[i]);
+        }
+    } 
+    for(int i = 1; i < n; i+=2){
+        if(a[i] % o == 0){
+            f = false;
+            break;
+        }
+    }
+    if(f){
+        cout << o << nl;
+        return;
+    }
+    bool fl = true;
+    for(int i = 2; i < n; ++i){
+        if(i % 2 == 1){
+            e = std::gcd(e, a[i]);
+        }
+    }
+    for(int i = 0; i < n; i+=2){
+        if(a[i] % e == 0){
+            fl = false;
+            break;
+        }
+    }
+    if(fl){
+        cout << e << nl;
+        return;
+    }
+    else{
+        cout << 0 << nl;
+        return;
+    }
+}
 int main()
 {
     alliswell
 
     int t; cin >> t;
     while(t--) solve();
+
     return 0;
 }

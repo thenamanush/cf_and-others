@@ -1,7 +1,7 @@
-#include<bits/stdc++.h>
+#include <bits/stdc++.h>
 using namespace std;
 
-const int MOD = 1e9+7;
+const int MOD = 1e9 + 7;
 #define ll long long
 #define ull unsigned long long
 #define ld long double
@@ -39,58 +39,49 @@ const int MOD = 1e9+7;
     ios::sync_with_stdio(false); \
     cin.tie(nullptr);
 
-    void solve() {
-        ll n, x, k;
-        cin >> n >> x >> k;
-        string s;
-        cin >> s;
-    
-        bool can = false;
-        rep(i, n) {
-            if (s[i] == 'L') {
-                x--;
-            } else if (s[i] == 'R') {
-                x++;
-            }
-            if (x == 0) {
-                can = true;
-                k -= i + 1;
-                break;
-            }
-        }
-    
-        if (!can) {
-            cout << 0 << nl;
-            return;
-        }
-    
-        int ck = 0, fl = 0;
-        rep(i, n) {
-            if (s[i] == 'L') {
-                ck++;
-            } else {
-                ck--;
-            }
-            if (ck == 0) {
-                fl = i + 1;
-                break;
+void solve()
+{
+    // using bit manipulation
+    int x;
+    cin >> x;
+
+    for (int i = 0; i < 31; i++)
+    {
+        int y = 0;
+        // checking if the bit is set or not
+        int bit = x & (1 << i);
+        if (bit)
+        {
+            // setting the bit of y
+            y = y | (1 << i);
+
+            for (int j = 0; j < 31; j++)
+            {
+                bit = x & (1 << j);
+                // checking the unset bit
+                if (!bit)
+                {
+                    // setting the unset bit of y
+                    y = y | (1 << j);
+                    if (y < x)
+                    {
+                        cout << y << nl;
+                        return;
+                    }
+                }
             }
         }
-    
-        if (fl == 0) {
-            cout << 1 << nl;
-            return;
-        }
-    
-        ll ans = k / fl;
-        cout << ans + 1 << nl;
     }
-    
+    cout << -1 << nl;
+}
 int main()
 {
     alliswell
 
-    int t; cin >> t;
-    while(t--) solve();
+        int t;
+    cin >> t;
+    while (t--)
+        solve();
+
     return 0;
 }

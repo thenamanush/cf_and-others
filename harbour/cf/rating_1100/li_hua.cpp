@@ -39,58 +39,38 @@ const int MOD = 1e9+7;
     ios::sync_with_stdio(false); \
     cin.tie(nullptr);
 
-    void solve() {
-        ll n, x, k;
-        cin >> n >> x >> k;
-        string s;
-        cin >> s;
-    
-        bool can = false;
-        rep(i, n) {
-            if (s[i] == 'L') {
-                x--;
-            } else if (s[i] == 'R') {
-                x++;
-            }
-            if (x == 0) {
-                can = true;
-                k -= i + 1;
-                break;
-            }
-        }
-    
-        if (!can) {
-            cout << 0 << nl;
-            return;
-        }
-    
-        int ck = 0, fl = 0;
-        rep(i, n) {
-            if (s[i] == 'L') {
-                ck++;
-            } else {
-                ck--;
-            }
-            if (ck == 0) {
-                fl = i + 1;
-                break;
-            }
-        }
-    
-        if (fl == 0) {
-            cout << 1 << nl;
-            return;
-        }
-    
-        ll ans = k / fl;
-        cout << ans + 1 << nl;
+void solve(){
+    ll n, k; cin >> n >> k;
+    vector<vector<int>> a(n, vector<int>(n));
+    for (int i = 0; i < n; i++)
+        for (int j = 0; j < n; j++)
+            cin >> a[i][j];
+
+    if(n == 1){
+        yes;
+        return;
     }
-    
+    ll cnt = 0;
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < n; j++) {
+            if (a[i][j] != a[n - 1 - i][n - 1 - j]) {
+                cnt++;
+            }
+        }
+    }
+
+    cnt /= 2;
+    if (k >= cnt && (k - cnt) % 2 == 0) 
+        yes;
+    else 
+        no;
+}
 int main()
 {
     alliswell
 
     int t; cin >> t;
-    while(t--) solve();
+    while (t--)solve();
+
     return 0;
 }

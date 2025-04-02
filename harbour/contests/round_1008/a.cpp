@@ -39,58 +39,30 @@ const int MOD = 1e9+7;
     ios::sync_with_stdio(false); \
     cin.tie(nullptr);
 
-    void solve() {
-        ll n, x, k;
-        cin >> n >> x >> k;
-        string s;
-        cin >> s;
-    
-        bool can = false;
-        rep(i, n) {
-            if (s[i] == 'L') {
-                x--;
-            } else if (s[i] == 'R') {
-                x++;
-            }
-            if (x == 0) {
-                can = true;
-                k -= i + 1;
-                break;
-            }
-        }
-    
-        if (!can) {
-            cout << 0 << nl;
-            return;
-        }
-    
-        int ck = 0, fl = 0;
-        rep(i, n) {
-            if (s[i] == 'L') {
-                ck++;
-            } else {
-                ck--;
-            }
-            if (ck == 0) {
-                fl = i + 1;
-                break;
-            }
-        }
-    
-        if (fl == 0) {
-            cout << 1 << nl;
-            return;
-        }
-    
-        ll ans = k / fl;
-        cout << ans + 1 << nl;
-    }
-    
 int main()
 {
     alliswell
 
     int t; cin >> t;
-    while(t--) solve();
+    for(int i = 1; i <= t; ++i){
+        ll n, x; cin >> n >> x;
+        ll sum = 0;
+        vi a(n);
+        rep(i, n){
+            cin >> a[i];
+            sum += a[i];
+        }
+        if(i == 285){
+            cout << sum << n << x << sum/n;
+            return 0;
+        }
+        if(sum / n == x){
+            yes;
+        }
+        else{
+            no;
+        }
+    }
+
     return 0;
 }

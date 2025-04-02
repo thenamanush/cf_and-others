@@ -1,7 +1,7 @@
-#include<bits/stdc++.h>
+#include <bits/stdc++.h>
 using namespace std;
 
-const int MOD = 1e9+7;
+const int MOD = 1e9 + 7;
 #define ll long long
 #define ull unsigned long long
 #define ld long double
@@ -39,58 +39,53 @@ const int MOD = 1e9+7;
     ios::sync_with_stdio(false); \
     cin.tie(nullptr);
 
-    void solve() {
-        ll n, x, k;
-        cin >> n >> x >> k;
-        string s;
-        cin >> s;
-    
-        bool can = false;
-        rep(i, n) {
-            if (s[i] == 'L') {
-                x--;
-            } else if (s[i] == 'R') {
-                x++;
-            }
-            if (x == 0) {
-                can = true;
-                k -= i + 1;
-                break;
-            }
-        }
-    
-        if (!can) {
-            cout << 0 << nl;
-            return;
-        }
-    
-        int ck = 0, fl = 0;
-        rep(i, n) {
-            if (s[i] == 'L') {
-                ck++;
-            } else {
-                ck--;
-            }
-            if (ck == 0) {
-                fl = i + 1;
-                break;
-            }
-        }
-    
-        if (fl == 0) {
-            cout << 1 << nl;
-            return;
-        }
-    
-        ll ans = k / fl;
-        cout << ans + 1 << nl;
+void solve()
+{
+    ll n;
+    cin >> n;
+    vi a(n);
+    ll ans = 0;
+    vector<pair<ll, ll>> v(n);
+    for (int i = 0; i < n; ++i)
+    {
+        cin >> a[i];
+        v[i] = {a[i], i};
     }
-    
+    rsrt(v);
+    ll it = 1;
+    for (int i = 0; i < n; ++i)
+    {
+        if (i % 2 == 0)
+        {
+            ans += 2 * (v[i].F * it);
+            v[i].F = it;
+        }
+        else
+        {
+            ans += 2 * (v[i].F * (it));
+            v[i].F = -it;
+            it++;
+        }
+    }
+    sort(v.begin(), v.end(), [](const pair<ll, ll> &a, const pair<ll, ll> &b)
+         { return a.S < b.S; });
+    cout << ans << nl;
+    cout << 0 << " ";
+    for (auto &it : v)
+    {
+        cout << it.F << " ";
+    }
+    cout << nl;
+}
+
 int main()
 {
     alliswell
 
-    int t; cin >> t;
-    while(t--) solve();
+        int t;
+    cin >> t;
+    while (t--)
+        solve();
+
     return 0;
 }

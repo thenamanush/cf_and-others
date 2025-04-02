@@ -1,7 +1,7 @@
-#include<bits/stdc++.h>
+#include <bits/stdc++.h>
 using namespace std;
 
-const int MOD = 1e9+7;
+const int MOD = 1e9 + 7;
 #define ll long long
 #define ull unsigned long long
 #define ld long double
@@ -40,57 +40,35 @@ const int MOD = 1e9+7;
     cin.tie(nullptr);
 
     void solve() {
-        ll n, x, k;
-        cin >> n >> x >> k;
-        string s;
-        cin >> s;
+        ll n, m, k;
+        cin >> n >> m >> k;
     
-        bool can = false;
-        rep(i, n) {
-            if (s[i] == 'L') {
-                x--;
-            } else if (s[i] == 'R') {
-                x++;
-            }
-            if (x == 0) {
-                can = true;
-                k -= i + 1;
-                break;
-            }
-        }
+        auto canArrange = [&](ll L) {
+            ll maxDesksPerRow = (m / (L + 1)) * L + min(m % (L + 1), L);
+            return n * maxDesksPerRow >= k;
+        };
     
-        if (!can) {
-            cout << 0 << nl;
-            return;
-        }
-    
-        int ck = 0, fl = 0;
-        rep(i, n) {
-            if (s[i] == 'L') {
-                ck++;
+        ll low = 1, high = m, ans = m;
+        while (low <= high) {
+            ll mid = (low + high) / 2;
+            if (canArrange(mid)) {
+                ans = mid;
+                high = mid - 1;
             } else {
-                ck--;
-            }
-            if (ck == 0) {
-                fl = i + 1;
-                break;
+                low = mid + 1;
             }
         }
-    
-        if (fl == 0) {
-            cout << 1 << nl;
-            return;
-        }
-    
-        ll ans = k / fl;
-        cout << ans + 1 << nl;
+        cout << ans << '\n';
     }
-    
+
 int main()
 {
     alliswell
 
-    int t; cin >> t;
-    while(t--) solve();
+        int t = 1;
+    cin >> t;
+    while (t--)
+        solve();
+
     return 0;
 }

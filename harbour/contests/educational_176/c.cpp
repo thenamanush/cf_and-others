@@ -1,7 +1,7 @@
-#include<bits/stdc++.h>
+#include <bits/stdc++.h>
 using namespace std;
 
-const int MOD = 1e9+7;
+const int MOD = 1e9 + 7;
 #define ll long long
 #define ull unsigned long long
 #define ld long double
@@ -35,62 +35,54 @@ const int MOD = 1e9+7;
 #define odd(n) if (n % 2 == 1)
 #define sp << " " <<
 
-#define alliswell                \
+#define free_Palestine                \
     ios::sync_with_stdio(false); \
     cin.tie(nullptr);
 
-    void solve() {
-        ll n, x, k;
-        cin >> n >> x >> k;
-        string s;
-        cin >> s;
-    
-        bool can = false;
-        rep(i, n) {
-            if (s[i] == 'L') {
-                x--;
-            } else if (s[i] == 'R') {
-                x++;
-            }
-            if (x == 0) {
-                can = true;
-                k -= i + 1;
-                break;
-            }
+void solve()
+{
+    /* from the river to the sea
+     Palestine will be free */
+      
+    ll n, m;
+    cin >> n >> m;
+    vi a(m);
+    rep(i, m) cin >> a[i];
+
+    srt(a);
+    rep(i, m)
+    {
+        if (a[i] == n)
+        {
+            a[i] = min(a[i], n - 1);
         }
-    
-        if (!can) {
-            cout << 0 << nl;
-            return;
-        }
-    
-        int ck = 0, fl = 0;
-        rep(i, n) {
-            if (s[i] == 'L') {
-                ck++;
-            } else {
-                ck--;
-            }
-            if (ck == 0) {
-                fl = i + 1;
-                break;
-            }
-        }
-    
-        if (fl == 0) {
-            cout << 1 << nl;
-            return;
-        }
-    
-        ll ans = k / fl;
-        cout << ans + 1 << nl;
     }
-    
+    vi suf(m + 1, 0);
+    for (int i = m - 1; i >= 0; --i)
+    {
+        suf[i] = suf[i + 1] + a[i];
+    }
+    ll ans = 0;
+    rep(i, m)
+    {
+        auto it = lower_bound(a.begin() + i + 1, a.end(), n - a[i]) - a.begin();
+        if (it < m)
+        {
+            ll sum = suf[it];
+            ll cnt = m - it;
+            ans += 2 * (sum + (cnt * a[i]) - (cnt * (n - 1)));
+        }
+    }
+    cout << ans << nl;
+}
 int main()
 {
-    alliswell
+    free_Palestine
 
-    int t; cin >> t;
-    while(t--) solve();
+        int t;
+    cin >> t;
+    while (t--)
+        solve();
+
     return 0;
 }

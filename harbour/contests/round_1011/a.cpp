@@ -1,7 +1,7 @@
-#include<bits/stdc++.h>
+#include <bits/stdc++.h>
 using namespace std;
 
-const int MOD = 1e9+7;
+const int MOD = 1e9 + 7;
 #define ll long long
 #define ull unsigned long long
 #define ld long double
@@ -35,62 +35,40 @@ const int MOD = 1e9+7;
 #define odd(n) if (n % 2 == 1)
 #define sp << " " <<
 
-#define alliswell                \
+#define Free_Palestine           \
     ios::sync_with_stdio(false); \
     cin.tie(nullptr);
 
-    void solve() {
-        ll n, x, k;
-        cin >> n >> x >> k;
-        string s;
-        cin >> s;
-    
-        bool can = false;
-        rep(i, n) {
-            if (s[i] == 'L') {
-                x--;
-            } else if (s[i] == 'R') {
-                x++;
-            }
-            if (x == 0) {
-                can = true;
-                k -= i + 1;
-                break;
-            }
-        }
-    
-        if (!can) {
-            cout << 0 << nl;
-            return;
-        }
-    
-        int ck = 0, fl = 0;
-        rep(i, n) {
-            if (s[i] == 'L') {
-                ck++;
-            } else {
-                ck--;
-            }
-            if (ck == 0) {
-                fl = i + 1;
-                break;
-            }
-        }
-    
-        if (fl == 0) {
-            cout << 1 << nl;
-            return;
-        }
-    
-        ll ans = k / fl;
-        cout << ans + 1 << nl;
+void solve()
+{
+    /* from the river to the sea
+     Palestine will be free */
+    ll n, k; string s;
+    cin >> n >> k >> s;
+    string tmp = s;
+    reverse(tmp.begin(), tmp.end());
+    if(s < tmp){
+        yes;
+        return;
     }
-    
+    sort(tmp.begin(), tmp.end());
+    if(tmp[0] == tmp[n-1]){
+        no;
+        return;
+    }
+    if(tmp[n-1] != tmp[0] && k){
+        yes;
+    }
+    else no;
+}
 int main()
 {
-    alliswell
+    Free_Palestine
 
-    int t; cin >> t;
-    while(t--) solve();
+        int t;
+    cin >> t;
+    while (t--)
+        solve();
+
     return 0;
 }

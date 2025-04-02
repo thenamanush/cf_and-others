@@ -2,6 +2,7 @@
 using namespace std;
 
 const int MOD = 1e9+7;
+#define inf LLONG_MAX
 #define ll long long
 #define ull unsigned long long
 #define ld long double
@@ -39,58 +40,46 @@ const int MOD = 1e9+7;
     ios::sync_with_stdio(false); \
     cin.tie(nullptr);
 
-    void solve() {
-        ll n, x, k;
-        cin >> n >> x >> k;
-        string s;
-        cin >> s;
-    
-        bool can = false;
-        rep(i, n) {
-            if (s[i] == 'L') {
-                x--;
-            } else if (s[i] == 'R') {
-                x++;
-            }
-            if (x == 0) {
-                can = true;
-                k -= i + 1;
-                break;
-            }
-        }
-    
-        if (!can) {
-            cout << 0 << nl;
-            return;
-        }
-    
-        int ck = 0, fl = 0;
-        rep(i, n) {
-            if (s[i] == 'L') {
-                ck++;
-            } else {
-                ck--;
-            }
-            if (ck == 0) {
-                fl = i + 1;
-                break;
-            }
-        }
-    
-        if (fl == 0) {
-            cout << 1 << nl;
-            return;
-        }
-    
-        ll ans = k / fl;
-        cout << ans + 1 << nl;
+
+void solve(){
+    ll n, k, a, b;
+    cin >> n >> k >> a >> b;
+    --a, --b;
+    vector<pair<ll, ll>> c(n);
+
+    for(auto & it : c){
+        cin >> it.first >> it.second;
     }
+
+    //both major city
+    if(a < k && b < k){
+        cout << 0 << nl;
+        return;
+    }
+
+    // direct difference
+    ll dir = abs(c[a].first - c[b].first)+ abs(c[a].second - c[b].second);
+
+    // via major city
+    ll x = inf, y = inf;
+    for(int i = 0; i < k; ++i){
+        ll dst_a = abs(c[a].first - c[i].first) + abs(c[a].second - c[i].second);
+        ll dst_b = abs(c[b].first - c[i].first) + abs(c[b].second - c[i].second);
+        x = min(x, dst_a);
+        y = min(y, dst_b);
+    }
+    ll maj = (k > 0) ? (x + y) : inf;
+
     
+    cout << min(dir, maj) << nl;
+
+}
 int main()
 {
     alliswell
 
-    int t; cin >> t;
+    int t = 1; cin >> t;
     while(t--) solve();
+
     return 0;
 }

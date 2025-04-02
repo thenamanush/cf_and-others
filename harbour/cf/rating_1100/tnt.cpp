@@ -1,7 +1,7 @@
-#include<bits/stdc++.h>
+#include <bits/stdc++.h>
 using namespace std;
 
-const int MOD = 1e9+7;
+const int MOD = 1e9 + 7;
 #define ll long long
 #define ull unsigned long long
 #define ld long double
@@ -39,58 +39,61 @@ const int MOD = 1e9+7;
     ios::sync_with_stdio(false); \
     cin.tie(nullptr);
 
-    void solve() {
-        ll n, x, k;
-        cin >> n >> x >> k;
-        string s;
-        cin >> s;
-    
-        bool can = false;
-        rep(i, n) {
-            if (s[i] == 'L') {
-                x--;
-            } else if (s[i] == 'R') {
-                x++;
-            }
-            if (x == 0) {
-                can = true;
-                k -= i + 1;
-                break;
-            }
-        }
-    
-        if (!can) {
-            cout << 0 << nl;
-            return;
-        }
-    
-        int ck = 0, fl = 0;
-        rep(i, n) {
-            if (s[i] == 'L') {
-                ck++;
-            } else {
-                ck--;
-            }
-            if (ck == 0) {
-                fl = i + 1;
-                break;
-            }
-        }
-    
-        if (fl == 0) {
-            cout << 1 << nl;
-            return;
-        }
-    
-        ll ans = k / fl;
-        cout << ans + 1 << nl;
+void solve()
+{
+    ll n;
+    cin >> n;
+    vi a(n);
+    for (int i = 0; i < n; ++i)
+    {
+        cin >> a[i];
     }
-    
+
+    vi div;
+    for (int i = 1; i <= n; ++i)
+    {
+        if (n % i == 0)
+        {
+            div.pb(i);
+        }
+        // if (i * i != n)
+        // {
+        //     div.pb(n / i);
+        // }
+    }
+    srt(div);
+
+    ll ans = 0;
+
+    for (auto &it : div)
+    {
+        ll mx = 0, mn = LLONG_MAX;
+        ll cnt = 0, gain = 0;
+        for (int i = 0; i < n; ++i)
+        {
+            cnt++;
+            gain += a[i];
+
+            if (cnt == it)
+            {
+                mn = min(mn, gain);
+                mx = max(mx, gain);
+                cnt = 0;
+                gain = 0;
+            }
+        }
+        ans = max(ans, mx - mn);
+    }
+    cout << ans << nl;
+}
 int main()
 {
     alliswell
 
-    int t; cin >> t;
-    while(t--) solve();
+        int t = 1;
+    cin >> t;
+    while (t--)
+        solve();
+
     return 0;
 }

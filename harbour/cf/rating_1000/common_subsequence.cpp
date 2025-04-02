@@ -1,7 +1,7 @@
-#include<bits/stdc++.h>
+#include <bits/stdc++.h>
 using namespace std;
 
-const int MOD = 1e9+7;
+const int MOD = 1e9 + 7;
 #define ll long long
 #define ull unsigned long long
 #define ld long double
@@ -39,58 +39,36 @@ const int MOD = 1e9+7;
     ios::sync_with_stdio(false); \
     cin.tie(nullptr);
 
-    void solve() {
-        ll n, x, k;
-        cin >> n >> x >> k;
-        string s;
-        cin >> s;
-    
-        bool can = false;
-        rep(i, n) {
-            if (s[i] == 'L') {
-                x--;
-            } else if (s[i] == 'R') {
-                x++;
-            }
-            if (x == 0) {
-                can = true;
-                k -= i + 1;
-                break;
-            }
-        }
-    
-        if (!can) {
-            cout << 0 << nl;
-            return;
-        }
-    
-        int ck = 0, fl = 0;
-        rep(i, n) {
-            if (s[i] == 'L') {
-                ck++;
+void solve()
+{
+    string a, b;
+    cin >> a >> b;
+    int n = a.size(), m = b.size();
+    vector<int> prev(m + 1, 0), curr(m + 1, 0);
+
+    int lcs = 0;
+
+    for (int i = 1; i <= n; i++) {
+        for (int j = 1; j <= m; j++) {
+            if (a[i - 1] == b[j - 1]) {
+                curr[j] = prev[j - 1] + 1;
+                lcs = max(lcs, curr[j]);
             } else {
-                ck--;
-            }
-            if (ck == 0) {
-                fl = i + 1;
-                break;
+                curr[j] = 0;
             }
         }
-    
-        if (fl == 0) {
-            cout << 1 << nl;
-            return;
-        }
-    
-        ll ans = k / fl;
-        cout << ans + 1 << nl;
+        swap(prev, curr);
     }
-    
+    cout << n + m - 2 * lcs << nl;
+}
 int main()
 {
     alliswell
 
-    int t; cin >> t;
-    while(t--) solve();
+        int t;
+    cin >> t;
+    while (t--)
+        solve();
+
     return 0;
 }

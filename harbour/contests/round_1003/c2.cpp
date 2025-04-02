@@ -39,6 +39,11 @@ const int MOD = 1e9 + 7;
     ios::sync_with_stdio(false); \
     cin.tie(nullptr);
 
+
+int func(const vector<ll> & v, int x){
+    auto it = lower_bound(v.begin(), v.end(), x);
+    return it == v.end() ? -1 : *it;
+}
 void solve()
 {
     ll n, m;
@@ -47,23 +52,24 @@ void solve()
     vi b(m);
     rep(i, n) cin >> a[i];
     rep(i, m) cin >> b[i];
-    rep(i, n)
-    {
-        ll tmp = b[i] - a[i];
-        if (tmp < a[i])
-        {
-            a[i] = tmp;
-        }
-    }
-    rep(i, n-1){
-        if(a[i] > a[i + 1]){
-            ll tmp = b[i] - a[i+1];
-            a[i+1] = tmp;
-            if(a[i] > a[i+1]){
-                no;
-                return;
+    
+    srt(b);
+    ll prev = -INT_MAX;
+    rep(i, n){
+        ll val = func(b, prev+a[i]);
+        if(val != -1){
+            if(a[i] < prev){
+                a[i] = val - a[i];
+            }
+            else{
+                a[i] = min(a[i], val - a[i]);
             }
         }
+        if(a[i] < prev){
+            no;
+            return;
+        }
+        prev = a[i];
     }
     yes;
 }
