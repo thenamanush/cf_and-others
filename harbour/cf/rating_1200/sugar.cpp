@@ -11,11 +11,11 @@ const int MOD = 1e9 + 7;
 #define pb push_back
 #define nl '\n'
 #define lcm(a, b) (a * b) / (std::gcd<ll>(a, b))
-#define print(v)          \
-    for (auto e : v)      \
+#define print(v) \
+    for (auto e : v) \
         cout << e << " "; \
     cout << endl;
-#define printp(v)    \
+#define printp(v) \
     for (auto e : v) \
         cout << e.first << " " << e.second << endl;
 #define srt(v) sort(v.begin(), v.end())
@@ -34,38 +34,34 @@ const int MOD = 1e9 + 7;
 #define even(n) if (n % 2 == 0)
 #define odd(n) if (n % 2 == 1)
 #define sp << " " <<
-
-#define alliswell                \
+#define alliswell \
     ios::sync_with_stdio(false); \
     cin.tie(nullptr);
 
-void solve()
-{
-    ll a, b, c;
-    cin >> a >> b >> c;
-    ll l = 0, h = b, ans = 0;
-    while (l <= h)
-    {
-        ll mid = l + (h - l) / 2;
-        ll total = a * (mid * (b / (mid + 1)) + (b % (mid + 1)));
-        if (total >= c)
-        {
-            h = mid - 1;
-            ans = mid;
+    void solve() {
+        ll n, x;
+        cin >> n >> x;
+        vi a(n);
+        for (auto &e : a) cin >> e;
+        srt(a);
+    
+        vi pfs(n + 1);
+        rep(i, n) pfs[i + 1] = pfs[i] + a[i];
+    
+        ll ans = 0;
+        FOR(i, 1, n) {
+            if (pfs[i] > x) break;
+            ll max_days = (x - pfs[i]) / i;
+            ans += max_days + 1;
         }
-        else
-        {
-            l = mid + 1;
-        }
+    
+        cout << ans << nl;
     }
-    cout << ans << nl;
-}
+    
 
-int main()
-{
+int main() {
     alliswell
-
-        int t = 1;
+    int t = 1;
     cin >> t;
     while (t--)
         solve();

@@ -39,71 +39,46 @@ const int MOD = 1e9 + 7;
     ios::sync_with_stdio(false); \
     cin.tie(nullptr);
 
-// this has to be in a different approach
 void solve()
 {
-    ll n, m;
-    cin >> n >> m;
-    vector<string> s(n);
+    ll n;
+    cin >> n;
+    vi a(n);
+    map<ll, ll> mp;
+    vector<pair<ll, ll>> p;
     rep(i, n)
     {
-        cin >> s[i];
+        cin >> a[i];
+        mp[a[i]]++;
     }
-
-    vector<vector<int>> pfsL(n, vector<int>(m, 0));
-    vector<vector<int>> pfsU(n, vector<int>(m, 0));
-
-    rep(i, n)
+    for (auto &it : mp)
     {
-        rep(j, m)
+        p.pb({it.F, it.S});
+    }
+    //printp(p);
+    //sort(p.begin(), p.end());
+    //printp(p);
+    ll x = p.size(), ans = 0;
+    for (int i = 0; i < x - 1; ++i)
+    {
+        if (p[i + 1].F - p[i].F == 1)
         {
-            pfsL[i][j] = (s[i][j] == '1' ? 1 : 0);
-            if (j - 1 >= 0)
-                pfsL[i][j] += pfsL[i][j - 1];
+            ans = max(ans, p[i].S + p[i + 1].S);
         }
     }
-
-    rep(j, m)
-    {
-        rep(i, n)
-        {
-            pfsU[i][j] = (s[i][j] == '1' ? 1 : 0);
-            if (i - 1 >= 0)
-                pfsU[i][j] += pfsU[i - 1][j];
-        }
+    ll ans2 = 0;
+    for(auto & it : p){
+        ans2 = max(ans2, it.S);
     }
-
-    bool f = true;
-    rep(i, n)
-    {
-        rep(j, m)
-        {
-            if (s[i][j] == '1')
-            {
-                if(pfsL[i][j] != j + 1 && pfsU[i][j] != i + 1){
-                    f = false;
-                    break;
-                }
-            }
-        }
-    }
-    if (f)
-        yes;
-    else
-        no;
+    cout << max(ans, ans2) << nl;
 }
 
 int main()
 {
     alliswell
 
-        int t;
+        int t = 1;
     cin >> t;
-    // if(t == 740){
-    //     for(int i = 1; i <= t; ++i){
-    //         solve(i);
-    //     }
-    // }
     while (t--)
         solve();
 

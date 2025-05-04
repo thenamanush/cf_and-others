@@ -39,71 +39,51 @@ const int MOD = 1e9 + 7;
     ios::sync_with_stdio(false); \
     cin.tie(nullptr);
 
-// this has to be in a different approach
+
+// game contribution
+ll value(vector<int> &x)
+{
+    ll val = 0;
+    ll n = x.size();
+    for (int i = 0; i < n; ++i)
+    {
+        val += 1LL * x[i] * (2 * i - n + 1);
+    }
+    return val;
+}
+
 void solve()
 {
     ll n, m;
     cin >> n >> m;
-    vector<string> s(n);
-    rep(i, n)
+    vector<vector<int>> a(n, vector<int>(m));
+    for (int i = 0; i < n; ++i)
     {
-        cin >> s[i];
-    }
-
-    vector<vector<int>> pfsL(n, vector<int>(m, 0));
-    vector<vector<int>> pfsU(n, vector<int>(m, 0));
-
-    rep(i, n)
-    {
-        rep(j, m)
+        for (int j = 0; j < m; ++j)
         {
-            pfsL[i][j] = (s[i][j] == '1' ? 1 : 0);
-            if (j - 1 >= 0)
-                pfsL[i][j] += pfsL[i][j - 1];
+            cin >> a[i][j];
         }
     }
-
-    rep(j, m)
+    ll ans = 0;
+    for (int j = 0; j < m; ++j)
     {
-        rep(i, n)
+        vector<int> v;
+        for (int i = 0; i < n; ++i)
         {
-            pfsU[i][j] = (s[i][j] == '1' ? 1 : 0);
-            if (i - 1 >= 0)
-                pfsU[i][j] += pfsU[i - 1][j];
+            v.pb(a[i][j]);
         }
+        srt(v);
+        ans += value(v);
     }
-
-    bool f = true;
-    rep(i, n)
-    {
-        rep(j, m)
-        {
-            if (s[i][j] == '1')
-            {
-                if(pfsL[i][j] != j + 1 && pfsU[i][j] != i + 1){
-                    f = false;
-                    break;
-                }
-            }
-        }
-    }
-    if (f)
-        yes;
-    else
-        no;
+    cout << ans << nl;
 }
 
 int main()
 {
     alliswell
 
-        int t;
+        int t = 1;
     cin >> t;
-    // if(t == 740){
-    //     for(int i = 1; i <= t; ++i){
-    //         solve(i);
-    //     }
-    // }
     while (t--)
         solve();
 

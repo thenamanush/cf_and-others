@@ -1,7 +1,7 @@
-#include <bits/stdc++.h>
+#include<bits/stdc++.h>
 using namespace std;
 
-const int MOD = 1e9 + 7;
+const int MOD = 1e9+7;
 #define ll long long
 #define ull unsigned long long
 #define ld long double
@@ -39,73 +39,46 @@ const int MOD = 1e9 + 7;
     ios::sync_with_stdio(false); \
     cin.tie(nullptr);
 
-// this has to be in a different approach
 void solve()
 {
-    ll n, m;
-    cin >> n >> m;
-    vector<string> s(n);
-    rep(i, n)
-    {
-        cin >> s[i];
+    ll n; cin >> n;
+    vi a(n);
+    vector<ll> even, odd;
+    rep(i, n){
+        cin >> a[i];
+        even(a[i])even.pb(a[i]);
+        else odd.pb(a[i]);
     }
-
-    vector<vector<int>> pfsL(n, vector<int>(m, 0));
-    vector<vector<int>> pfsU(n, vector<int>(m, 0));
-
-    rep(i, n)
-    {
-        rep(j, m)
-        {
-            pfsL[i][j] = (s[i][j] == '1' ? 1 : 0);
-            if (j - 1 >= 0)
-                pfsL[i][j] += pfsL[i][j - 1];
-        }
+    ll mx_e = 0, mx_o = 0;
+    rep(i, even.size()){
+        mx_e = max(mx_e, even[i]);
     }
-
-    rep(j, m)
-    {
-        rep(i, n)
-        {
-            pfsU[i][j] = (s[i][j] == '1' ? 1 : 0);
-            if (i - 1 >= 0)
-                pfsU[i][j] += pfsU[i - 1][j];
-        }
+    rep(i, odd.size()){
+        mx_o = max(mx_o, odd[i]);
     }
+    ll even_sum = accumulate(even.begin(), even.end(), 0ll);
+    ll odd_sum = accumulate(odd.begin(), odd.end(), 0ll);
 
-    bool f = true;
-    rep(i, n)
-    {
-        rep(j, m)
-        {
-            if (s[i][j] == '1')
-            {
-                if(pfsL[i][j] != j + 1 && pfsU[i][j] != i + 1){
-                    f = false;
-                    break;
-                }
-            }
-        }
+    if(even.size() == 0){
+        cout << mx_o << nl;
+        return;
     }
-    if (f)
-        yes;
-    else
-        no;
+    if(odd.size() == 0){
+        cout << mx_e << nl;
+        return;
+    }
+    else{
+        cout << odd_sum + even_sum - (odd.size() - 1) << nl;
+    }
 }
 
 int main()
 {
     alliswell
 
-        int t;
+    int t = 1;
     cin >> t;
-    // if(t == 740){
-    //     for(int i = 1; i <= t; ++i){
-    //         solve(i);
-    //     }
-    // }
-    while (t--)
-        solve();
+    while(t--) solve();
 
     return 0;
 }

@@ -39,71 +39,48 @@ const int MOD = 1e9 + 7;
     ios::sync_with_stdio(false); \
     cin.tie(nullptr);
 
-// this has to be in a different approach
 void solve()
 {
-    ll n, m;
-    cin >> n >> m;
-    vector<string> s(n);
-    rep(i, n)
+    ll n;
+    cin >> n;
+    int a[n + 1][n + 1];
+    vector<int> ans(2 * n + 1, 0);
+    set<int>st;
+    for (int i = 1; i <= n; ++i)
     {
-        cin >> s[i];
-    }
-
-    vector<vector<int>> pfsL(n, vector<int>(m, 0));
-    vector<vector<int>> pfsU(n, vector<int>(m, 0));
-
-    rep(i, n)
-    {
-        rep(j, m)
+        for (int j = 1; j <= n; ++j)
         {
-            pfsL[i][j] = (s[i][j] == '1' ? 1 : 0);
-            if (j - 1 >= 0)
-                pfsL[i][j] += pfsL[i][j - 1];
-        }
-    }
-
-    rep(j, m)
-    {
-        rep(i, n)
-        {
-            pfsU[i][j] = (s[i][j] == '1' ? 1 : 0);
-            if (i - 1 >= 0)
-                pfsU[i][j] += pfsU[i - 1][j];
-        }
-    }
-
-    bool f = true;
-    rep(i, n)
-    {
-        rep(j, m)
-        {
-            if (s[i][j] == '1')
+            cin >> a[i][j];
+            if (i + j <= 2 * n)
             {
-                if(pfsL[i][j] != j + 1 && pfsU[i][j] != i + 1){
-                    f = false;
-                    break;
+                if (ans[i + j] == 0)
+                {
+                    ans[i + j] = a[i][j];
+                    st.insert(a[i][j]);
                 }
             }
         }
     }
-    if (f)
-        yes;
-    else
-        no;
+    ll mis = 0;
+    for(int i = 1; i <= 2*n; ++i){
+        if(st.find(i) == st.end()){
+            mis = i;
+            break;
+        }
+    }
+    ans[1] = mis;
+    for(int i = 1; i <= 2* n; ++i){
+        cout << ans[i]<< " ";
+    }
+    cout << nl;
 }
 
 int main()
 {
     alliswell
 
-        int t;
+        int t = 1;
     cin >> t;
-    // if(t == 740){
-    //     for(int i = 1; i <= t; ++i){
-    //         solve(i);
-    //     }
-    // }
     while (t--)
         solve();
 

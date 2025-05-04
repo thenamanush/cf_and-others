@@ -39,71 +39,59 @@ const int MOD = 1e9 + 7;
     ios::sync_with_stdio(false); \
     cin.tie(nullptr);
 
-// this has to be in a different approach
 void solve()
 {
-    ll n, m;
-    cin >> n >> m;
-    vector<string> s(n);
-    rep(i, n)
+    ll n, k;
+    cin >> n >> k;
+    vi a(n + 1);
+    FOR(i, 1, n)
     {
-        cin >> s[i];
+        cin >> a[i];
     }
-
-    vector<vector<int>> pfsL(n, vector<int>(m, 0));
-    vector<vector<int>> pfsU(n, vector<int>(m, 0));
-
-    rep(i, n)
+    vi last(k + 1, 0);
+    vi st1(k + 1), st2(k + 1); // longest and 2nd longest jump for each color
+    FOR(i, 1, n)
     {
-        rep(j, m)
+        ll x = a[i];
+        ll step = i - last[x];
+        if (step > st1[x])
         {
-            pfsL[i][j] = (s[i][j] == '1' ? 1 : 0);
-            if (j - 1 >= 0)
-                pfsL[i][j] += pfsL[i][j - 1];
+            st2[x] = st1[x];
+            st1[x] = step;
+        }
+        else if (st2[x] < step)
+        {
+            st2[x] = step;
+        }
+        last[x] = i;
+    }
+    FOR(i, 1, k) // last jump to reach n + 1
+    {
+        ll step = (n + 1) - last[i];
+        if (step > st1[i])
+        {
+            st2[i] = st1[i];
+            st1[i] = step;
+        }
+        else if (step > st2[i])
+        {
+            st2[i] = step;
         }
     }
-
-    rep(j, m)
+    ll ans = INT_MAX;
+    FOR(i, 1, k)
     {
-        rep(i, n)
-        {
-            pfsU[i][j] = (s[i][j] == '1' ? 1 : 0);
-            if (i - 1 >= 0)
-                pfsU[i][j] += pfsU[i - 1][j];
-        }
+        ans = min(ans, max(st2[i], (st1[i] + 1) / 2));
     }
-
-    bool f = true;
-    rep(i, n)
-    {
-        rep(j, m)
-        {
-            if (s[i][j] == '1')
-            {
-                if(pfsL[i][j] != j + 1 && pfsU[i][j] != i + 1){
-                    f = false;
-                    break;
-                }
-            }
-        }
-    }
-    if (f)
-        yes;
-    else
-        no;
+    cout << ans - 1 << nl;
 }
 
 int main()
 {
     alliswell
 
-        int t;
+        int t = 1;
     cin >> t;
-    // if(t == 740){
-    //     for(int i = 1; i <= t; ++i){
-    //         solve(i);
-    //     }
-    // }
     while (t--)
         solve();
 

@@ -34,76 +34,47 @@ const int MOD = 1e9 + 7;
 #define even(n) if (n % 2 == 0)
 #define odd(n) if (n % 2 == 1)
 #define sp << " " <<
-
 #define alliswell                \
     ios::sync_with_stdio(false); \
     cin.tie(nullptr);
 
-// this has to be in a different approach
 void solve()
 {
-    ll n, m;
-    cin >> n >> m;
-    vector<string> s(n);
+    ll n;
+    cin >> n;
+    vi a(n);
     rep(i, n)
     {
-        cin >> s[i];
+        cin >> a[i];
     }
 
-    vector<vector<int>> pfsL(n, vector<int>(m, 0));
-    vector<vector<int>> pfsU(n, vector<int>(m, 0));
-
-    rep(i, n)
+    vi suf(n + 1, 0);
+    for (int i = n - 1; i >= 0; --i)
     {
-        rep(j, m)
-        {
-            pfsL[i][j] = (s[i][j] == '1' ? 1 : 0);
-            if (j - 1 >= 0)
-                pfsL[i][j] += pfsL[i][j - 1];
-        }
+        suf[i] = suf[i + 1] + a[i];
     }
 
-    rep(j, m)
+    vi pre_max(n);
+    pre_max[0] = a[0];
+    for (int i = 1; i < n; ++i)
     {
-        rep(i, n)
-        {
-            pfsU[i][j] = (s[i][j] == '1' ? 1 : 0);
-            if (i - 1 >= 0)
-                pfsU[i][j] += pfsU[i - 1][j];
-        }
+        pre_max[i] = max(pre_max[i - 1], a[i]);
     }
 
-    bool f = true;
-    rep(i, n)
+    srt(suf);
+
+    vi ans;
+    for (int i = 0; i < n; ++i)
     {
-        rep(j, m)
-        {
-            if (s[i][j] == '1')
-            {
-                if(pfsL[i][j] != j + 1 && pfsU[i][j] != i + 1){
-                    f = false;
-                    break;
-                }
-            }
-        }
+        ans.pb(suf[i] + pre_max[n - i - 1]);
     }
-    if (f)
-        yes;
-    else
-        no;
+
+    print(ans);
 }
-
 int main()
 {
-    alliswell
-
-        int t;
+    alliswell int t = 1;
     cin >> t;
-    // if(t == 740){
-    //     for(int i = 1; i <= t; ++i){
-    //         solve(i);
-    //     }
-    // }
     while (t--)
         solve();
 

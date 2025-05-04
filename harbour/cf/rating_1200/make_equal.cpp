@@ -39,71 +39,44 @@ const int MOD = 1e9 + 7;
     ios::sync_with_stdio(false); \
     cin.tie(nullptr);
 
-// this has to be in a different approach
 void solve()
 {
-    ll n, m;
-    cin >> n >> m;
-    vector<string> s(n);
-    rep(i, n)
-    {
-        cin >> s[i];
-    }
-
-    vector<vector<int>> pfsL(n, vector<int>(m, 0));
-    vector<vector<int>> pfsU(n, vector<int>(m, 0));
-
-    rep(i, n)
-    {
-        rep(j, m)
-        {
-            pfsL[i][j] = (s[i][j] == '1' ? 1 : 0);
-            if (j - 1 >= 0)
-                pfsL[i][j] += pfsL[i][j - 1];
-        }
-    }
-
-    rep(j, m)
-    {
-        rep(i, n)
-        {
-            pfsU[i][j] = (s[i][j] == '1' ? 1 : 0);
-            if (i - 1 >= 0)
-                pfsU[i][j] += pfsU[i - 1][j];
-        }
-    }
-
+    ll n;
+    char c;
+    string s;
+    cin >> n >> c >> s;
     bool f = true;
     rep(i, n)
     {
-        rep(j, m)
+        if (s[i] != c)
         {
-            if (s[i][j] == '1')
-            {
-                if(pfsL[i][j] != j + 1 && pfsU[i][j] != i + 1){
-                    f = false;
-                    break;
-                }
-            }
+            f = false;
+            break;
         }
     }
     if (f)
-        yes;
+    {
+        cout << 0 << nl;
+        return;
+    }
+    if (s[n - 1] != c)
+    {
+        cout << 2 << nl;
+        cout << n sp n - 1 << nl;
+    }
     else
-        no;
+    {
+        cout << 1 << nl;
+        cout << n << nl;
+    }
 }
 
 int main()
 {
     alliswell
 
-        int t;
+        int t = 1;
     cin >> t;
-    // if(t == 740){
-    //     for(int i = 1; i <= t; ++i){
-    //         solve(i);
-    //     }
-    // }
     while (t--)
         solve();
 

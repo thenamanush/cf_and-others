@@ -39,71 +39,50 @@ const int MOD = 1e9 + 7;
     ios::sync_with_stdio(false); \
     cin.tie(nullptr);
 
-// this has to be in a different approach
 void solve()
 {
-    ll n, m;
-    cin >> n >> m;
-    vector<string> s(n);
+    ll n, k, x;
+    cin >> n >> k >> x;
+    vi a(n);
     rep(i, n)
     {
-        cin >> s[i];
+        cin >> a[i];
+    }
+    vi sfs(n + 1, 0);
+    for (int i = n - 1; i >= 0; --i)
+    {
+        sfs[i] = sfs[i + 1] + a[i];
     }
 
-    vector<vector<int>> pfsL(n, vector<int>(m, 0));
-    vector<vector<int>> pfsU(n, vector<int>(m, 0));
-
-    rep(i, n)
+    if (sfs[0] * k < x)
     {
-        rep(j, m)
+        cout << 0 << nl;
+        return;
+    }
+
+    ll div = x / sfs[0], rem = x % sfs[0];
+    if (rem == 0)
+    {
+        cout << n * k - div * n + 1 << nl;
+        return;
+    }
+    ll total = 0;
+    for (int i = n - 1; i >= 0; --i)
+    {
+        total += a[i];
+        if (total >= rem)
         {
-            pfsL[i][j] = (s[i][j] == '1' ? 1 : 0);
-            if (j - 1 >= 0)
-                pfsL[i][j] += pfsL[i][j - 1];
+            cout << n * k - div * n - (n - i) + 1 << nl;
+            return;
         }
     }
-
-    rep(j, m)
-    {
-        rep(i, n)
-        {
-            pfsU[i][j] = (s[i][j] == '1' ? 1 : 0);
-            if (i - 1 >= 0)
-                pfsU[i][j] += pfsU[i - 1][j];
-        }
-    }
-
-    bool f = true;
-    rep(i, n)
-    {
-        rep(j, m)
-        {
-            if (s[i][j] == '1')
-            {
-                if(pfsL[i][j] != j + 1 && pfsU[i][j] != i + 1){
-                    f = false;
-                    break;
-                }
-            }
-        }
-    }
-    if (f)
-        yes;
-    else
-        no;
 }
-
 int main()
 {
     alliswell
 
-        int t;
+        int t = 1;
     cin >> t;
-    // if(t == 740){
-    //     for(int i = 1; i <= t; ++i){
-    //         solve(i);
-    //     }
-    // }
     while (t--)
         solve();
 

@@ -39,71 +39,49 @@ const int MOD = 1e9 + 7;
     ios::sync_with_stdio(false); \
     cin.tie(nullptr);
 
-// this has to be in a different approach
-void solve()
-{
-    ll n, m;
-    cin >> n >> m;
-    vector<string> s(n);
-    rep(i, n)
-    {
-        cin >> s[i];
-    }
-
-    vector<vector<int>> pfsL(n, vector<int>(m, 0));
-    vector<vector<int>> pfsU(n, vector<int>(m, 0));
-
-    rep(i, n)
-    {
-        rep(j, m)
-        {
-            pfsL[i][j] = (s[i][j] == '1' ? 1 : 0);
-            if (j - 1 >= 0)
-                pfsL[i][j] += pfsL[i][j - 1];
-        }
-    }
-
-    rep(j, m)
-    {
-        rep(i, n)
-        {
-            pfsU[i][j] = (s[i][j] == '1' ? 1 : 0);
-            if (i - 1 >= 0)
-                pfsU[i][j] += pfsU[i - 1][j];
-        }
-    }
-
-    bool f = true;
-    rep(i, n)
-    {
-        rep(j, m)
-        {
-            if (s[i][j] == '1')
-            {
-                if(pfsL[i][j] != j + 1 && pfsU[i][j] != i + 1){
-                    f = false;
-                    break;
-                }
+    void solve() {
+        string s, p;
+        cin >> s >> p;
+    
+        ll i = 0, j = 0;
+    
+        while (i < s.size() && j < p.size()) {
+            if (s[i] != p[j]) {
+                no;
+                return;
+            }
+    
+            char ch = s[i];
+    
+            ll cn = 0;
+            while (i < s.size() && s[i] == ch) {
+                cn++;
+                i++;
+            }
+    
+            ll cnt = 0;
+            while (j < p.size() && p[j] == ch) {
+                cnt++;
+                j++;
+            }
+    
+            if (cnt < cn || cnt > 2 * cn) {
+                no;
+                return;
             }
         }
+    
+        if (i == s.size() && j == p.size()) yes;
+        else no;
     }
-    if (f)
-        yes;
-    else
-        no;
-}
+    
 
 int main()
 {
     alliswell
 
-        int t;
+        int t = 1;
     cin >> t;
-    // if(t == 740){
-    //     for(int i = 1; i <= t; ++i){
-    //         solve(i);
-    //     }
-    // }
     while (t--)
         solve();
 

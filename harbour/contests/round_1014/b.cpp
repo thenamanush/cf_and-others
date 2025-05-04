@@ -39,73 +39,65 @@ const int MOD = 1e9 + 7;
     ios::sync_with_stdio(false); \
     cin.tie(nullptr);
 
-// this has to be in a different approach
-void solve()
+void solve(int x)
 {
-    ll n, m;
-    cin >> n >> m;
-    vector<string> s(n);
+    ll n;
+    cin >> n;
+    string a, b;
+    cin >> a >> b;
+
+    ll cnt1 = 0, cnt2 = 0;
     rep(i, n)
     {
-        cin >> s[i];
-    }
-
-    vector<vector<int>> pfsL(n, vector<int>(m, 0));
-    vector<vector<int>> pfsU(n, vector<int>(m, 0));
-
-    rep(i, n)
-    {
-        rep(j, m)
+        if (i % 2 == 0)
         {
-            pfsL[i][j] = (s[i][j] == '1' ? 1 : 0);
-            if (j - 1 >= 0)
-                pfsL[i][j] += pfsL[i][j - 1];
-        }
-    }
-
-    rep(j, m)
-    {
-        rep(i, n)
-        {
-            pfsU[i][j] = (s[i][j] == '1' ? 1 : 0);
-            if (i - 1 >= 0)
-                pfsU[i][j] += pfsU[i - 1][j];
-        }
-    }
-
-    bool f = true;
-    rep(i, n)
-    {
-        rep(j, m)
-        {
-            if (s[i][j] == '1')
+            if (a[i] == '1')
             {
-                if(pfsL[i][j] != j + 1 && pfsU[i][j] != i + 1){
-                    f = false;
-                    break;
-                }
+                cnt1++;
+            }
+        }
+        else
+        {
+            if (b[i] == '0')
+            {
+                cnt2++;
             }
         }
     }
-    if (f)
-        yes;
-    else
+    if(cnt1 > cnt2){
         no;
+        return;
+    }
+    cnt1 = 0, cnt2 = 0;
+    rep(i, n){
+        if(i % 2){
+            if(a[i] == '1'){
+                cnt1++;
+            }
+        }
+        else{
+            if(b[i] == '0'){
+                cnt2++;
+            }
+        }
+    }
+    if(cnt1 > cnt2){
+        no;
+        return;
+    }
+    yes;
 }
 
 int main()
 {
     alliswell
 
-        int t;
+        int t = 1;
     cin >> t;
-    // if(t == 740){
-    //     for(int i = 1; i <= t; ++i){
-    //         solve(i);
-    //     }
-    // }
-    while (t--)
-        solve();
+    for (int i = 1; i <= t; ++i)
+    {
+        solve(i);
+    }
 
     return 0;
 }

@@ -1,7 +1,7 @@
-#include <bits/stdc++.h>
+#include<bits/stdc++.h>
 using namespace std;
 
-const int MOD = 1e9 + 7;
+const int MOD = 1e9+7;
 #define ll long long
 #define ull unsigned long long
 #define ld long double
@@ -39,73 +39,54 @@ const int MOD = 1e9 + 7;
     ios::sync_with_stdio(false); \
     cin.tie(nullptr);
 
-// this has to be in a different approach
-void solve()
-{
-    ll n, m;
-    cin >> n >> m;
-    vector<string> s(n);
-    rep(i, n)
-    {
-        cin >> s[i];
-    }
-
-    vector<vector<int>> pfsL(n, vector<int>(m, 0));
-    vector<vector<int>> pfsU(n, vector<int>(m, 0));
-
-    rep(i, n)
-    {
-        rep(j, m)
-        {
-            pfsL[i][j] = (s[i][j] == '1' ? 1 : 0);
-            if (j - 1 >= 0)
-                pfsL[i][j] += pfsL[i][j - 1];
-        }
-    }
-
-    rep(j, m)
-    {
-        rep(i, n)
-        {
-            pfsU[i][j] = (s[i][j] == '1' ? 1 : 0);
-            if (i - 1 >= 0)
-                pfsU[i][j] += pfsU[i - 1][j];
-        }
-    }
-
-    bool f = true;
-    rep(i, n)
-    {
-        rep(j, m)
-        {
-            if (s[i][j] == '1')
-            {
-                if(pfsL[i][j] != j + 1 && pfsU[i][j] != i + 1){
-                    f = false;
-                    break;
+    void solve() {
+        ll n, m, q;
+        cin >> n >> m >> q;
+    
+        vector<vector<ll>> v(n + 1, vector<ll>(m + 1, 0));
+        vector<bool> rowMarked(n + 1, false);
+    
+        while (q--) {
+            ll type;
+            cin >> type;
+    
+            if (type == 1) {
+                ll a, b;
+                cin >> a >> b;
+                if (a >= 1 && a <= n && b >= 1 && b <= m) {
+                    v[a][b] = 1;
+                }
+            }
+            else if (type == 2) {
+                ll row;
+                cin >> row;
+                if (row >= 1 && row <= n) {
+                    rowMarked[row] = true;
+                }
+            }
+            else if (type == 3) {
+                ll a, b;
+                cin >> a >> b;
+                if (a >= 1 && a <= n && b >= 1 && b <= m) {
+                    if (rowMarked[a] || v[a][b] == 1)
+                        cout << "Yes" << nl;
+                    else
+                        cout << "No" << nl;
+                } else {
+                    cout << "No" << nl;
                 }
             }
         }
     }
-    if (f)
-        yes;
-    else
-        no;
-}
+    
 
 int main()
 {
     alliswell
 
-        int t;
-    cin >> t;
-    // if(t == 740){
-    //     for(int i = 1; i <= t; ++i){
-    //         solve(i);
-    //     }
-    // }
-    while (t--)
-        solve();
+    int t = 1;
+    //cin >> t;
+    while(t--) solve();
 
     return 0;
 }

@@ -39,71 +39,55 @@ const int MOD = 1e9 + 7;
     ios::sync_with_stdio(false); \
     cin.tie(nullptr);
 
-// this has to be in a different approach
 void solve()
 {
-    ll n, m;
-    cin >> n >> m;
-    vector<string> s(n);
-    rep(i, n)
+    ll n, q;
+    cin >> n >> q;
+    vi a(n + 1);
+    FOR(i, 1, n)
     {
-        cin >> s[i];
+        cin >> a[i];
     }
-
-    vector<vector<int>> pfsL(n, vector<int>(m, 0));
-    vector<vector<int>> pfsU(n, vector<int>(m, 0));
-
-    rep(i, n)
-    {
-        rep(j, m)
-        {
-            pfsL[i][j] = (s[i][j] == '1' ? 1 : 0);
-            if (j - 1 >= 0)
-                pfsL[i][j] += pfsL[i][j - 1];
-        }
-    }
-
-    rep(j, m)
-    {
-        rep(i, n)
-        {
-            pfsU[i][j] = (s[i][j] == '1' ? 1 : 0);
-            if (i - 1 >= 0)
-                pfsU[i][j] += pfsU[i - 1][j];
-        }
-    }
-
+    ull sum = accumulate(a.begin(), a.end(), 0ll);
     bool f = true;
-    rep(i, n)
+    ll key = 0;
+    while (q--)
     {
-        rep(j, m)
+        ll x;
+        cin >> x;
+        if (x == 1 && f)
         {
-            if (s[i][j] == '1')
-            {
-                if(pfsL[i][j] != j + 1 && pfsU[i][j] != i + 1){
-                    f = false;
-                    break;
-                }
-            }
+            ll i, y;
+            cin >> i >> y;
+            ll add = a[i] - y;
+            sum -= add;
+            cout << sum << nl << flush;
+        }
+        else if (x == 2)
+        {
+            ll y;
+            cin >> y;
+            sum = n * y, key = y;
+            cout << sum << nl << flush;
+            f = false;
+        }
+        else if (x == 1 && !f)
+        {
+            ll i, y;
+            cin >> i >> y;
+            ll add = key - y;
+            sum -= add;
+            cout << sum << nl << flush;
         }
     }
-    if (f)
-        yes;
-    else
-        no;
 }
 
 int main()
 {
     alliswell
 
-        int t;
-    cin >> t;
-    // if(t == 740){
-    //     for(int i = 1; i <= t; ++i){
-    //         solve(i);
-    //     }
-    // }
+        int t = 1;
+    // cin >> t;
     while (t--)
         solve();
 

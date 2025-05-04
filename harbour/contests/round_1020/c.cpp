@@ -39,73 +39,80 @@ const int MOD = 1e9 + 7;
     ios::sync_with_stdio(false); \
     cin.tie(nullptr);
 
-// this has to be in a different approach
-void solve()
+void solve(int x)
 {
-    ll n, m;
-    cin >> n >> m;
-    vector<string> s(n);
+    ll n, k;
+    cin >> n >> k;
+    vi a(n), b(n);
     rep(i, n)
     {
-        cin >> s[i];
+        cin >> a[i];
     }
-
-    vector<vector<int>> pfsL(n, vector<int>(m, 0));
-    vector<vector<int>> pfsU(n, vector<int>(m, 0));
-
     rep(i, n)
     {
-        rep(j, m)
+        cin >> b[i];
+    }
+    // if(x == 421){
+    //     cout << k << nl;
+    // }
+    ll fl = 0;
+    rep(i, n)
+    {
+        if (a[i] >= 0 && b[i] >= 0)
         {
-            pfsL[i][j] = (s[i][j] == '1' ? 1 : 0);
-            if (j - 1 >= 0)
-                pfsL[i][j] += pfsL[i][j - 1];
+            fl = a[i] + b[i];
+            break;
         }
     }
-
-    rep(j, m)
-    {
-        rep(i, n)
-        {
-            pfsU[i][j] = (s[i][j] == '1' ? 1 : 0);
-            if (i - 1 >= 0)
-                pfsU[i][j] += pfsU[i - 1][j];
-        }
-    }
-
-    bool f = true;
     rep(i, n)
     {
-        rep(j, m)
+        if (a[i] >= 0 && b[i] >= 0)
         {
-            if (s[i][j] == '1')
+            if (a[i] + b[i] != fl)
             {
-                if(pfsL[i][j] != j + 1 && pfsU[i][j] != i + 1){
-                    f = false;
-                    break;
-                }
+                cout << 0 << nl;
+                return;
             }
         }
+        if (a[i] <= fl && (fl - a[i]) <= k)
+        {
+            continue;
+        }
+        else if (fl > 0)
+        {
+            cout << 0 << nl;
+            return;
+        }
     }
-    if (f)
-        yes;
-    else
-        no;
+    srt(b);
+    if (b[0] < 0 && b[n - 1] < 0)
+    {
+        ll mx = 0, mn = INT_MAX;
+        rep(i, n)
+        {
+            mx = max(a[i], mx);
+            mn = min(a[i], mn);
+        }
+        cout << k - (mx - mn - 1) << nl;
+        return;
+    }
+    srt(a);
+    if(a[0] == a[n-1] && b[0] == b[n-1]){
+        cout << 0 << nl;
+    }
+    else{
+        cout << 1 << nl;
+    }
 }
 
 int main()
 {
     alliswell
 
-        int t;
+        int t = 1;
     cin >> t;
-    // if(t == 740){
-    //     for(int i = 1; i <= t; ++i){
-    //         solve(i);
-    //     }
-    // }
-    while (t--)
-        solve();
+    for(int i = 1; i <= t; i++)
+        solve(i);
 
     return 0;
 }
