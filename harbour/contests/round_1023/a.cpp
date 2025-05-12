@@ -1,7 +1,7 @@
-#include <bits/stdc++.h>
+#include<bits/stdc++.h>
 using namespace std;
 
-const int MOD = 1e9 + 7;
+const int MOD = 1e9+7;
 #define ll long long
 #define ull unsigned long long
 #define ld long double
@@ -41,82 +41,42 @@ const int MOD = 1e9 + 7;
 
 void solve()
 {
-    ll n, k;
-    cin >> n >> k;
-    vi a(n), b(n);
-
-    rep(i, n)
-    {
+    ll n; cin >> n;
+    vi a(n);
+    map<ll, ll> mp;
+    ll mn = LLONG_MAX;
+    rep(i, n){
         cin >> a[i];
+        mp[a[i]]++;
+        mn = min(mn, a[i]);
     }
-    rep(i, n)
-    {
-        cin >> b[i];
+    if(mp.size() == 1){
+        no;
+        return;
     }
-
-    // zero case
-
-    ll fl = -1;
-    bool found = false;
-    rep(i, n)
-    {
-        if (a[i] >= 0 && b[i] >= 0)
-        {
-            fl = a[i] + b[i];
-            found = true;
+    yes;
+    vi ans(n,0);
+    rep(i, n){
+        if(a[i] != mn){
+            ans[i] = 1;
             break;
         }
     }
-
-    if (found)
-    {
-        rep(i, n)
-        {
-            if (fl > -1 && a[i] > fl)
-            {
-                cout << 0 << nl;
-                return;
-            }
-            else if (fl - a[i] > k)
-            {
-                cout << 0 << nl;
-                return;
-            }
-            else if (a[i] >= 0 && b[i] >= 0)
-            {
-                if (a[i] + b[i] != fl)
-                {
-                    cout << 0 << nl;
-                    return;
-                }
-            }
+    rep(i, n){
+        if(ans[i] == 0){
+            ans[i] = 2;
         }
     }
-
-    // non zero output
-
-    if (found)
-    {
-        cout << 1 << nl;
-        return;
-    }
-    else
-    {
-        srt(a);
-        ll dif = (a[n - 1] - a[0]);
-        cout << k - dif + 1 << nl;
-        return;
-    }
+    print(ans);
 }
 
 int main()
 {
     alliswell
 
-        int t = 1;
+    int t = 1;
     cin >> t;
-    while (t--)
-        solve();
+    while(t--) solve();
 
     return 0;
 }

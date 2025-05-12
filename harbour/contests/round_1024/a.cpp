@@ -1,7 +1,7 @@
-#include <bits/stdc++.h>
+#include<bits/stdc++.h>
 using namespace std;
 
-const int MOD = 1e9 + 7;
+const int MOD = 1e9+7;
 #define ll long long
 #define ull unsigned long long
 #define ld long double
@@ -41,82 +41,20 @@ const int MOD = 1e9 + 7;
 
 void solve()
 {
-    ll n, k;
-    cin >> n >> k;
-    vi a(n), b(n);
-
-    rep(i, n)
-    {
-        cin >> a[i];
-    }
-    rep(i, n)
-    {
-        cin >> b[i];
-    }
-
-    // zero case
-
-    ll fl = -1;
-    bool found = false;
-    rep(i, n)
-    {
-        if (a[i] >= 0 && b[i] >= 0)
-        {
-            fl = a[i] + b[i];
-            found = true;
-            break;
-        }
-    }
-
-    if (found)
-    {
-        rep(i, n)
-        {
-            if (fl > -1 && a[i] > fl)
-            {
-                cout << 0 << nl;
-                return;
-            }
-            else if (fl - a[i] > k)
-            {
-                cout << 0 << nl;
-                return;
-            }
-            else if (a[i] >= 0 && b[i] >= 0)
-            {
-                if (a[i] + b[i] != fl)
-                {
-                    cout << 0 << nl;
-                    return;
-                }
-            }
-        }
-    }
-
-    // non zero output
-
-    if (found)
-    {
-        cout << 1 << nl;
-        return;
-    }
-    else
-    {
-        srt(a);
-        ll dif = (a[n - 1] - a[0]);
-        cout << k - dif + 1 << nl;
-        return;
-    }
+    ll n, m, p, q; cin >> n >> m >> p >> q;
+    ll rm = n - p + 1;
+    
+    if(rm & 1) yes;
+    else no;
 }
 
 int main()
 {
     alliswell
 
-        int t = 1;
+    int t = 1;
     cin >> t;
-    while (t--)
-        solve();
+    while(t--) solve();
 
     return 0;
 }

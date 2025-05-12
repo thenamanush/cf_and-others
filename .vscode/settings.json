@@ -22,5 +22,6 @@
         "ios": "cpp",
         "ostream": "cpp"
     },
-    "cmake.ignoreCMakeListsMissing": true
+    "cmake.ignoreCMakeListsMissing": true,
+    "C_Cpp.errorSquiggles": "enabled"
 }

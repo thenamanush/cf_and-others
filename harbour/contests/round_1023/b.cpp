@@ -43,69 +43,54 @@ void solve()
 {
     ll n, k;
     cin >> n >> k;
-    vi a(n), b(n);
-
+    vi a(n);
+    ll mx = LLONG_MIN, mn = LLONG_MAX, sum = 0;
     rep(i, n)
     {
         cin >> a[i];
+        mn = min(mn, a[i]);
+        mx = max(mx, a[i]);
+        sum += a[i];
     }
-    rep(i, n)
+    if (k + 1 < (mx - mn))
     {
-        cin >> b[i];
+        cout << "Jerry" << nl;
+        return;
     }
-
-    // zero case
-
-    ll fl = -1;
-    bool found = false;
-    rep(i, n)
+    if (k >= (mx - mn))
     {
-        if (a[i] >= 0 && b[i] >= 0)
+        if (sum % 2 == 0)
         {
-            fl = a[i] + b[i];
-            found = true;
-            break;
+            cout << "Jerry" << nl;
+        }
+        else
+        {
+            cout << "Tom" << nl;
         }
     }
-
-    if (found)
+    if (mx - mn == (k + 1))
     {
+        ll mx_cnt = 0;
+
         rep(i, n)
         {
-            if (fl > -1 && a[i] > fl)
+            if (a[i] == mx)
             {
-                cout << 0 << nl;
-                return;
-            }
-            else if (fl - a[i] > k)
-            {
-                cout << 0 << nl;
-                return;
-            }
-            else if (a[i] >= 0 && b[i] >= 0)
-            {
-                if (a[i] + b[i] != fl)
-                {
-                    cout << 0 << nl;
-                    return;
-                }
+                mx_cnt++;
             }
         }
-    }
-
-    // non zero output
-
-    if (found)
-    {
-        cout << 1 << nl;
-        return;
-    }
-    else
-    {
-        srt(a);
-        ll dif = (a[n - 1] - a[0]);
-        cout << k - dif + 1 << nl;
-        return;
+        if (mx_cnt > 1)
+        {
+            cout << "Jerry" << nl;
+        }
+        else if (sum % 2 == 0)
+        {
+            cout << "Jerry" << nl;
+        }
+        else
+        {
+            cout << "Tom" << nl;
+        }
     }
 }
 

@@ -39,74 +39,41 @@ const int MOD = 1e9 + 7;
     ios::sync_with_stdio(false); \
     cin.tie(nullptr);
 
+int kadanes_algo(vector<ll> &a, int n)
+{
+    ll sum = 0, mx = LLONG_MIN;
+    rep(i, n)
+    {
+        sum += a[i];
+
+        mx = max(mx, sum);
+
+        if (sum < 0)
+        {
+            sum = 0;
+        }
+    }
+    return mx;
+}
 void solve()
 {
     ll n, k;
     cin >> n >> k;
-    vi a(n), b(n);
-
+    string s;
+    cin >> s;
+    vi a(n);
     rep(i, n)
     {
         cin >> a[i];
     }
-    rep(i, n)
-    {
-        cin >> b[i];
+    ll res = kadanes_algo(a, n);
+    if(res > k){
+        no;
     }
-
-    // zero case
-
-    ll fl = -1;
-    bool found = false;
-    rep(i, n)
-    {
-        if (a[i] >= 0 && b[i] >= 0)
-        {
-            fl = a[i] + b[i];
-            found = true;
-            break;
-        }
+    else{
+        yes;
     }
-
-    if (found)
-    {
-        rep(i, n)
-        {
-            if (fl > -1 && a[i] > fl)
-            {
-                cout << 0 << nl;
-                return;
-            }
-            else if (fl - a[i] > k)
-            {
-                cout << 0 << nl;
-                return;
-            }
-            else if (a[i] >= 0 && b[i] >= 0)
-            {
-                if (a[i] + b[i] != fl)
-                {
-                    cout << 0 << nl;
-                    return;
-                }
-            }
-        }
-    }
-
-    // non zero output
-
-    if (found)
-    {
-        cout << 1 << nl;
-        return;
-    }
-    else
-    {
-        srt(a);
-        ll dif = (a[n - 1] - a[0]);
-        cout << k - dif + 1 << nl;
-        return;
-    }
+    //cout << res << nl;
 }
 
 int main()
