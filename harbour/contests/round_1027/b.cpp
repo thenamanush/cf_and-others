@@ -1,7 +1,7 @@
-#include <bits/stdc++.h>
+#include<bits/stdc++.h>
 using namespace std;
 
-const int MOD = 1e9 + 7;
+const int MOD = 1e9+7;
 #define ll long long
 #define ull unsigned long long
 #define ld long double
@@ -10,7 +10,7 @@ const int MOD = 1e9 + 7;
 #define no cout << "NO\n"
 #define pb push_back
 #define nl '\n'
-#define lcm(a, b) (a * b) / (std::gcd<ll>(a, b))
+#define lcm(a, b) (a * b) / (gcd<ll>(a, b))
 #define print(v)          \
     for (auto e : v)      \
         cout << e << " "; \
@@ -27,7 +27,7 @@ const int MOD = 1e9 + 7;
 #define trav(a, x) for (auto &a : x)
 #define F first
 #define S second
-#define setbit(x) __builtin_popcount(x)
+#define setbit(x) __builtin_popcnt(x)
 #define sz(x) (int)(x).size()
 #define vi vector<long long>
 #define pi pair<int, int>
@@ -41,50 +41,38 @@ const int MOD = 1e9 + 7;
 
 void solve()
 {
-    ll n, x;
-    cin >> n >> x;
+    int n, k;
+    cin >> n >> k;
 
-    if (n == 1)
-    {
-        if (x == 0)
-        {
-            cout << -1 << nl;
-        }
-        else
-        {
-            cout << x << nl;
-        }
+    string s;
+    cin >> s;
+
+    int cnt0 = count(s.begin(), s.end(), '0');
+    int cnt1 = n - cnt0;
+
+    int need = (n / 2) - k;
+
+    if (cnt0 < need || cnt1 < need) {
+        no;
         return;
     }
-    ll cnt = setbit(x);
 
-    if (n <= cnt)
-    {
-        cout << x << nl;
-        return;
-    }
-    ll rem = n - cnt;
-    if (rem % 2 == 0)
-    {
-        cout << x + rem << nl;
-    }
-    else
-    {
-        if (x > 1)
-            cout << x + rem + 1 << nl;
-        else
-            cout << n + 3 << nl;
-    }
+    int rem0 = cnt0 - need;
+    int rem1 = cnt1 - need;
+
+    int tot = (rem0 / 2) + (rem1 / 2);
+
+    if(tot >= k)yes;
+    else no;
 }
 
 int main()
 {
     alliswell
 
-        int t = 1;
+    int t = 1;
     cin >> t;
-    while (t--)
-        solve();
+    while(t--) solve();
 
     return 0;
 }

@@ -1,7 +1,7 @@
-#include <bits/stdc++.h>
+#include<bits/stdc++.h>
 using namespace std;
 
-const int MOD = 1e9 + 7;
+const int MOD = 1e9+7;
 #define ll long long
 #define ull unsigned long long
 #define ld long double
@@ -39,52 +39,42 @@ const int MOD = 1e9 + 7;
     ios::sync_with_stdio(false); \
     cin.tie(nullptr);
 
+vi perf;
+
 void solve()
 {
-    ll n, x;
-    cin >> n >> x;
-
-    if (n == 1)
-    {
-        if (x == 0)
-        {
-            cout << -1 << nl;
+    /* from the river to the sea
+        Palestine will be free */
+    string s; cin >> s;
+    ll n = stoi(s);
+    for(int i = 0; i < perf.size(); ++i){
+        if(perf[i] == n){
+            int x = sqrt(n);
+            cout << x - 1 sp 1 << nl;
+            return;
         }
-        else
-        {
-            cout << x << nl;
-        }
+    }
+    if(n == 0){
+        cout << 0 sp 0 << nl;
         return;
     }
-    ll cnt = setbit(x);
-
-    if (n <= cnt)
-    {
-        cout << x << nl;
-        return;
-    }
-    ll rem = n - cnt;
-    if (rem % 2 == 0)
-    {
-        cout << x + rem << nl;
-    }
-    else
-    {
-        if (x > 1)
-            cout << x + rem + 1 << nl;
-        else
-            cout << n + 3 << nl;
-    }
+    cout << -1 << nl;
+    
 }
 
 int main()
 {
     alliswell
 
-        int t = 1;
+    int n = 1;
+    while (n * n <= 9999) {
+        perf.push_back(n * n);
+        n++;
+    }
+
+    int t = 1;
     cin >> t;
-    while (t--)
-        solve();
+    while(t--) solve();
 
     return 0;
 }

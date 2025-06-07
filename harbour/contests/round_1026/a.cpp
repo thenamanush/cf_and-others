@@ -43,64 +43,91 @@ void solve()
 {
     ll n;
     cin >> n;
-    vector<vector<ll>> v(n, vector<ll>(n));
-
-    int left = 0, top = 0, right = n - 1, bottom = n - 1;
-    int key = n*n-1;
-
-    while (top <= bottom && left <= right)
+    vi a(n);
+    rep(i, n)
     {
-        // left
-        for (int i = left; i <= right; ++i)
-        {
-            v[top][i] = key;
-            key--;
-        }
-        top++;
-
-        // bottom
-        for (int i = top; i <= bottom; ++i)
-        {
-            v[i][right] = key;
-            key--;
-        }
-        right--;
-
-        // right
-        for (int i = right; i >= left; --i)
-        {
-            v[bottom][i] = key;
-            key--;
-        }
-        bottom--;
-
-        // top
-        for (int i = bottom; i >= top; --i)
-        {
-            v[i][left] = key;
-            key--;
-        }
-        left++;
+        cin >> a[i];
     }
+    srt(a);
 
-    for (auto &row : v)
+    if (a[0] % 2 && a[n - 1] % 2)
     {
-        for (auto val : row)
-        {
-            cout << val << " ";
-        }
-        cout << nl;
+        cout << 0 << nl;
+        return;
     }
+    if (a[0] % 2 == 0 && a[n - 1] % 2 == 0)
+    {
+        cout << 0 << nl;
+        return;
+    }
+    ll cnt1 = 0, cnt2 = 0;
+    if (a[0] % 2 == 0)
+    {
+        rrep(i, n)
+        {
+            if (a[i] % 2 == 0)
+            {
+                break;
+            }
+            else
+            {
+                cnt1++;
+            }
+        }
+    }
+    if (a[0] % 2)
+    {
+        rrep(i, n)
+        {
+            if (a[i] % 2)
+            {
+                break;
+            }
+            else
+            {
+                cnt1++;
+            }
+        }
+    }
+    if (a[n - 1] % 2)
+    {
+        rep(i, n)
+        {
+            if (a[i] % 2)
+            {
+                break;
+            }
+            else
+            {
+                cnt2++;
+            }
+        }
+    }
+    if (a[n - 1] % 2 == 0)
+    {
+        rep(i, n)
+        {
+            if (a[i] % 2 == 0)
+            {
+                break;
+            }
+            else
+            {
+                cnt2++;
+            }
+        }
+    }
+    cout << min(cnt1, cnt2) << nl;
 }
 
-int main()
-{
-    alliswell
+    int main()
+    {
+        alliswell
 
-        int t = 1;
-    cin >> t;
-    while (t--)
-        solve();
+            int t = 1;
+        cin >> t;
+        while (t--)
+            solve();
 
-    return 0;
-}
+        return 0;
+    }

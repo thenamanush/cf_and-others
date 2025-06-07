@@ -41,40 +41,19 @@ const int MOD = 1e9 + 7;
 
 void solve()
 {
-    ll n, x;
-    cin >> n >> x;
-
-    if (n == 1)
-    {
-        if (x == 0)
-        {
-            cout << -1 << nl;
-        }
-        else
-        {
-            cout << x << nl;
-        }
-        return;
+    ll n;
+    cin >> n;
+    vector<ll> a(n);
+    vector<ll>freq(1e5 + 2, 0), dp(1e5 + 2, 0);
+    for(int i = 0; i < n; ++i){
+        cin >> a[i];
+        freq[a[i]]++;
     }
-    ll cnt = setbit(x);
-
-    if (n <= cnt)
-    {
-        cout << x << nl;
-        return;
+    dp[1] = freq[1];
+    for(int i = 2; i <= 1e5; ++i){
+        dp[i] = max(dp[i-1], dp[i-2] + (i * freq[i]));
     }
-    ll rem = n - cnt;
-    if (rem % 2 == 0)
-    {
-        cout << x + rem << nl;
-    }
-    else
-    {
-        if (x > 1)
-            cout << x + rem + 1 << nl;
-        else
-            cout << n + 3 << nl;
-    }
+    cout << dp[1e5] << nl;
 }
 
 int main()
@@ -82,7 +61,7 @@ int main()
     alliswell
 
         int t = 1;
-    cin >> t;
+    // cin >> t;
     while (t--)
         solve();
 

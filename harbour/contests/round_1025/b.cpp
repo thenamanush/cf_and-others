@@ -41,40 +41,33 @@ const int MOD = 1e9 + 7;
 
 void solve()
 {
-    ll n, x;
-    cin >> n >> x;
+    ll n, m, a, b;
+    cin >> n >> m >> a >> b;
+    
+    ll up = (a - 1) * m;
+    ll down = (n - a + 1) * m;
 
-    if (n == 1)
-    {
-        if (x == 0)
-        {
-            cout << -1 << nl;
-        }
-        else
-        {
-            cout << x << nl;
-        }
-        return;
-    }
-    ll cnt = setbit(x);
+    ll left = (b - 1) * n;
+    ll right = (m - b + 1) * n;
 
-    if (n <= cnt)
-    {
-        cout << x << nl;
-        return;
+    if(left < up){
+        // if(up > down){
+        //     cout << log2(down) << nl;
+        // }else{
+        //     cout << log2(up) << nl;
+        // }
+        cout << ceil(log2(down)) << nl;
     }
-    ll rem = n - cnt;
-    if (rem % 2 == 0)
-    {
-        cout << x + rem << nl;
+    else{
+        // if(left > right){
+        //     cout << log2(right) << nl;
+        // }
+        // else{
+        //     cout << log2(left) << nl;
+        // }
+        cout << ceil(log2(right)) << nl;
     }
-    else
-    {
-        if (x > 1)
-            cout << x + rem + 1 << nl;
-        else
-            cout << n + 3 << nl;
-    }
+    //cout << left sp right sp up sp down << nl;
 }
 
 int main()

@@ -1,7 +1,7 @@
-#include <bits/stdc++.h>
+#include<bits/stdc++.h>
 using namespace std;
 
-const int MOD = 1e9 + 7;
+const int MOD = 1e9+7;
 #define ll long long
 #define ull unsigned long long
 #define ld long double
@@ -43,31 +43,34 @@ void solve()
 {
     ll n;
     char c;
-    string s;
-    cin >> n >> c >> s;
+    cin >> n >> c;
+
+    string s; cin >> s;
     bool f = true;
-    rep(i, n)
-    {
-        if (s[i] != c)
-        {
+    int it = -1;
+    rep(i, n){
+        if(s[i] == c){
+            it = i;
+        }
+        else{
             f = false;
-            break;
         }
     }
-    if (f)
-    {
+    if(f){
         cout << 0 << nl;
         return;
     }
-    if (s[n - 1] != c)
-    {
+    if(it == -1){
         cout << 2 << nl;
-        cout << n sp n - 1 << nl;
+        cout << n - 1 sp n << nl;
     }
-    else
-    {
+    else if(it >= n / 2){
         cout << 1 << nl;
-        cout << n << nl;
+        cout << it + 1 << nl;
+    }
+    else{
+        cout << 2 << nl;
+        cout << n - 1 sp n << nl;
     }
 }
 
@@ -75,10 +78,9 @@ int main()
 {
     alliswell
 
-        int t = 1;
+    int t = 1;
     cin >> t;
-    while (t--)
-        solve();
+    while(t--) solve();
 
     return 0;
 }

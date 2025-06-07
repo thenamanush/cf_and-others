@@ -39,52 +39,58 @@ const int MOD = 1e9 + 7;
     ios::sync_with_stdio(false); \
     cin.tie(nullptr);
 
-void solve()
-{
-    ll n, x;
-    cin >> n >> x;
+const int N = 6e6;
+vector<bool> isprime(N + 1, true);
+vi prime;
 
-    if (n == 1)
-    {
-        if (x == 0)
-        {
-            cout << -1 << nl;
+void sieve() {
+    isprime[0] = isprime[1] = false;
+    for (ll i = 2; i <= N; ++i) {
+        if (isprime[i]) {
+            prime.pb(i);
+            for (ll j = i * i; j <= N; j += i)
+                isprime[j] = false;
         }
-        else
-        {
-            cout << x << nl;
-        }
-        return;
-    }
-    ll cnt = setbit(x);
-
-    if (n <= cnt)
-    {
-        cout << x << nl;
-        return;
-    }
-    ll rem = n - cnt;
-    if (rem % 2 == 0)
-    {
-        cout << x + rem << nl;
-    }
-    else
-    {
-        if (x > 1)
-            cout << x + rem + 1 << nl;
-        else
-            cout << n + 3 << nl;
     }
 }
 
-int main()
-{
-    alliswell
+void solve() {
+    ll n;
+    cin >> n;
+    vi a(n), ps(n);
 
-        int t = 1;
+    rep(i, n) cin >> a[i];
+    ll total = accumulate(a.begin(), a.end(), 0ll);
+
+    rep(i, n) ps[i] = prime[i];
+    ll supp = accumulate(ps.begin(), ps.end(), 0ll);
+
+    srt(a);
+    rsrt(ps);
+
+    if (total >= supp) {
+        cout << 0 << nl;
+        return;
+    }
+
+    for (int i = 0; i < n; ++i) {
+        supp -= ps[i];
+        total -= a[i];
+        if (total >= supp) {
+            cout << i + 1 << nl;
+            return;
+        }
+    }
+    cout << n << nl;
+}
+
+int main() {
+    alliswell
+    sieve();
+
+    int t;
     cin >> t;
-    while (t--)
-        solve();
+    while (t--) solve();
 
     return 0;
 }

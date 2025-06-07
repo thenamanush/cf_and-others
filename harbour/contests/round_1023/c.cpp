@@ -1,7 +1,7 @@
-#include <bits/stdc++.h>
+#include<bits/stdc++.h>
 using namespace std;
 
-const int MOD = 1e9 + 7;
+const int MOD = 1e9+7;
 #define ll long long
 #define ull unsigned long long
 #define ld long double
@@ -39,51 +39,90 @@ const int MOD = 1e9 + 7;
     ios::sync_with_stdio(false); \
     cin.tie(nullptr);
 
-int kadanes_algo(vector<ll> &a, int n)
-{
-    ll sum = 0, mx = LLONG_MIN;
-    rep(i, n)
-    {
-        sum += a[i];
-
-        mx = max(mx, sum);
-
-        if (sum < 0)
-        {
-            sum = 0;
-        }
-    }
-    return mx;
-}
 void solve()
 {
-    ll n, k;
-    cin >> n >> k;
-    string s;
-    cin >> s;
-    vi a(n);
-    rep(i, n)
-    {
-        cin >> a[i];
+    ll n, k; cin >> n >> k;
+    string s; cin >> s;
+    vi a;
+    rep(i, n){
+        ll x; cin >> x;
+        a.pb(x);
     }
-    ll res = kadanes_algo(a, n);
+
+    ll mx = 0, res = 0;
+    rep(i, n){
+        if(s[i] == '1'){
+            mx = max(a[i] + mx, a[i]);
+            res = max(mx, res);
+        }
+        else{
+            mx = 0;
+        }
+    }
     if(res > k){
         no;
+        return;
+    }
+    else if(res == k){
+        yes;
+        for(int i = 0; i < n; ++i){
+            if(s[i] == '0'){
+                cout << INT_MIN << " ";
+            }
+            else{
+                cout << a[i] << " ";
+            }
+        }
+        cout << nl;
     }
     else{
+        ll pos = -1;
+        rep(i, n){
+            if(s[i] == '0'){
+                pos = i;
+                break;
+            }
+        }
+
+        if(pos < 0){
+            no;
+            return;
+        }
         yes;
+        ll psum = 0, ssum = 0, pref = 0, suff = 0;
+        for(int i = pos-1; i >= 0; --i){
+            pref += a[i];
+            psum = max(psum, pref);
+        }
+        for(int i = pos+1; i < n; ++i){
+            if(s[i] == '0'){
+                break;
+            }
+            suff += a[i];
+            ssum = max(ssum, suff);
+        }
+
+        a[pos] = k - psum - ssum;
+        s[pos] = '1';
+        rep(i, n){
+            if(s[i] == '0'){
+                cout << INT_MIN << " ";
+            }
+            else{
+                cout << a[i] << " ";
+            }
+        }
+        cout << nl;
     }
-    //cout << res << nl;
 }
 
 int main()
 {
     alliswell
 
-        int t = 1;
+    int t = 1;
     cin >> t;
-    while (t--)
-        solve();
+    while(t--) solve();
 
     return 0;
 }

@@ -1,7 +1,7 @@
-#include <bits/stdc++.h>
+#include<bits/stdc++.h>
 using namespace std;
 
-const int MOD = 1e9 + 7;
+const int MOD = 1e9+7;
 #define ll long long
 #define ull unsigned long long
 #define ld long double
@@ -14,10 +14,10 @@ const int MOD = 1e9 + 7;
 #define print(v)          \
     for (auto e : v)      \
         cout << e << " "; \
-    cout << endl;
+    cout << endl << flush;
 #define printp(v)    \
     for (auto e : v) \
-        cout << e.first << " " << e.second << endl;
+        cout << e.first << " " << e.second << endl << flush;
 #define srt(v) sort(v.begin(), v.end())
 #define rsrt(v) sort(v.rbegin(), v.rend())
 #define rep(i, n) for (int i = 0; i < (n); i++)
@@ -39,52 +39,53 @@ const int MOD = 1e9 + 7;
     ios::sync_with_stdio(false); \
     cin.tie(nullptr);
 
+
+ll add(ll y){
+    cout << "add " << y << endl << flush;
+    ll r; cin >> r;
+    return r;
+}
+ll mul(ll y){
+    cout << "mul " << y << endl << flush;
+    ll r; cin >> r;
+    return r;
+}
+ll div(ll y){
+    cout << "div " << y << endl << flush;
+    ll r; cin >> r;
+    return r;
+}
+ll dig(){
+    cout << "digit" << endl << flush;
+    ll r; cin >> r;
+    return r;
+}
+ll done(){
+    cout << "!" << endl << flush;
+    ll r; cin >> r;
+    if(r == -1) exit(0);
+    return r;
+}
 void solve()
 {
-    ll n, x;
-    cin >> n >> x;
-
-    if (n == 1)
-    {
-        if (x == 0)
-        {
-            cout << -1 << nl;
-        }
-        else
-        {
-            cout << x << nl;
-        }
-        return;
-    }
-    ll cnt = setbit(x);
-
-    if (n <= cnt)
-    {
-        cout << x << nl;
-        return;
-    }
-    ll rem = n - cnt;
-    if (rem % 2 == 0)
-    {
-        cout << x + rem << nl;
-    }
-    else
-    {
-        if (x > 1)
-            cout << x + rem + 1 << nl;
-        else
-            cout << n + 3 << nl;
-    }
+    ll n; cin >> n;
+    dig();
+    dig();
+    add(-8);
+    add(-4);
+    add(-2);
+    add(-1);
+    add(n-1);
+    done();
 }
 
 int main()
 {
     alliswell
 
-        int t = 1;
+    ll t;
     cin >> t;
-    while (t--)
-        solve();
+    while(t--) solve();
 
     return 0;
 }

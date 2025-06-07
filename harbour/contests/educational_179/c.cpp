@@ -41,40 +41,31 @@ const int MOD = 1e9 + 7;
 
 void solve()
 {
-    ll n, x;
-    cin >> n >> x;
-
-    if (n == 1)
+    ll n;
+    cin >> n;
+    vi a(n);
+    ll mn = LLONG_MAX;
+    rep(i, n)
     {
-        if (x == 0)
+        cin >> a[i];
+        mn = min(mn, a[i]);
+    }
+    
+    ll ans = LLONG_MAX, cnt = 1;
+    for (int i = 1; i <= n; i++)
+    {
+        if (i < n && a[i] == a[i - 1])
         {
-            cout << -1 << nl;
+            cnt++;
         }
         else
         {
-            cout << x << nl;
+            ans = min(ans, (n - cnt) * a[i-1]);
+            cnt = 1;
         }
-        return;
     }
-    ll cnt = setbit(x);
 
-    if (n <= cnt)
-    {
-        cout << x << nl;
-        return;
-    }
-    ll rem = n - cnt;
-    if (rem % 2 == 0)
-    {
-        cout << x + rem << nl;
-    }
-    else
-    {
-        if (x > 1)
-            cout << x + rem + 1 << nl;
-        else
-            cout << n + 3 << nl;
-    }
+    cout << ans << nl;
 }
 
 int main()

@@ -1,7 +1,7 @@
-#include <bits/stdc++.h>
+#include<bits/stdc++.h>
 using namespace std;
 
-const int MOD = 1e9 + 7;
+const int MOD = 998244353;
 #define ll long long
 #define ull unsigned long long
 #define ld long double
@@ -39,52 +39,48 @@ const int MOD = 1e9 + 7;
     ios::sync_with_stdio(false); \
     cin.tie(nullptr);
 
+ll powmod(ll base, ll exp) {
+    ll res = 1;
+    while (exp) {
+        if (exp % 2) res = res * base % MOD;
+        base = base * base % MOD;
+        exp /= 2;
+    }
+    return res;
+}
+
+
 void solve()
 {
-    ll n, x;
-    cin >> n >> x;
+    ll n; cin >> n;
+    vi a(n), b(n);
+    rep(i, n){
+        cin >> a[i];
+    }
+    rep(i, n){
+        cin >> b[i];
+    }
 
-    if (n == 1)
-    {
-        if (x == 0)
-        {
-            cout << -1 << nl;
-        }
-        else
-        {
-            cout << x << nl;
-        }
-        return;
+    vi mxa(n), mxb(n), ans;
+    mxa[0] = a[0], mxb[0] = b[0];
+    for(int i = 1; i < n; ++i){
+        mxa[i] = max(a[i], mxa[i-1]);
+        mxb[i] = max(a[i], mxb[i-1]);
     }
-    ll cnt = setbit(x);
-
-    if (n <= cnt)
-    {
-        cout << x << nl;
-        return;
+    cout << powmod(2, mxa[0]) + powmod(2, mxb[0]) % MOD << " ";
+    for(int i = 1; i < n; ++i){
+        cout << powmod(2, mxa[i]) + powmod(2, mxb[i-1]) % MOD << " ";
     }
-    ll rem = n - cnt;
-    if (rem % 2 == 0)
-    {
-        cout << x + rem << nl;
-    }
-    else
-    {
-        if (x > 1)
-            cout << x + rem + 1 << nl;
-        else
-            cout << n + 3 << nl;
-    }
+    cout << nl;
 }
 
 int main()
 {
     alliswell
 
-        int t = 1;
+    int t = 1;
     cin >> t;
-    while (t--)
-        solve();
+    while(t--) solve();
 
     return 0;
 }

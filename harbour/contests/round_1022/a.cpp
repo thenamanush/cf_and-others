@@ -39,80 +39,29 @@ const int MOD = 1e9 + 7;
     ios::sync_with_stdio(false); \
     cin.tie(nullptr);
 
+vector<int> ans(505, 0);
+
 void solve()
 {
-    string s, t;
-    cin >> s >> t;
-
-    vector<int> pos;
-    rep(i, s.size())
-    {
-        if (s[i] == '?')
-        {
-            pos.pb(i);
-        }
-    }
-    for (char c1 = 'a'; c1 <= 'z'; ++c1)
-    {
-        for (char c2 = 'a'; c2 <= 'z'; ++c2)
-        {
-            for (char c3 = 'a'; c3 <= 'z'; ++c3)
-            {
-                for (char c4 = 'a'; c4 <= 'z'; ++c4)
-                {
-                    string tmp = s;
-                    tmp[pos[0]] = c1;
-                    tmp[pos[1]] = c2;
-                    tmp[pos[2]] = c3;
-                    tmp[pos[3]] = c4;
-
-                    if(tmp.find(t) != string::npos){
-                        cout << "Yes" << endl;
-                        return;
-                    }
-                }
-            }
-        }
-    }
-    cout << "No" << endl;
+    ll n;
+    cin >> n;
+    cout << ans[n] / 2 + 1 << nl;
 }
 
 int main()
 {
     alliswell
 
-        int t = 1;
-    // cin >> t;
+        ans[2] = 2;
+    for (int i = 3; i <= 500; ++i)
+    {
+        ll d = (i - 1) * 2 + ans[i - 2];
+        ans[i] = d;
+    }
+    int t = 1;
+    cin >> t;
     while (t--)
         solve();
 
     return 0;
 }
-
-/*
-
- -- sliding window approach
-
-void solve()
-{
-    string T, U;
-    cin >> T >> U;
-
-    int n = T.size(), m = U.size();
-
-    for (int i = 0; i <= n - m; ++i) {
-        bool ok = true;
-        for (int j = 0; j < m; ++j) {
-            if (T[i + j] != '?' && T[i + j] != U[j]) {
-                ok = false;
-                break;
-            }
-        }
-        if (ok) {
-            yes;
-            return;
-        }
-    }
-    no;
-}
-*/
