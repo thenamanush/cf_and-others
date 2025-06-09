@@ -20,7 +20,10 @@
         "valarray": "cpp",
         "vector": "cpp",
         "ios": "cpp",
-        "ostream": "cpp"
+        "ostream": "cpp",
+        "random": "cpp",
+        "span": "cpp",
+        "stacktrace": "cpp"
     },
     "cmake.ignoreCMakeListsMissing": true,
     "C_Cpp.errorSquiggles": "enabled"
