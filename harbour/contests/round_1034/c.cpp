@@ -1,7 +1,7 @@
-#include <bits/stdc++.h>
+#include<bits/stdc++.h>
 using namespace std;
 
-const int MOD = 1e9 + 7;
+const int MOD = 1e9+7;
 #define ll long long
 #define ull unsigned long long
 #define ld long double
@@ -39,73 +39,53 @@ const int MOD = 1e9 + 7;
     ios::sync_with_stdio(false); \
     cin.tie(nullptr);
 
-void solve(int i)
+void solve()
 {
-    ll n;
-    cin >> n;
+    ll n; cin >> n;
     vi a(n);
-    rep(i, n)
-    {
+    rep(i, n){
         cin >> a[i];
     }
-
-    // if (i == 65)
-    // {
-    //     cout << a[2] << nl;
-    // }
-
-    rep(i, n - 1)
-    {
-        if (abs(a[i] - a[i + 1]) <= 1)
-        {
-            cout << 0 << nl;
-            return;
+    vi prefix(n), suffix(n);
+    rep(i, n){
+        if(i > 0){
+            prefix[i] = min(prefix[i-1], a[i]);
+        }
+        else{
+            prefix[i] = a[i];
         }
     }
-
-    if (n == 2)
-    {
-        if (abs(a[0] - a[1]) > 1)
-        {
-            cout << -1 << nl;
-            return;
+    //print(prefix);
+    rrep(i, n){
+        if(i < n - 1){
+            suffix[i] = max(suffix[i+1], a[i]);
         }
-        else
-        {
-            cout << 1 << nl;
+        else{
+            suffix[i] = a[i];
         }
     }
-    for (int i = 0; i < n - 1; ++i)
-    {
-        ll mn = min(a[i], a[i + 1]);
-        ll mx = max(a[i], a[i + 1]);
-        if (i > 0)
-        {
-            if (a[i - 1] >= mn && a[i - 1] <= mx)
-            {
-                cout << 1 << nl;
-                return;
-            }
+    //print(suffix);
+    string ans;
+    
+    for(int i = 0; i < n; ++i){
+        if(a[i] == suffix[i] || a[i] == prefix[i]){
+            ans += '1';
         }
-        if (i + 2 < n && a[i + 2] >= mn && a[i + 2] <= mx)
-            {
-                cout << 1 << nl;
-                return;
-            }
+        else{
+            ans += '0';
+        }
     }
-    cout << -1 << nl;
+    cout << ans << nl;
 }
+
 
 int main()
 {
     alliswell
 
-        int t = 1;
+    int t = 1;
     cin >> t;
-    for (int i = 1; i <= t; ++i)
-    {
-        solve(i);
-    }
+    while(t--) solve();
 
     return 0;
 }
