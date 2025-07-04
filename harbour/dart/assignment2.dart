@@ -11,7 +11,7 @@ void even_odd() {
   }
 }
 
-void vowel_consonent() {
+void vowel_consonant() {
   print('enter a charecter : ');
   String c = stdin.readLineSync()!;
 
@@ -52,8 +52,8 @@ void name() {
 void main() {
   // checking if number is even or odd
   even_odd();
-  // checking vowel or consonent
-  vowel_consonent();
+  // checking vowel or consonant
+  vowel_consonant();
   // checking value of number
   pos_neg();
   //printing name 100 times
