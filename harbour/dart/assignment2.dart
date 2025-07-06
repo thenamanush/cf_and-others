@@ -1,5 +1,7 @@
 import 'dart:io';
 
+import 'assignment.dart';
+
 void even_odd() {
   print('Enter a number:');
   int num = int.parse(stdin.readLineSync()!);
@@ -49,6 +51,73 @@ void name() {
   }
 }
 
+void sum_of_numbers() {
+  print("enter start : ");
+  int start = int.parse(stdin.readLineSync()!);
+  print('enter end : ');
+  int end = int.parse(stdin.readLineSync()!);
+
+  int sum = 0;
+  for (int i = start; i <= end; ++i) {
+    sum += i;
+  }
+  print('sum is : $sum ');
+}
+
+void multiplication_table() {
+  for (int i = 1; i <= 10; ++i) {
+    print('5 * $i = ${5 * i}');
+  }
+}
+
+void times_table() {
+  for (int i = 1; i < 10; ++i) {
+    for (int j = 1; j <= 10; ++j) {
+      print('$i * $j = ${i * j}');
+    }
+  }
+}
+
+void calculator() {
+  print('Enter the first number:');
+  int num1 = int.parse(stdin.readLineSync()!);
+  print('Enter the second number:');
+  int num2 = int.parse(stdin.readLineSync()!);
+
+  print('Enter the operation (+, -, *, /):');
+  String op = stdin.readLineSync()!;
+
+  switch (op) {
+    case '+':
+      print('Result: ${num1 + num2}');
+      break;
+    case '-':
+      print('Result: ${num1 - num2}');
+      break;
+    case '*':
+      print('Result: ${num1 * num2}');
+      break;
+    case '/':
+      if (num2 != 0) {
+        print('Result: ${num1 / num2}');
+      } else {
+        print('Cannot divide by zero.');
+      }
+      break;
+    default:
+      print('Invalid operation.');
+  }
+}
+
+void print_num(){
+  for(int i = 1; i <= 100; ++i){
+    if(i == 41){
+      continue;
+    }
+    print(i);
+  }
+}
+
 void main() {
   // checking if number is even or odd
   even_odd();
@@ -58,4 +127,14 @@ void main() {
   pos_neg();
   //printing name 100 times
   name();
+  // sum of natural numbers
+  sum_of_numbers();
+  // multiplication table
+  multiplication_table();
+  // times table of 1 - 9
+  times_table();
+  // calculator using dart
+  calculator();
+  // printing all numbers except 41
+  print_num();
 }
