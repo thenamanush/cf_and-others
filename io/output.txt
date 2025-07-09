@@ -1,3 +1,6 @@
-100011
-1101
-1000001
+Bob
+Bob
+Alice
+Bob
+Bob
+Bob
