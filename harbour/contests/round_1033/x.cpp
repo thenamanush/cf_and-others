@@ -41,22 +41,16 @@ const int MOD = 1e9+7;
 
 void solve()
 {
-    ll n, k; cin >> n >> k;
-    string s; cin >> s;
+    int N;
+    cin >> N;
 
-    ll cnt = count(s.begin(), s.end(), '1');
-    //cout << cnt << nl;
-
-    if(n < 2 * k){
-        cout << "Alice" << endl;
-    }
-    else{
-        if(cnt - k < 1){
-            cout << "Alice" << endl;
+    if (N <= 0) {
+        cout << -1 << endl;
+    } else {
+        for (int i = 0; i < N; i++) {
+            cout << '7';
         }
-        else{
-            cout << "Bob" << nl;
-        }
+        cout << endl;
     }
 }
 
@@ -65,7 +59,7 @@ int main()
     alliswell
 
     int t = 1;
-    cin >> t;
+    //cin >> t;
     while(t--) solve();
 
     return 0;

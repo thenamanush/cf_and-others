@@ -1,6 +1,5 @@
 import 'dart:io';
 
-import 'assignment.dart';
 
 void even_odd() {
   print('Enter a number:');

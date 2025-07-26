@@ -41,23 +41,22 @@ const int MOD = 1e9+7;
 
 void solve()
 {
-    ll n, k; cin >> n >> k;
-    string s; cin >> s;
-
-    ll cnt = count(s.begin(), s.end(), '1');
-    //cout << cnt << nl;
-
-    if(n < 2 * k){
-        cout << "Alice" << endl;
+    ll n; cin >> n;
+    ll mn = INT_MAX;
+    vi a(n);
+    rep(i, n){
+        cin >> a[i];
+        mn = min(a[i], mn);
     }
-    else{
-        if(cnt - k < 1){
-            cout << "Alice" << endl;
-        }
-        else{
-            cout << "Bob" << nl;
+    rep(i, n - 1){
+        if(a[i] != mn){
+            yes;
+            cout << 2 << nl;
+            cout << a[i] sp mn << nl;
+            return;
         }
     }
+    no;
 }
 
 int main()

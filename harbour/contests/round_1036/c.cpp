@@ -1,4 +1,5 @@
 #include<bits/stdc++.h>
+#include<numeric>
 using namespace std;
 
 const int MOD = 1e9+7;
@@ -10,7 +11,7 @@ const int MOD = 1e9+7;
 #define no cout << "NO\n"
 #define pb push_back
 #define nl '\n'
-#define lcm(a, b) (a * b) / (std::gcd<ll>(a, b))
+#define lcm(a, b) (a * b) / (gcd<ll>(a, b))
 #define print(v)          \
     for (auto e : v)      \
         cout << e << " "; \
@@ -41,23 +42,16 @@ const int MOD = 1e9+7;
 
 void solve()
 {
-    ll n, k; cin >> n >> k;
-    string s; cin >> s;
-
-    ll cnt = count(s.begin(), s.end(), '1');
-    //cout << cnt << nl;
-
-    if(n < 2 * k){
-        cout << "Alice" << endl;
-    }
-    else{
-        if(cnt - k < 1){
-            cout << "Alice" << endl;
-        }
-        else{
-            cout << "Bob" << nl;
+    ll n; cin >> n;
+    vi a(n);
+    rep(i, n) cin >> a[i];
+    ll ans = 1;
+    rep(i, n-1){
+        if(a[i+1] % a[i] != 0){
+            ans = lcm(ans, a[i] / gcd<ll>(a[i+1], a[i]));
         }
     }
+    cout << ans << nl;
 }
 
 int main()
