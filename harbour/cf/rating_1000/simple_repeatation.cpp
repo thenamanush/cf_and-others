@@ -39,55 +39,42 @@ const int MOD = 1e9 + 7;
     ios::sync_with_stdio(false); \
     cin.tie(nullptr);
 
+
+
+bool isPrime(ll n)
+{
+    if (n <= 1)
+        return false;
+    if (n <= 3)
+        return true;
+    if (n % 2 == 0 || n % 3 == 0)
+        return false;
+    for (ll i = 5; i * i <= n; i += 6)
+        if (n % i == 0 || n % (i + 2) == 0)
+            return false;
+    return true;
+}
+
 void solve()
 {
     ll n, k;
     cin >> n >> k;
-    vi a(n + 1);
-    for (int i = 1; i <= n; i++)
+    if (isPrime(n) && k < 2)
     {
-        cin >> a[i];
-    }
-    ll key = a[k], fl = 0;
-    srt(a);
-    for (int i = 1; i <= n; i++)
-    {
-        if (a[i] == key)
-        {
-            fl = i;
-            break;
-        }
-    }
-    set<ll> st;
-    for (int i = fl; i <= n; i++)
-    {
-        st.insert(a[i]);
-    }
-    vector<ll> ans;
-    for (auto &it : st)
-    {
-        ans.pb(it);
-    }
-    if(ans.size() == 1){
         yes;
-        return;
     }
-    for(int i = 0; i < ans.size() - 2; i++)
+    else if(n == 1 && k == 2){
+        yes;
+    }
+    else
     {
-        if (ans[i + 1] - ans[i] > key)
-        {
-            no;
-            return;
-        }
+        no;
     }
-    yes;
 }
 
 int main()
 {
-    alliswell
-
-        int t = 1;
+    alliswell int t = 1;
     cin >> t;
     while (t--)
         solve();

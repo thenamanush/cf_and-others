@@ -41,46 +41,80 @@ const int MOD = 1e9 + 7;
 
 void solve()
 {
-    ll n, k;
-    cin >> n >> k;
-    vi a(n + 1);
-    for (int i = 1; i <= n; i++)
+    int n;
+    cin >> n;
+    string s;
+    cin >> s;
+
+    bool flag = true;
+    ll cnt = 0;
+    for (int i = 0; i < n / 2; ++i)
     {
-        cin >> a[i];
-    }
-    ll key = a[k], fl = 0;
-    srt(a);
-    for (int i = 1; i <= n; i++)
-    {
-        if (a[i] == key)
+        if (s[i] != s[n - 1 - i])
         {
-            fl = i;
-            break;
+            flag = false;
+            cnt++;
         }
     }
-    set<ll> st;
-    for (int i = fl; i <= n; i++)
+    // odd and palindrome
+    if ((n & 1) && flag)
     {
-        st.insert(a[i]);
-    }
-    vector<ll> ans;
-    for (auto &it : st)
-    {
-        ans.pb(it);
-    }
-    if(ans.size() == 1){
-        yes;
+        cout << string(n + 1, '1') << nl;
         return;
     }
-    for(int i = 0; i < ans.size() - 2; i++)
+    // even and palindrome
+    else if ((n & 1) != 1 && flag)
     {
-        if (ans[i + 1] - ans[i] > key)
+        string ans = "";
+        for (int i = 0; i <= n; ++i)
         {
-            no;
-            return;
+            if (i & 1)
+            {
+                ans += '0';
+            }
+            else
+            {
+                ans += '1';
+            }
         }
+        cout << ans << nl;
+        return;
     }
-    yes;
+    string ans = "";
+    // odd and not palindrome
+    if(n & 1){
+        for(int i = 0; i <= n; ++i)
+        {
+            if(i >= cnt && i <= n - cnt)
+            {
+                ans += '1';
+            }
+            else
+            {
+                ans += '0';
+            }
+        }
+        cout << ans << nl;
+    }
+    // even and not palindrome
+    else{
+        for(int i = 0; i <= n; ++i)
+        {
+            if(i >= cnt && i <= n - cnt && i % 2 == 0 && cnt % 2 == 0)
+            {
+                ans += '1';
+            }
+            else if(i >= cnt && i <= n - cnt && i % 2 == 1 && cnt % 2 == 1)
+            {
+                ans += '1';
+            }
+            else
+            {
+                ans += '0';
+            }
+        }
+        cout << ans << nl;
+    }
 }
 
 int main()
