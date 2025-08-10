@@ -23,7 +23,10 @@
         "ostream": "cpp",
         "random": "cpp",
         "span": "cpp",
-        "stacktrace": "cpp"
+        "stacktrace": "cpp",
+        "bitset": "cpp",
+        "future": "cpp",
+        "ranges": "cpp"
     },
     "cmake.ignoreCMakeListsMissing": true,
     "C_Cpp.errorSquiggles": "enabled"
