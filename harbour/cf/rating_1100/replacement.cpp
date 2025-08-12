@@ -41,41 +41,48 @@ const int MOD = 1e9 + 7;
 
 void solve()
 {
-    ll n, k;
-    cin >> n >> k;
-    vector<ll> a(n + 1);
-    for (int i = 1; i <= n; ++i)
+    int n;
+    cin >> n;
+    string s, r;
+    cin >> s >> r;
+
+    ll zero = 0, one = 0;
+    for (int i = 0; i < n; ++i)
     {
-        cin >> a[i];
-    }
-    ll key = a[k];
-    set<ll> st;
-    sort(a.begin() + 1, a.end());
-    for (int i = 1; i <= n; ++i)
-    {
-        if (a[i] > key)
+        if (s[i] == '0')
         {
-            st.insert(a[i]);
+            zero++;
+        }
+        else
+        {
+            one++;
         }
     }
-    // print(st);
-    if (st.size() == 0)
+    for (int i = 0; i < n - 1; ++i)
     {
-        yes;
-        return;
-    }
-    vector<int> v;
-    v.push_back(key);
-    for (auto &it : st)
-    {
-        v.push_back(it);
-    }
-    for (int i = 1; i < v.size(); ++i)
-    {
-        if (v[i] - v[i - 1] > key)
+        if (r[i] == '1')
         {
-            no;
-            return;
+            if (zero > 0 && one > 0)
+            {
+                zero--;
+            }
+            else
+            {
+                no;
+                return;
+            }
+        }
+        else
+        {
+            if (one > 0 && zero > 0)
+            {
+                one--;
+            }
+            else
+            {
+                no;
+                return;
+            }
         }
     }
     yes;

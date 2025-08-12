@@ -43,36 +43,26 @@ void solve()
 {
     ll n, k;
     cin >> n >> k;
-    vector<ll> a(n + 1);
-    for (int i = 1; i <= n; ++i)
+    vi a(n), b(n);
+    multiset<ll> st;
+    rep(i, n)
     {
         cin >> a[i];
+        st.insert(a[i] % k);
     }
-    ll key = a[k];
-    set<ll> st;
-    sort(a.begin() + 1, a.end());
-    for (int i = 1; i <= n; ++i)
+    rep(i, n)
     {
-        if (a[i] > key)
+        cin >> b[i];
+        b[i] %= k;
+        if (st.find(b[i]) != st.end())
         {
-            st.insert(a[i]);
+            st.erase(st.find(b[i]));
         }
-    }
-    // print(st);
-    if (st.size() == 0)
-    {
-        yes;
-        return;
-    }
-    vector<int> v;
-    v.push_back(key);
-    for (auto &it : st)
-    {
-        v.push_back(it);
-    }
-    for (int i = 1; i < v.size(); ++i)
-    {
-        if (v[i] - v[i - 1] > key)
+        else if (st.find(k - b[i]) != st.end())
+        {
+            st.erase(st.find(k - b[i]));
+        }
+        else
         {
             no;
             return;

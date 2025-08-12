@@ -41,44 +41,29 @@ const int MOD = 1e9 + 7;
 
 void solve()
 {
-    ll n, k;
-    cin >> n >> k;
-    vector<ll> a(n + 1);
-    for (int i = 1; i <= n; ++i)
+    ll n;
+    cin >> n;
+    vi a(n);
+    rep(i, n)
     {
         cin >> a[i];
     }
-    ll key = a[k];
-    set<ll> st;
-    sort(a.begin() + 1, a.end());
-    for (int i = 1; i <= n; ++i)
+
+    ll ans = a[0], it = 1;
+    for (int i = 1; i < n; ++i)
     {
-        if (a[i] > key)
+        ll rem = 0;
+        if (a[i] <= ans)
         {
-            st.insert(a[i]);
+            rem = (ans / a[i]) + 1;
+            ans = a[i] * rem;
+        }
+        else
+        {
+            ans = a[i];
         }
     }
-    // print(st);
-    if (st.size() == 0)
-    {
-        yes;
-        return;
-    }
-    vector<int> v;
-    v.push_back(key);
-    for (auto &it : st)
-    {
-        v.push_back(it);
-    }
-    for (int i = 1; i < v.size(); ++i)
-    {
-        if (v[i] - v[i - 1] > key)
-        {
-            no;
-            return;
-        }
-    }
-    yes;
+    cout << ans << nl;
 }
 
 int main()
