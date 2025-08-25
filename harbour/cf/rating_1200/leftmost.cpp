@@ -41,68 +41,22 @@ const int MOD = 1e9+7;
 
 void solve()
 {
-    ll n, m; cin >> n >> m;
-    vector<string> s(n);
-    for(int i = 0; i < n; ++i){
-        cin >> s[i];
+    ll n; cin >> n;
+    vi a;
+
+    ll mn = INT_MAX, f = 1;
+    while(n--){
+        ll x; cin >> x;
+        if(x >= 2 * mn){
+            f = 0;
+        }
+        mn = min(mn, x);
     }
 
-    if(n == 1){
-        if(s[0][0] == s[0][m-1]){
-            yes;
-        }
-        else{
-            no;
-        }
-        return;
-    }
-
-    // corner corner
-    if((s[0][0] == s[n-1][m-1]) || s[n-1][0] == s[0][m-1]){
-        yes;
-        return;
-    }
-
-    // uporer corner same
-    if(s[0][0] == s[0][m-1]){
-        for(int i = 0; i < m; ++i){
-            if(s[n-1][i] == s[0][0]){
-                yes;
-                return;
-            }
-        }
-    }
-    // nicher corner same
-    if(s[n-1][0] == s[n-1][m-1]){
-        for(int i = 0; i < m; ++i){
-            if(s[0][i] == s[n-1][0]){
-                yes;
-                return;
-            }
-        }
-    }
-    // left corners same
-    if(s[0][0] == s[n-1][0]){
-        for(int i = 0; i < n; ++i){
-            if(s[i][m-1] == s[0][0]){
-                yes;
-                return;
-            }
-        }
-    }
-    // right corners same 
-    if(s[0][m-1] == s[n-1][m-1]){
-        for(int i = 0; i < n; ++i){
-            if(s[i][0] == s[0][m-1]){
-                yes;
-                return;
-            }
-        }
-    }
-    no;
+    //cout << f << nl;
+    if(f)yes;
+    else no;
 }
-
-
 
 int main()
 {

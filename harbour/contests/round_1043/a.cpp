@@ -41,68 +41,26 @@ const int MOD = 1e9+7;
 
 void solve()
 {
-    ll n, m; cin >> n >> m;
-    vector<string> s(n);
-    for(int i = 0; i < n; ++i){
-        cin >> s[i];
-    }
+    int n; cin >> n;
+    string s; cin >> s;
 
-    if(n == 1){
-        if(s[0][0] == s[0][m-1]){
-            yes;
+    int m; cin >> m;
+    string b, d; cin >> b >> d;
+
+    string left = "";
+
+    for(int i = 0; i < m; ++i){
+        if(d[i] == 'D'){
+            s += b[i];
         }
         else{
-            no;
-        }
-        return;
-    }
-
-    // corner corner
-    if((s[0][0] == s[n-1][m-1]) || s[n-1][0] == s[0][m-1]){
-        yes;
-        return;
-    }
-
-    // uporer corner same
-    if(s[0][0] == s[0][m-1]){
-        for(int i = 0; i < m; ++i){
-            if(s[n-1][i] == s[0][0]){
-                yes;
-                return;
-            }
+            left += b[i];
         }
     }
-    // nicher corner same
-    if(s[n-1][0] == s[n-1][m-1]){
-        for(int i = 0; i < m; ++i){
-            if(s[0][i] == s[n-1][0]){
-                yes;
-                return;
-            }
-        }
-    }
-    // left corners same
-    if(s[0][0] == s[n-1][0]){
-        for(int i = 0; i < n; ++i){
-            if(s[i][m-1] == s[0][0]){
-                yes;
-                return;
-            }
-        }
-    }
-    // right corners same 
-    if(s[0][m-1] == s[n-1][m-1]){
-        for(int i = 0; i < n; ++i){
-            if(s[i][0] == s[0][m-1]){
-                yes;
-                return;
-            }
-        }
-    }
-    no;
+    reverse(left.begin(), left.end());
+    s = left + s;
+    cout << s << nl;
 }
-
-
 
 int main()
 {
