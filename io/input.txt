@@ -1,21 +1,11 @@
-4
-2
-ot
-2
-ad
-DV
-3
-efo
-7
-rdcoecs
-DVDVDVD
-3
-aca
-4
-bbaa
-DVDV
-3
-biz
-4
-abon
-VVDD
+5
+3 3
+0 2 1
+2 4
+0 2
+4 1
+0 0 1 1
+8 7
+6 6 2 4 3 0 1 8
+2 2
+0 0
