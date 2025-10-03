@@ -41,53 +41,32 @@ const int MOD = 1e9 + 7;
 
 void solve()
 {
-    ll n;
-    cin >> n;
-    vector<ll> a(n);
-    map<ll, ll> mp;
+    ll n, m;
+    cin >> n >> m;
+    bool f = false;
 
-    for (int i = 0; i < n; ++i)
+    vector<ll> a(m);
+    rep(i, m)
     {
         cin >> a[i];
-        mp[a[i]]++;
     }
 
-    ll sum = 0;
-    for (auto &it : mp)
+    for (int i = m - 1; i > 0; i--)
     {
-        if (it.second % it.first != 0)
+        if (a[i] == 1)
         {
-            cout << -1 << nl;
-            return;
+            f = true;
+            break;
         }
-        sum += it.first * (it.second / it.first);
     }
-    if (sum > n)
+    if (f)
     {
-        cout << -1 << nl;
-        return;
+        cout << 1 << nl;
     }
-
-    // print answer
-    vector<pair<ll, ll >> p;
-    for(int i = 0; i < n; ++i){
-        p.pb({a[i], i + 1});
+    else
+    {
+        cout << n - a[m - 1] + 1 << nl;
     }
-    srt(p);
-    vector<pair< ll, ll>> ans;
-    ll it = 1;
-    for(int i = 0; i < n; ++i){
-        ans.pb({it, p[i].second});
-        mp[p[i].first]--;
-        if(mp[p[i].first] % p[i]. first == 0) it++;
-    }
-    sort(ans.begin(), ans.end(), [](pair<ll, ll> &a, pair<ll, ll> &b){
-        return a.second < b.second;
-    });
-    for(auto & it : ans){
-        cout << it.first << " ";
-    }
-    cout << nl;
 }
 
 int main()

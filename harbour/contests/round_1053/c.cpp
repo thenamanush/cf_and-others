@@ -1,7 +1,7 @@
-#include <bits/stdc++.h>
+#include<bits/stdc++.h>
 using namespace std;
 
-const int MOD = 1e9 + 7;
+const int MOD = 1e9+7;
 #define ll long long
 #define ull unsigned long long
 #define ld long double
@@ -41,63 +41,19 @@ const int MOD = 1e9 + 7;
 
 void solve()
 {
-    ll n;
-    cin >> n;
-    vector<ll> a(n);
-    map<ll, ll> mp;
+    ll n; cin >> n;
+    vi a(n);
 
-    for (int i = 0; i < n; ++i)
-    {
-        cin >> a[i];
-        mp[a[i]]++;
-    }
-
-    ll sum = 0;
-    for (auto &it : mp)
-    {
-        if (it.second % it.first != 0)
-        {
-            cout << -1 << nl;
-            return;
-        }
-        sum += it.first * (it.second / it.first);
-    }
-    if (sum > n)
-    {
-        cout << -1 << nl;
-        return;
-    }
-
-    // print answer
-    vector<pair<ll, ll >> p;
-    for(int i = 0; i < n; ++i){
-        p.pb({a[i], i + 1});
-    }
-    srt(p);
-    vector<pair< ll, ll>> ans;
-    ll it = 1;
-    for(int i = 0; i < n; ++i){
-        ans.pb({it, p[i].second});
-        mp[p[i].first]--;
-        if(mp[p[i].first] % p[i]. first == 0) it++;
-    }
-    sort(ans.begin(), ans.end(), [](pair<ll, ll> &a, pair<ll, ll> &b){
-        return a.second < b.second;
-    });
-    for(auto & it : ans){
-        cout << it.first << " ";
-    }
-    cout << nl;
+    rep(i, n) cin >> a[i];
 }
 
 int main()
 {
     alliswell
 
-        int t = 1;
+    int t = 1;
     cin >> t;
-    while (t--)
-        solve();
+    while(t--) solve();
 
     return 0;
 }
