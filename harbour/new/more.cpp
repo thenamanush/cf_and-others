@@ -1,4 +1,4 @@
-#include<bits/stdc++.h>
+#include<iostream>
 using namespace std;
 
 #define ll long long
@@ -42,7 +42,15 @@ int main()
 {
     alliswell
 
-    cout << "hello" << endl;
+    int n; cin >> n;
+    while(n--){
+        int x; cin >> x;
+        vi a(x);
+        rep(i, x) cin >> a[i];
+        rep(i, x) if(a[i] % 2 == 0) cout << "odd" << " ";
+        rep(i, x) if(a[i] % 2 == 1) cout << a[i] << " ";
+        cout << nl;
+    }
 
     return 0;
 }
