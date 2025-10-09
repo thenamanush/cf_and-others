@@ -1,15 +1,16 @@
 #include<bits/stdc++.h>
 using namespace std;
 
+const int MOD = 1e9+7;
 #define ll long long
+#define ull unsigned long long
 #define ld long double
-#define MOD 1000000007
 #define pie 2 * (acos(0.0))
 #define yes cout << "YES\n"
 #define no cout << "NO\n"
 #define pb push_back
 #define nl '\n'
-#define lcm(a, b) (a * b) / (__gcd<ll>(a, b))
+#define lcm(a, b) (a * b) / (gcd<ll>(a, b))
 #define print(v)          \
     for (auto e : v)      \
         cout << e << " "; \
@@ -28,7 +29,7 @@ using namespace std;
 #define S second
 #define setbit(x) __builtin_popcount(x)
 #define sz(x) (int)(x).size()
-#define vi vector<int>
+#define vi vector<long long>
 #define pi pair<int, int>
 #define even(n) if (n % 2 == 0)
 #define odd(n) if (n % 2 == 1)
@@ -38,11 +39,20 @@ using namespace std;
     ios::sync_with_stdio(false); \
     cin.tie(nullptr);
 
+void solve()
+{
+    ll n; cin >> n;
+    if(n % 3 == 0) cout << 0 << nl;
+    else cout << ((n / 3) + 1) * 3 - n << nl;
+}
+
 int main()
 {
     alliswell
 
-    cout << "hello" << nl;
+    int t = 1;
+    cin >> t;
+    while(t--) solve();
 
     return 0;
 }

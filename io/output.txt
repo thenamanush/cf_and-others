@@ -1,6 +1,4 @@
-1 
-odd odd 
-odd odd 1 1 
-odd 1 3 3 3 1 
-odd odd odd odd odd odd odd 7 
-odd odd 3 3 1 3 5 1 1 7 
+-++-
+???
+?
+-?-+-?-
