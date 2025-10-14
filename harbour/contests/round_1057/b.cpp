@@ -41,64 +41,24 @@ const int MOD = 1e9 + 7;
 
 void solve()
 {
-    int n, k;
-    cin >> n >> k;
-    string s;
-    cin >> s;
+    ll x, y, z;
+    cin >> x >> y >> z;
+    for (int i = 0; i < 32; ++i)
+    {
+        int cnt = 0;
+        if ((x & (1LL << i)) == 0)
+            cnt++;
+        if ((y & (1LL << i)) == 0)
+            cnt++;
+        if ((z & (1LL << i)) == 0)
+            cnt++;
 
-    ll l = 0, r = 0;
-    string ans = string(n, '+');
-    
-    rep(i, k){
-        // remove top when c is 0
-        if(s[i] == '0'){
-            if(l > 0){
-                if(ans[l - 1] == '?'){
-                    ans[l - 1] = '-';
-                    ans[l] = '?';
-                    l++;
-                }
-                else{
-                    ans[l] = '-';
-                    l++;
-                }
-            }
-            else{
-                ans[l] = '-';
-                l++;
-            }
+        if(cnt == 1){
+            no;
+            return;
         }
-        // remove bottom when c is 1
-        else if (s[i] == '1')
-        {
-            if (r > 0)
-            {
-                if (ans[n - r] == '?')
-                {
-                    ans[n - r] = '-';
-                    if (n - 1 - r >= 0) ans[n - 1 - r] = '?';
-                    r++;
-                }
-                else
-                {
-                    if (n - 1 - r >= 0) ans[n - 1 - r] = '-';
-                    r++;
-                }
-            }
-            else
-            {
-                if (n - 1 - r >= 0) ans[n - 1 - r] = '-';
-                r++;
-            }
-        }
-        else{
-            ans[l] = '?';
-            ans[n - 1 - r] = '?';
-            l++;
-            r++;
-        }   
     }
-    cout << ans << nl;
+    yes;
 }
 
 int main()

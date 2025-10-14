@@ -41,64 +41,37 @@ const int MOD = 1e9 + 7;
 
 void solve()
 {
-    int n, k;
-    cin >> n >> k;
-    string s;
-    cin >> s;
+    ll n;
+    cin >> n;
+    vector<ll> a(n);
 
-    ll l = 0, r = 0;
-    string ans = string(n, '+');
-    
-    rep(i, k){
-        // remove top when c is 0
-        if(s[i] == '0'){
-            if(l > 0){
-                if(ans[l - 1] == '?'){
-                    ans[l - 1] = '-';
-                    ans[l] = '?';
-                    l++;
-                }
-                else{
-                    ans[l] = '-';
-                    l++;
-                }
-            }
-            else{
-                ans[l] = '-';
-                l++;
-            }
-        }
-        // remove bottom when c is 1
-        else if (s[i] == '1')
-        {
-            if (r > 0)
-            {
-                if (ans[n - r] == '?')
-                {
-                    ans[n - r] = '-';
-                    if (n - 1 - r >= 0) ans[n - 1 - r] = '?';
-                    r++;
-                }
-                else
-                {
-                    if (n - 1 - r >= 0) ans[n - 1 - r] = '-';
-                    r++;
-                }
-            }
-            else
-            {
-                if (n - 1 - r >= 0) ans[n - 1 - r] = '-';
-                r++;
-            }
-        }
-        else{
-            ans[l] = '?';
-            ans[n - 1 - r] = '?';
-            l++;
-            r++;
-        }   
+    for (int i = 0; i < n; ++i)
+    {
+        cin >> a[i];
     }
-    cout << ans << nl;
+
+    vector<ll> ans;
+    ans.pb(1);
+
+    ll dif = 0, it = 2;
+    for (int i = 1; i < n; ++i)
+    {
+        dif = a[i] - a[i - 1];
+        if (i - dif > -1)
+        {
+            ans.pb(ans[i - dif]);
+        }
+        else
+        {
+            ans.pb(it++);
+        }
+    }
+
+    for (auto &z : ans)
+    {
+        cout << z << " ";
+    }
+    cout << nl;
 }
 
 int main()
