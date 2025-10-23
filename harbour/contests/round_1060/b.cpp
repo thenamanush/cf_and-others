@@ -1,7 +1,7 @@
-#include<bits/stdc++.h>
+#include <bits/stdc++.h>
 using namespace std;
 
-const int MOD = 1e9+7;
+const int MOD = 1e9 + 7;
 #define ll long long
 #define ull unsigned long long
 #define ld long double
@@ -41,26 +41,52 @@ const int MOD = 1e9+7;
 
 void solve()
 {
-    ll n, m; cin >> n >> m;
-    string s; cin >> s;
+    ll n;
+    cin >> n;
+    vi a(n);
+    rep(i, n) cin >> a[i];
 
-    vector<ll> a(m);
-    set<ll> st;
-    for(int i = 0; i < m; ++i){
-        cin >> a[i];
-        st.insert(a[i]);
+    ll mx = INT_MIN;
+    rep(i, n)
+    {
+        mx = max(mx, a[i]);
+        if (i & 1)
+        {
+            a[i] = mx;
+        }
     }
-    auto small = *st.begin();
-    cout << small << nl;
+    //print(a);
+    ll ans = 0;
+    for (int i = 1; i < n; i += 2)
+    {
+        if(a[i] <= a[i-1]){
+            ans += a[i-1] - a[i] + 1;
+            a[i - 1] = a[i] - 1;
+        }
+        if(i+1 < n && a[i] <= a[i+1]){
+            ans += a[i+1] - a[i] + 1;
+            a[i + 1] = a[i] - 1;
+        }
+    }
+    cout << ans << nl;
+
+
+    vi a(n);
+    rep(i, n){
+        cin >> a[i];
+    }
+
+    vector<pair<ll, ll>> dp(n, {0, 0});
 }
 
 int main()
 {
     alliswell
 
-    int t = 1;
+        int t = 1;
     cin >> t;
-    while(t--) solve();
+    while (t--)
+        solve();
 
     return 0;
 }

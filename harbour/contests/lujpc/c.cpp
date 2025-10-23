@@ -41,17 +41,51 @@ const int MOD = 1e9+7;
 
 void solve()
 {
-    ll n, m; cin >> n >> m;
-    string s; cin >> s;
-
-    vector<ll> a(m);
-    set<ll> st;
-    for(int i = 0; i < m; ++i){
+    ll n, k; cin >> n >> k;
+    vector<ll> a(n);
+    for(int i = 0; i < n; ++i){
         cin >> a[i];
-        st.insert(a[i]);
     }
-    auto small = *st.begin();
-    cout << small << nl;
+
+    vector<ll> prefixmin(n, INT_MAX);
+    prefixmin[0] = a[0];
+    for(int i = 1; i < n; ++i){
+        prefixmin[i] = min(prefixmin[i-1], a[i]);
+    }
+
+    vector<ll> suffixmin(n, INT_MAX);
+    suffixmin[n-1] = a[n-1];
+    for(int i = n-2; i >= 0; --i){
+        suffixmin[i] = min(suffixmin[i+1], a[i]);
+    }
+
+    ll ans = INT_MAX, mx = INT_MIN, sum = 0;
+    for(int i = 0; i < k; ++i){
+        mx = max(mx, a[i]);
+        sum += a[i];
+    }
+
+    ans = min(ans, sum);
+
+    // move the window now
+    ll l = 0, r = k, crntmin;
+    while(r < n){
+        sum += a[r];
+        sum -= a[l];
+
+        crntmin = min(suffixmin[r], prefixmin[l]);
+        mx = max(mx, a[r]);
+
+        if(crntmin < mx){
+            sum -= mx;
+            sum += crntmin;
+        }
+
+        ans = min(ans,sum);
+        r++;
+        l++;
+    }
+    cout << ans << nl;
 }
 
 int main()

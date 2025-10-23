@@ -41,17 +41,26 @@ const int MOD = 1e9+7;
 
 void solve()
 {
-    ll n, m; cin >> n >> m;
+    ll n, k; cin >> n >> k;
     string s; cin >> s;
-
-    vector<ll> a(m);
-    set<ll> st;
-    for(int i = 0; i < m; ++i){
-        cin >> a[i];
-        st.insert(a[i]);
+    
+    vi ind;
+    int ans = 1;
+    rep(i, n){
+        if(s[i] == '1') ind.pb(i+1);
     }
-    auto small = *st.begin();
-    cout << small << nl;
+    if(sz(ind) == 0){
+        cout << 0 << nl;
+        return;
+    }
+    else{
+        for(int i = 1; i < sz(ind); i++){
+            if(ind[i] - ind[i-1] >= k){
+                ans++;
+            }
+        }
+    }
+    cout << ans << nl;
 }
 
 int main()
