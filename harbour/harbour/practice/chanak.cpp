@@ -1,16 +1,15 @@
-#include <bits/stdc++.h>
+#include<bits/stdc++.h>
 using namespace std;
 
-const int MOD = 1e9 + 7;
 #define ll long long
-#define ull unsigned long long
 #define ld long double
+#define MOD 1000000007
 #define pie 2 * (acos(0.0))
 #define yes cout << "YES\n"
 #define no cout << "NO\n"
 #define pb push_back
 #define nl '\n'
-#define lcm(a, b) (a * b) / (std::gcd<ll>(a, b))
+#define lcm(a, b) (a * b) / (__gcd<ll>(a, b))
 #define print(v)          \
     for (auto e : v)      \
         cout << e << " "; \
@@ -27,9 +26,8 @@ const int MOD = 1e9 + 7;
 #define trav(a, x) for (auto &a : x)
 #define F first
 #define S second
-#define setbit(x) __builtin_popcount(x)
 #define sz(x) (int)(x).size()
-#define vi vector<long long>
+#define vi vector<int>
 #define pi pair<int, int>
 #define even(n) if (n % 2 == 0)
 #define odd(n) if (n % 2 == 1)
@@ -39,44 +37,28 @@ const int MOD = 1e9 + 7;
     ios::sync_with_stdio(false); \
     cin.tie(nullptr);
 
-void solve()
-{
-    ll b, c, d;
-    cin >> b >> c >> d;
-    ll a = 0ll;
+void solve() {
+    int n; 
+    cin >> n;
+    vi a(n);
+    rep(i, n) cin >> a[i];
 
-    for (int i = 0; i < 64; ++i)
-    {
-        ll aa = (1ll << i);
-        ll bb = (aa & b) ? aa : 0ll;
-        ll cc = (aa & c) ? aa : 0ll;
-        ll dd = (aa & d) ? aa : 0ll;
+    srt(a);
+    int ans = a[0];
 
-        // condition
-        if ((aa | bb) == dd + (aa & cc))
-        {
-            a += aa;
-        }
-    }
-
-    if ((a | b) == d + (a & c))
+    for (int i = 1; i < n; i++)
     {
-        cout << a << nl;
+        ans = (ans + a[i]) / 2;
     }
-    else
-    {
-        cout << -1 << nl;
-    }
+    cout << ans << nl;
 }
 
-int main()
-{
+int main() {
     alliswell
 
-        int t = 1;
+    int t; 
     cin >> t;
-    while (t--)
-        solve();
+    while (t--) solve();
 
     return 0;
 }
