@@ -1,0 +1,27 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+#define ll long long
+#define endl '\n'
+
+
+void solve(){
+    ll n; cin >> n;
+
+    // odd and fail
+    if(n & 1) {
+        cout << 0 << endl;
+        return;
+    }
+    cout << (n / 4) + 1 << endl;
+}
+
+int main(){
+    ios_base::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int t; cin >> t;
+    while(t--) solve();
+
+    return 0;
+}

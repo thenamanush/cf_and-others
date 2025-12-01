@@ -1,36 +1,39 @@
 #include <bits/stdc++.h>
 using namespace std;
+
 #define ll long long
 
-ll gcd_all(const vector<ll> &a) {
-    ll g = a[0];
-    for (ll x : a) g = gcd(g, x);
-    return g;
+void solve()
+{
+    ll n;
+    cin >> n;
+    vector<ll> a(n);
+
+    for (int i = 0; i < n; ++i)
+        cin >> a[i];
+    sort(a.begin(), a.end());
+
+    for (int i = 2; i < 1e7; ++i)
+    {
+        for (int j = 0; j < n; ++j)
+        {
+            ll gcd = std::gcd(a[j], i);
+            if (gcd == 1)
+            {
+                cout << i << '\n';
+                return;
+            }
+        }
+    }
 }
 
-int main() {
-    ios::sync_with_stdio(false);
-    cin.tie(nullptr);
+int main()
+{
+    ios_base::sync_with_stdio(false);
+    cin.tie(0);
 
     int t;
     cin >> t;
-    while (t--) {
-        int n;
-        cin >> n;
-        vector<ll> a(n);
-        for (auto &x : a) cin >> x;
-
-        ll g = gcd_all(a);
-
-        // Check from 2 upward for the first coprime number
-        for (ll x = 2; x <= 100; ++x) { // 100 is enough since primes are dense
-            if (gcd(g, x) == 1) {
-                cout << x << "\n";
-                goto next_case;
-            }
-        }
-
-        cout << -1 << "\n"; // practically unreachable
-    next_case:;
-    }
+    while (t--)
+        solve();
 }
