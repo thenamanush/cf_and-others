@@ -14,14 +14,9 @@ void solve() {
         mp[a[i]]++;
     }
 
-    ll ans = 0;
-    for(int i = 2 * n; i >= 0; i -= 2){
-        if(mp.size() == i || mp.size() == i - 1) {
-            ans = i;
-            break;
-        }
+    for(auto &[key, value] : mp) {
+        cout << key << ' ' << value << endl;
     }
-    cout << ans << endl;
 }
 
 int32_t main() {
