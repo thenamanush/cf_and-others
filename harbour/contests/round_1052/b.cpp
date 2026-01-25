@@ -1,59 +1,52 @@
-#include <bits/stdc++.h>
+#include<bits/stdc++.h>
 using namespace std;
 
-#define ll long long
-#define yes cout << "YES\n"
-#define no cout << "NO\n"
+#define int long long
+#define endl '\n'
+const int M = 1e5 + 7;
+
+int freq[M];
 
 void solve() {
-    ll n, m;
-    cin >> n >> m;
+    int n, m; cin >> n >> m;
+    for(int i = 1; i <= m; ++i) freq[i] = 0;
 
-    vector<ll> cnt(m, 0);
-    ll t = 0;
-    vector<vector<ll>> v(n);
-
-    for (int i = 0; i < n; i++) {
-        ll l;
-        cin >> l;
-        v[i].resize(l);
-        for (int j = 0; j < l; j++) {
-            cin >> v[i][j];
-            v[i][j]--; // make 0-indexed
-            if (cnt[v[i][j]] == 0) t++; // new unique number
-            cnt[v[i][j]]++;
+    vector<set<int>> v(n);
+    for(int i = 0; i < n; ++i) {
+        int l; cin >> l;
+        for(int j = 0; j < l; ++j) {
+            int x; cin >> x;
+            v[i].insert(x);
+            freq[x]++;
         }
     }
-
-    ll ans = (t == m);
-
-    for (int i = 0; i < n; i++) {
-        // remove group i's elements
-        for (auto x : v[i]) {
-            cnt[x]--;
-            if (cnt[x] == 0) t--;
-        }
-
-        // check coverage
-        if (t == m) ans++;
-
-        // restore group i's elements
-        for (auto x : v[i]) {
-            if (cnt[x] == 0) t++;
-            cnt[x]++;
+    for(int i = 1; i <= m; ++i) {
+        if(freq[i] == 0) {
+            cout << "NO" << endl;
+            return;
         }
     }
+    int cnt = 0;
+    for(int i = 0; i < n; ++i) {
+        bool f = true;
+        for(auto & x: v[i]) {
+            if(freq[x] == 1) {
+                f = false;
+            }
+        }
+        if(f) cnt++;
+    }
 
-    if (ans >= 3) yes;
-    else no;
+    if(cnt > 1) cout << "YES" << endl;
+    else cout << "NO" << endl;
 }
 
-int main() {
-    ios::sync_with_stdio(false);
-    cin.tie(nullptr);
+int32_t main() {
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
 
-    int t;
-    cin >> t;
-    while (t--) solve();
+    int t = 1;
+    cin >> t; while(t--) solve();
+
     return 0;
 }

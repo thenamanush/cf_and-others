@@ -1,36 +1,44 @@
-#include <bits/stdc++.h>
+#include<bits/stdc++.h>
 using namespace std;
 
-int main() {  
-    int t;
-    cin >> t;
+#define ll long long
+#define endl '\n'
 
-    while (t--) {
-        int n, k;
-        cin >> n >> k;
-
-        if (k == n * n - 1) {
-            cout << "NO\n";
-        } else {
-            cout << "YES\n";
-            for (int i = 0; i < n; i++) {
-                string s = "";
-                for (int j = 0; j < n; j++) {
-                    if (k > 0) {
-                        s += 'U';
-                        k--;
-                    } else if (i == n - 1 && j == n - 1) {
-                        s += 'L';
-                    } else if (i == n - 1) {
-                        s += 'R';
-                    } else {
-                        s += 'D';
+void solve() {
+    int n, k; cin >> n >> k;
+    if((n * n) == k + 1) {
+        cout << "NO" << endl;
+        return;
+    }
+    cout << "YES" << endl;
+    for(int i = 1; i <= n; ++i) {
+        for(int j = 1; j <= n; ++j) {
+            if(k > 0) {
+                k--;
+                cout << 'U';
+            }
+            else{
+                if(i < n) {
+                    cout << 'D';
+                }
+                else{
+                    if(j < n) {
+                        cout << 'R';
+                    }
+                    else{
+                        cout << 'L';
                     }
                 }
-                cout << s << '\n';
             }
         }
+        cout << endl;
     }
+}
 
-    return 0;
+int32_t main() {
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+
+    int t = 1;
+    cin >> t; while(t--) solve();
 }
