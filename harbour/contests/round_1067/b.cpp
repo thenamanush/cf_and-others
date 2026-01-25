@@ -1,30 +1,35 @@
-#include<bits/stdc++.h>
+#include <bits/stdc++.h>
 using namespace std;
 
 #define ll long long
 #define endl '\n'
 
 void solve() {
-    ll n; cin >> n;
+    int n;
+    cin >> n;
     vector<ll> a(2 * n);
     map<ll, int> mp;
-
-    for(ll i = 0; i < 2 * n; ++i) {
+    for (int i = 0; i < 2 * n; ++i) {
         cin >> a[i];
         mp[a[i]]++;
     }
 
-    for(auto &[key, value] : mp) {
-        cout << key << ' ' << value << endl;
+    int even = 0, odd = 0;
+    for(auto & it : mp) {
+        if(it.second & 1) odd++;
+        else even++;
     }
+
+    
 }
 
-int32_t main() {
+int32_t main()
+{
     ios_base::sync_with_stdio(false);
-    cin.tie(nullptr);
+    cin.tie(NULL);
 
-    int t; cin >> t;
-    while(t--) solve();
-    
-    return 0;
+    int t = 1;
+    cin >> t;
+    while (t--)
+        solve();
 }
