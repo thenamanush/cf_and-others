@@ -1,26 +1,19 @@
 #include<bits/stdc++.h>
 using namespace std;
+#define justice_for_hadi ios_base::sync_with_stdio(false); cin.tie(NULL);
 
 #define int long long
 #define endl '\n'
 
 void solve() {
-    int n, m, h; cin >> n >> m >> h;
-    vector<int> a(n + 1);
-    vector<int> c(n + 1);
-
-    for(int i = 1; i <= n; ++i) {
-        cin >> a[i];
-        c[i] = h - a[i];
-    }
+    cout << "Bekar khatni, Brute force works!" << endl;
 }
 
 int32_t main() {
-    ios_base::sync_with_stdio(false);
-    cin.tie(NULL);
+    justice_for_hadi
 
     int t = 1;
     cin >> t; while(t--) solve();
-    
+
     return 0;
 }
