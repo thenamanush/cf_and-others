@@ -6,17 +6,11 @@ using namespace std;
 
 #define int long long
 #define endl '\n'
-// C. Median Partition
-void solve()
-{
-}
 
 int32_t main()
 {
     alliswell
 
-        int t = 1;
-    // cin >> t; while(t--) solve();
-
-    return 0;
+        int n;
+    cin >> n;
 }

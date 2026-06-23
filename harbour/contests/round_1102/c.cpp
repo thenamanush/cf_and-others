@@ -6,17 +6,30 @@ using namespace std;
 
 #define int long long
 #define endl '\n'
-// C. Median Partition
+
 void solve()
 {
-}
+    int n;
+    cin >> n;
+    vector<int> a(n);
 
+    for (int i = 0; i < n; ++i)
+        cin >> a[i];
+    for (int i = 0; i < n; ++i)
+    {
+        for (int j = i + 1; j + i % n < n; ++i)
+        {
+        }
+    }
+}
 int32_t main()
 {
     alliswell
 
         int t = 1;
-    // cin >> t; while(t--) solve();
+    cin >> t;
+    while (t--)
+        solve();
 
     return 0;
 }

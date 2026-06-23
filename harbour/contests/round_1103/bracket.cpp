@@ -6,9 +6,19 @@ using namespace std;
 
 #define int long long
 #define endl '\n'
-// C. Median Partition
+
 void solve()
 {
+    int n, k;
+    cin >> n >> k;
+    string s;
+    cin >> s;
+
+    map<char, int> mp;
+    for (char c : s)
+    {
+        mp[c]++;
+    }
 }
 
 int32_t main()
@@ -16,7 +26,9 @@ int32_t main()
     alliswell
 
         int t = 1;
-    // cin >> t; while(t--) solve();
+    cin >> t;
+    while (t--)
+        solve();
 
     return 0;
 }
