@@ -1,7 +1,7 @@
-NO
-YES
-YES
-YES
-YES
-NO
-YES
+27
+25
+16
+18
+9
+22
+25
