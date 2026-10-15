@@ -6,7 +6,7 @@ using namespace std;
 
 #define int long long
 #define endl '\n'
-
+// C. Median Partition
 void solve()
 {
 }
